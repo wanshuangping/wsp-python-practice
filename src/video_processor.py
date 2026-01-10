@@ -1,19 +1,20 @@
 import os
-
 def get_data_dir():
-    """职业技巧：动态获取 data 文件夹的绝对路径"""
+    """职业技巧：动态获取 data 文件夹的绝对路径
+    文件目录操作创建os.mkdir(‘’),删除空目录os.rmdir(‘’),删除文件/目录os.remove(‘’)
+    ,重命名os.rename(‘’),遍历文件/文件夹os.listdir(‘’)
+    """
     # 先获取当前文件的目录 (src)，再找它的父目录，最后进入 data
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    data_dir = os.path.join(current_dir, "..", "data")
-    return os.path.abspath(data_dir)
-
+    data_dir = os.path.join(current_dir, "..", "data") # 拼接路径,自动适配系统分隔符
+    return os.path.abspath(data_dir) #获取绝对路径
 def check_file():
     """练习任务：检查 data 文件夹下的文件"""
     path = get_data_dir()
     print(f"---正在检查数据中心:{path} ---")
 
     if os.path.exists(path):
-        os.path.exists(path)
+        os.path.exists(path) # 判断路径是否存在
         files = os.listdir(path)
         print(f"已找到{len(files)} 个文件:")
         for i in files:
@@ -36,4 +37,5 @@ git config --global --unset http.proxy
 git config --global --unset https.proxy
 git config --global http.postBuffer 524288000(增大缓存)
 以上4-8说的是怎么在mac终端把代码上传和更新
+9.os库是python程序与操作系统进行交互的内置库
 """
