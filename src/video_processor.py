@@ -31,4 +31,9 @@ if __name__ == "__main__":
 5.使用终端指令上传:git add .
 6.git commit -m "对更新的内容做简单的描述"
 7.git push(上传)
+8.开梯子的设置:
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+git config --global http.postBuffer 524288000(增大缓存)
+以上4-8说的是怎么在mac终端把代码上传和更新
 """
