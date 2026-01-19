@@ -16,7 +16,7 @@ data = {
 df = pd.DataFrame(data)
 
 # 保存到文件
-file_path = "data/exercise_calories.csv"
+file_path = "../data/exercise_calories.csv"
 df.to_csv(file_path, index=False)
 
 file_path
