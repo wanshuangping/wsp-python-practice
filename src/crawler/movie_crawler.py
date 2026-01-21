@@ -4,63 +4,76 @@ import pandas as pd
 import time
 
 
-def scrape_douban_top250():
-    # 1. 模拟浏览器请求头 (没有这个会被豆瓣拦截)
+def scrape_all_top250():
+    all_movies = []
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-    }
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
 
-    movie_list = []
+    for i in range(0, 250, 25):
+        url = f"https://movie.douban.com/top250?start={i}"
+        print(f"🚀 正在爬取第 {i // 25 + 1} 页...")
 
-    # 我们先尝试抓取第一页 (前 25 部)
-    url = "https://movie.douban.com/top250"
-
-    try:
-        print(f"🚀 正在请求: {url}")
-        response = requests.get(url, headers=headers)
-
-        if response.status_code == 200:
-            # 2. 解析网页源码
-            soup = BeautifulSoup(response.text, 'html.parser')
-
-            # 找到所有的电影条目 (豆瓣的电影条目都在 <div class="item"> 里)
-            items = soup.find_all('div', class_='item')
+        try:
+            res = requests.get(url, headers=headers, timeout=10)
+            soup = BeautifulSoup(res.text, 'html.parser')
+            # 这里的 item 是每部电影的大盒子
+            items = soup.select('div.item')
 
             for item in items:
-                # 提取标题
-                title = item.find('span', class_='title').get_text()
-                # 提取评分
-                rating = item.find('span', class_='rating_num').get_text()
-                # 提取评价人数
-                quote = item.find('span', class_='inq')
-                quote_text = quote.get_text() if quote else "暂无评语"
+                try:
+                    # 使用 select_one 配合 CSS 选择器，更直观
+                    title = item.select_one('span.title').get_text()
+                    rating = item.select_one('span.rating_num').get_text()
 
-                movie_list.append({
-                    "电影名称": title,
-                    "评分": rating,
-                    "金句": quote_text
-                })
+                    # 关键点：改用更直接的方式定位评价人数
+                    # 评价人数通常在 star 盒子的最后一个 span
+                    star_info = item.select('div.star span')
+                    votes = star_info[-1].get_text() if star_info else "0人评价"
 
-            return movie_list
-        else:
-            print(f"❌ 请求失败，状态码: {response.status_code}")
-            return []
+                    all_movies.append({
+                        "排名": len(all_movies) + 1,
+                        "电影名称": title,
+                        "评分": float(rating),
+                        "评价人数": votes
+                    })
+                except Exception:
+                    continue  # 如果这一条实在解析不了，跳过看下一条
 
-    except Exception as e:
-        print(f"⚠️ 发生错误: {e}")
-        return []
+            time.sleep(1.0)  # 别忘了休息
+
+        except Exception as e:
+            print(f"❌ 网络请求异常: {e}")
+
+    return all_movies
 
 
 if __name__ == "__main__":
-    results = scrape_douban_top250()
+    # 执行抓取
+    results = scrape_all_top250()
 
-    # 3. 展示结果并保存
     if results:
         df = pd.DataFrame(results)
-        print("\n✅ 抓取成功！预览前 5 条数据：")
-        print(df.head())
 
-        # 保存为 Excel (需要 openpyxl 库)
-        output_path = "../../data/douban_movies.xlsx"
-        df.to_excel(output_path, index=False)
-        print(f"\n文件已保存至: {output_path}")
+        # 1. 计算并打印平均分
+        avg_score = df['评分'].mean()
+        print(f"\n📊 统计完成！共抓取 {len(df)} 部电影")
+        print(f"🌟 Top 250 的平均评分是: {avg_score:.2f}")
+
+        # 2. 保存到 data 文件夹
+        # 使用绝对路径确保不会存错位置
+        import os
+
+        base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        output_file = os.path.join(base_path, "data", "douban_top250_full.xlsx")
+
+        df.to_excel(output_file, index=False)
+        print(f"✅ 完整数据已保存至: {output_file}")
+    else:
+        print("📭 未抓取到任何数据，请检查网络或 User-Agent。")
+        
+# 找出评分最高的电影
+best_movie = df.loc[df['评分'].idxmax()]
+print(f"🏆 评分最高的电影是: {best_movie['电影名称']} ({best_movie['评分']}分)")
+
+# 看看平均分
+print(f"📈 250部电影的平均分是: {df['评分'].mean():.2f}")
