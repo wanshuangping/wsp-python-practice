@@ -70,7 +70,7 @@ if __name__ == "__main__":
         print(f"✅ 完整数据已保存至: {output_file}")
     else:
         print("📭 未抓取到任何数据，请检查网络或 User-Agent。")
-        
+
 # 找出评分最高的电影
 best_movie = df.loc[df['评分'].idxmax()]
 print(f"🏆 评分最高的电影是: {best_movie['电影名称']} ({best_movie['评分']}分)")
