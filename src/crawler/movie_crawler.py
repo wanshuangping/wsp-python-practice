@@ -7,7 +7,7 @@ import time
 def scrape_all_top250():
     all_movies = []
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36'}
 
     for i in range(0, 250, 25):
         url = f"https://movie.douban.com/top250?start={i}"
@@ -20,22 +20,22 @@ def scrape_all_top250():
             items = soup.select('div.item')
 
             for item in items:
+                # 在 movie_crawler.py 的循环解析部分，替换掉关于 votes 的抓取逻辑
                 try:
-                    # 使用 select_one 配合 CSS 选择器，更直观
-                    title = item.select_one('span.title').get_text()
-                    rating = item.select_one('span.rating_num').get_text()
+                    # 更加精准的定位：找到 star 盒子下的所有 span
+                    star_div = item.select_one('div.star')
+                    all_spans = star_div.find_all('span')
 
-                    # 关键点：改用更直接的方式定位评价人数
-                    # 评价人数通常在 star 盒子的最后一个 span
-                    star_info = item.select('div.star span')
-                    votes = star_info[-1].get_text() if star_info else "0人评价"
-
-                    all_movies.append({
-                        "排名": len(all_movies) + 1,
-                        "电影名称": title,
-                        "评分": float(rating),
-                        "评价人数": votes
-                    })
+                    # 豆瓣的规律：最后一个 span 通常是 "xxxx人评价"
+                    if all_spans:
+                        votes_text = all_spans[-1].get_text()
+                        # 验证一下是不是真的包含“评价”两个字
+                        if "评价" in votes_text:
+                            votes = votes_text
+                        else:
+                            votes = "0人评价"
+                    else:
+                        votes = "0人评价"
                 except Exception:
                     continue  # 如果这一条实在解析不了，跳过看下一条
 
