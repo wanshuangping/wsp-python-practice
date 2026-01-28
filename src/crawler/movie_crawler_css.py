@@ -19,21 +19,23 @@ def scrape_douban_css():
         try:
             res = requests.get(url, headers=headers, timeout=10)
             soup = BeautifulSoup(res.text, 'html.parser')
-
-            # 1. 直接选取所有电影容器 (类名为 item 的 div)
             items = soup.select('div.item')
 
             for item in items:
-                # 2. 精准点名：.class_name 提取内容
-                # select_one 确保只取第一个匹配项
-                title = item.select_one('.hd .title').get_text()
-                rating = item.select_one('.rating_num').get_text()
+                # --- 核心：安全提取函数 ---
+                def safe_get(selector, attr='text'):
+                    element = item.select_one(selector)
+                    if element:
+                        return element.get_text(strip=True) if attr == 'text' else element.get(attr)
+                    return "未知"
 
-                # 提取评价人数：利用 CSS 的伪类选择器 last-child
-                votes = item.select_one('.star span:last-child').get_text()
-
-                # 提取描述信息：第一个 p 标签
-                info = item.select_one('.bd p').get_text(strip=True)
+                # 使用安全点名提取
+                title = safe_get('.hd .title')
+                rating = safe_get('.rating_num')
+                # 评价人数通常是最后一个 span
+                votes = safe_get('.star span:last-child')
+                # 详情描述
+                info = safe_get('.bd p')
 
                 all_movies.append({
                     "电影名称": title,
@@ -45,7 +47,7 @@ def scrape_douban_css():
             time.sleep(1.2)
 
         except Exception as e:
-            print(f"❌ 某处点名出错: {e}")
+            print(f"❌ 页面抓取失败: {e}")
 
     return all_movies
 
@@ -54,9 +56,13 @@ if __name__ == "__main__":
     data = scrape_douban_css()
     if data:
         df = pd.DataFrame(data)
-        # 结果保存
-        output_path = os.path.join(os.path.dirname(__file__), "../../data/douban_css_result.xlsx")
+        # 自动保存
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        output_path = os.path.join(current_dir, "../../data/douban_css_clean.xlsx")
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         df.to_excel(output_path, index=False)
 
-        print(f"\n✨ CSS 抓取大功告成！总计 {len(df)} 部电影已存入 Excel。")
+        print("\n" + "✨" * 15)
+        print(f"CSS 方案也完美通关！共记录 {len(df)} 部。")
+        print(f"结果已存至: {output_path}")
+        print("✨" * 15)
