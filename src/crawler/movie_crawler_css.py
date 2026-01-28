@@ -81,4 +81,4 @@ if __name__ == "__main__":
         print("\n" + "✨" * 15)
         print(f"CSS 方案修复成功！已抓取 {len(df)} 部记录。")
         print(f"图片已存至: data/posters/")
-        print("✨" * 15)
+        print   ("✨" * 15)
