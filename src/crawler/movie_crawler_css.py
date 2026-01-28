@@ -21,6 +21,13 @@ def scrape_douban_css():
             soup = BeautifulSoup(res.text, 'html.parser')
             items = soup.select('div.item')
 
+            # 在循环中加入这一段，即可实现自动下载
+            img_url = item.select_one('.pic img')['src']  # 提取图片链接
+            img_data = requests.get(img_url).content
+            img_name = f"{title}.jpg"
+            with open(f"../../data/posters/{img_name}", "wb") as f:
+                f.write(img_data)
+
             for item in items:
                 # --- 核心：安全提取函数 ---
                 def safe_get(selector, attr='text'):
