@@ -17,7 +17,7 @@ df['Day_Index'] = np.arange(len(df))
 df['Day_Index'] = np.arange(len(df)) # 用数字序号作为自变量
 
 # 2. 选取最近 30 天作为训练集
-train_days = 30
+train_days = 5
 df_recent = df.tail(train_days)
 
 X = df_recent[['Day_Index']].values
