@@ -86,10 +86,34 @@ if st.button("开始 AI 深度预测"):
         st.info("📊 预测完成！红色线条即为未来 5 天预估趋势。")
         pred_df = pd.DataFrame(future_actual, columns=['预测价格'])
         st.line_chart(pred_df)
-st.subheader("🤖 AI 未来 5 天趋势预测 (LSTM)")
 # 建议的修改片段
 st.divider()
 st.subheader("🎯 AI 未来 5 天趋势预测 (LSTM)")
+# 1. 在侧边栏添加扰动系数
+st.sidebar.divider()
+st.sidebar.subheader("📢 模拟突发消息")
+impact_factor = st.sidebar.slider("设置利好/利空强度 (%)", -10, 10, 0)
+
+# 2. 修改 LSTM 预测部分的逻辑
+if st.button("开始 AI 深度预测 (含情景模拟)", key="sim_predict_btn"):
+    with st.spinner('AI 正在模拟不同情景下的走势...'):
+        # ... (之前的 LSTM 训练逻辑保持不变) ...
+
+        # 在滚动预测时加入扰动系数
+        for i in range(5):
+            next_pred = model.predict(current_batch)[0]
+
+            # 将扰动应用到预测值上
+            # 模拟第 2 天突然发生利好/利空
+            if i >= 1:
+                next_pred = next_pred * (1 + impact_factor / 100)
+
+            future_predictions.append(next_pred)
+            current_batch = np.append(current_batch[:, 1:, :], next_pred.reshape(1, 1, 1), axis=1)
+
+        # 3. 绘图展示对比
+        st.write(f"当前模拟情景：{'利好' if impact_factor > 0 else '利空'}力度 {abs(impact_factor)}%")
+        st.line_chart(pd.DataFrame(future_actual, columns=['情景模拟预测']))
 
 # 为按钮增加 unique_key 确保不报错
 if st.button("开始 AI 深度预测", key="final_predict_btn"):
