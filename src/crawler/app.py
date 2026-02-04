@@ -11,9 +11,26 @@ days = st.sidebar.slider("选择查看天数", 30, 365, 100)
 
 
 # 获取数据
-@st.cache_data  # 缓存数据，避免重复请求被封 IP
+import sqlite3  # 新增导入
+
+
 def get_data(code):
-    df = ak.stock_zh_a_hist(symbol=code, period="daily", adjust="qfq")
+    # 1. 尝试连接本地数据库
+    conn = sqlite3.connect('stock_data.db')
+    try:
+        # 2. 从本地表读取数据，速度比网络请求快 10 倍以上
+        query = f"SELECT * FROM stock_{code}"
+        df = pd.read_sql(query, conn)
+
+        # 确保日期列格式正确，以便绘图
+        df['Date'] = pd.to_datetime(df['日期'])
+        st.sidebar.success("💡 数据来源：本地数据库 (高速)")
+    except Exception as e:
+        # 3. 如果本地没数据，再降级使用网络请求
+        st.sidebar.warning("⚠️ 本地无数据，正在通过网络获取...")
+        df = ak.stock_zh_a_hist(symbol=code, period="daily", adjust="qfq")
+    finally:
+        conn.close()
     return df
 
 
