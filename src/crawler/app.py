@@ -12,8 +12,6 @@ days = st.sidebar.slider("选择查看天数", 30, 365, 100)
 
 # 获取数据
 import sqlite3  # 新增导入
-
-
 def get_data(code):
     # 1. 尝试连接本地数据库
     conn = sqlite3.connect('stock_data.db')
