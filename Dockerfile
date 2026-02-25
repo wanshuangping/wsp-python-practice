@@ -8,10 +8,10 @@ WORKDIR /app
 COPY . .
 
 # 4. 安装之前生成的 requirements.txt 里的依赖
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
 # 5. 暴露 Streamlit 默认的 8501 端口
 EXPOSE 8501
 
 # 6. 启动命令
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "src/crawler/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
