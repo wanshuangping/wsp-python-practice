@@ -1,5 +1,5 @@
 # 1. 使用官方 Python 轻量版基础镜像
-FROM python:3.9-slim
+FROM python:3.12-slim
 
 # 2. 设置容器内的工作目录
 WORKDIR /app
