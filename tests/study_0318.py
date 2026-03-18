@@ -50,4 +50,6 @@ def is_vaild_identifier(name):
 
 # Python 保留关键字
 import keyword
-print(keyword.kwlist)
+# print(keyword.kwlist)
+# IndentationError: unindent does not match any outer indentation level 缩进不一致导致运行错误
+# Python 通常是一行写完一条语句，但如果语句很长，我们可以使用反斜杠 \ 来实现多行语句
