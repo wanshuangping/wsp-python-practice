@@ -56,7 +56,8 @@ import keyword
 item_01 = 1
 item_02 = 2
 item_03 = 3
-total = item_01 +\
-    item_02 + \
-    item_03
+# total = item_01 +\
+#     item_02 + \
+#     item_03
+total = ['item_01','item_02','item_03']
 print(total)
