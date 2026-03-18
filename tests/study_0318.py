@@ -53,3 +53,10 @@ import keyword
 # print(keyword.kwlist)
 # IndentationError: unindent does not match any outer indentation level 缩进不一致导致运行错误
 # Python 通常是一行写完一条语句，但如果语句很长，我们可以使用反斜杠 \ 来实现多行语句
+item_01 = 1
+item_02 = 2
+item_03 = 3
+total = item_01 +\
+    item_02 + \
+    item_03
+print(total)
