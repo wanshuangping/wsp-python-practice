@@ -83,4 +83,4 @@ total = [item_01,item_02,item_03]
 #     字符串切片 str[start:end]，其中 start（包含）是切片开始的索引，end（不包含）是切片结束的索引。
 #     字符串的切片可以加上步长参数 step，语法格式如下：str[start:end:step]
 str = '12345678'
-print(str[0:-1])
+print(str[2:-3])
