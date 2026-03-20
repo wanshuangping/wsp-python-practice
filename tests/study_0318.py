@@ -84,4 +84,5 @@ total = [item_01,item_02,item_03]
 #     字符串的切片可以加上步长参数 step，语法格式如下：str[start:end:step]
 # str = '12345678'
 # print(str[:3])
-input('\n\n按下 enter 键后退出')
+# input('\n\n按下 enter 键后退出')
+import sys;x = 'roy';sys.stdout.write(x+'\n')
