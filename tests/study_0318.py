@@ -85,4 +85,8 @@ total = [item_01,item_02,item_03]
 # str = '12345678'
 # print(str[:3])
 # input('\n\n按下 enter 键后退出')
-import sys;x = 'roy';sys.stdout.write(x+'\n')
+# import sys;x = 'roy';sys.stdout.write(x+'\n')
+y = 'a'
+x = 'b'
+print(y)
+print(x)
