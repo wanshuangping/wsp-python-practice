@@ -93,8 +93,10 @@ import sys;
 # print(x)
 # print(x,end='')
 # print(y,end='')
+from sys import argv,path
 print('python import code')
-print('agr:')
-for i in sys.argv:
-    print(i)
-print('\n python path',sys.path)
+# print('agr:')
+# for i in sys.argv:
+#     print(i)
+# print('\n python path',sys.path)
+print('path:',path)
