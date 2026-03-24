@@ -90,3 +90,6 @@ y = 'a'
 x = 'b'
 print(y)
 print(x)
+print(x,end='')
+print(y,end='')
+print()
