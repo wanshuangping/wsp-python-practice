@@ -99,4 +99,6 @@ print('python import code')
 # for i in sys.argv:
 #     print(i)
 # print('\n python path',sys.path)
-print('path:',path)
+# print('path:',path)
+a = b = c = 1
+print(a)
