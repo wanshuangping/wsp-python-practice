@@ -100,5 +100,11 @@ print('python import code')
 #     print(i)
 # print('\n python path',sys.path)
 # print('path:',path)
-a = b = c = 1
+# a = b = c =1
+counter = 100
+miles = 100.1
+name = 'rob'
+a,b,c = 1,2,'nacy'
 print(a)
+print(b)
+print(c)
