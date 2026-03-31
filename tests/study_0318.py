@@ -109,4 +109,4 @@ print('python import code')
 # print(b)
 # print(c)
 str = 'runoot'
-print(r'runo\not')
+print(str[-1],str[-5])
