@@ -109,4 +109,4 @@ print('python import code')
 # print(b)
 # print(c)
 str = 'runoot'
-print(str)
+print(str[0])
