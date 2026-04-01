@@ -1,5 +1,5 @@
 """
-Temu半托管月度报表自动下载脚本 (Python + Playwright)
+Temu半托管月度报表自动下载脚本 (Python + Playwright)自动化运行
 功能：自动登录、导航、下载并重命名报表
 作者：AI Assistant
 日期：2026-03-31
@@ -216,6 +216,7 @@ async def main():
     
     print("\n按回车键退出...")
     input()
+
 
 
 if __name__ == "__main__":
