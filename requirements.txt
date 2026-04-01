@@ -1,4 +1,1 @@
-streamlit
-pandas
-akshare
-mplfinance
+playwright==1.51.0
