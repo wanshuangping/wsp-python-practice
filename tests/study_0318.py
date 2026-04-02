@@ -108,5 +108,7 @@ print('python import code')
 # print(a)
 # print(b)
 # print(c)
-str = 'runoot'
-print(str[-1],str[-5])
+# str = 'runoot'
+# print(str[-1],str[-5])
+list = ['abcd',123,2.3,'roob',70.2]
+print(list)
