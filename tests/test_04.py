@@ -20,8 +20,11 @@
 # tup1 = ()
 # tup2 = (20, )
 # print(tup1,tup2)
-sets = {'baidu','xiaomi','1688'}
-if '1688' in sets:
-    print('1688 is sets now')
-else:
-    print('1688 not in set')
+# sets = {'baidu','xiaomi','1688'}
+# if '1688' in sets:
+#     print('1688 is sets now')
+# else:
+#     print('1688 not in set')
+a = {'dhajklgvas'}
+b = {'dafghjklufs'}
+print(a)
