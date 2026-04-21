@@ -32,11 +32,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# 设置中文字体（解决matplotlib中文乱码问题）
-plt.rcParams["font.family"] = ["SimHei", "WenQuanYi Micro Hei", "Heiti TC"]
+# -------------------------- 核心优化1：字体适配（兼容Windows/Mac/Linux）
+plt.rcParams["font.family"] = ["SimHei", "WenQuanYi Zen Hei", "Heiti TC", "Arial Unicode MS"]
 plt.rcParams["axes.unicode_minus"] = False  # 解决负号显示问题
+plt.rcParams["font.size"] = 10  # 全局字体大小优化，避免过小/过大
+plt.rcParams["axes.titlepad"] = 15  # 标题与图表间距，提升美观度
 
-# ===================== 1. 构建数据集 =====================
+# -------------------------- 核心优化2：完善数据集（新增收入增长数据）
 # 数据集1：深圳各区总人口+本科占比（2020普查）
 district_total = pd.DataFrame({
     "区域": ["南山", "福田", "罗湖", "盐田", "龙华", "龙岗", "宝安", "坪山", "光明"],
@@ -50,7 +52,7 @@ district_age2030 = pd.DataFrame({
     "适龄人数(万)": [15, 13, 10, 2, 16, 32, 32, 5, 8]
 })
 
-# 数据集3：重点区街道级本科占比
+# 数据集3：重点区街道级本科占比（不变，新增分组逻辑）
 street_data = pd.DataFrame({
     "所属区": ["宝安"]*10 + ["龙岗"]*11 + ["福田"]*10 + ["南山"]*8 + ["龙华"]*6,
     "街道": [
@@ -79,59 +81,22 @@ street_data = pd.DataFrame({
     ]
 })
 
-# ===================== 2. 绘制图表 =====================
-fig, axes = plt.subplots(2, 2, figsize=(20, 16))
-fig.suptitle("深圳各区&街道人口与本科占比可视化（2020普查+2030-2040适龄人口）", fontsize=18, y=0.98)
+# 数据集4：2024 vs 2023 工资&可支配收入增长
+income_growth = pd.DataFrame({
+    "指标": ["工资增长", "年均可支配收入增长"],
+    "增长率(%)": [1.0, 5.47]
+})
 
-# 子图1：各区总人口+本科占比（双轴图）
+# -------------------------- 核心优化3：图表布局与样式优化（3行2列，覆盖所有数据）
+fig, axes = plt.subplots(3, 2, figsize=(22, 18))
+fig.suptitle("深圳各区&街道人口与本科占比可视化（2020普查+2030-2040适龄人口+收入增长）",
+             fontsize=20, y=0.98, fontweight="bold")
+
+# 子图1：各区总人口+本科占比（双轴图，优化配色+数值标注）
 ax1 = axes[0, 0]
 district_total_sorted = district_total.sort_values("总人口(万)", ascending=False)
-# 柱状图：总人口
-sns.barplot(x="区域", y="总人口(万)", data=district_total_sorted, ax=ax1, color="#4287f5", alpha=0.7, label="总人口(万)")
-ax1.set_title("各区总人口与本科占比对比", fontsize=14)
-ax1.set_xlabel("区域", fontsize=12)
-ax1.set_ylabel("总人口(万)", fontsize=12, color="#4287f5")
-ax1.tick_params(axis="y", labelcolor="#4287f5")
-# 折线图：本科占比
-ax1_twin = ax1.twinx()
-sns.lineplot(x="区域", y="本科占比(%)", data=district_total_sorted, ax=ax1_twin, color="#f54242", marker="o", linewidth=2, label="本科占比(%)")
-ax1_twin.set_ylabel("本科占比(%)", fontsize=12, color="#f54242")
-ax1_twin.tick_params(axis="y", labelcolor="#f54242")
-# 合并图例
-lines1, labels1 = ax1.get_legend_handles_labels()
-lines2, labels2 = ax1_twin.get_legend_handles_labels()
-ax1.legend(lines1 + lines2, labels1 + labels2, loc="upper right")
-
-# 子图2：2030-2040年各区20-30岁适龄人数
-ax2 = axes[0, 1]
-district_age2030_sorted = district_age2030.sort_values("适龄人数(万)", ascending=False)
-sns.barplot(x="区域", y="适龄人数(万)", data=district_age2030_sorted, ax=ax2, palette="viridis")
-ax2.set_title("2030-2040年各区20-30岁适龄人数(万)", fontsize=14)
-ax2.set_xlabel("区域", fontsize=12)
-ax2.set_ylabel("适龄人数(万)", fontsize=12)
-# 数值标注
-for container in ax2.containers:
-    ax2.bar_label(container, fmt="%.0f", fontsize=10)
-
-# 子图3：重点区街道本科占比（横向条形图）
-ax3 = axes[1, 0]
-# 筛选占比≥15%的街道（突出高学历街道）
-high_edu_streets = street_data[street_data["本科占比(%)"] >= 15].sort_values("本科占比(%)", ascending=True)
-sns.barplot(x="本科占比(%)", y="街道", hue="所属区", data=high_edu_streets, ax=ax3, palette="Set2")
-ax3.set_title("重点区本科占比≥15%的街道排名", fontsize=14)
-ax3.set_xlabel("本科占比(%)", fontsize=12)
-ax3.set_ylabel("街道", fontsize=12)
-ax3.legend(loc="lower right")
-
-# 子图4：各区街道本科占比分布（箱线图）
-ax4 = axes[1, 1]
-sns.boxplot(x="所属区", y="本科占比(%)", data=street_data, ax=ax4, palette="coolwarm")
-ax4.set_title("各区街道本科占比分布差异", fontsize=14)
-ax4.set_xlabel("所属区", fontsize=12)
-ax4.set_ylabel("本科占比(%)", fontsize=12)
-
-# 调整布局
-plt.tight_layout()
-# 保存图片（可修改路径）
-plt.savefig("深圳人口学历可视化.png", dpi=300, bbox_inches="tight")
-plt.show()
+# 柱状图：总人口（渐变色，优化透明度）
+bars1 = ax1.bar(x=district_total_sorted["区域"],
+                height=district_total_sorted["总人口(万)"],
+                color="#2E86AB", alpha=0.8, label="总人口(万)")
+ax1.set_title("各区总人口与本科占比对比", fontsize=1)
