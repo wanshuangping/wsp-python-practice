@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temu半托管15店铺改图差异化方案</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f5f7; color: #1d1d1f; line-height: 1.7; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+  
+  /* Header */
+  .hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: #fff; padding: 48px 40px; border-radius: 16px; margin-bottom: 40px; }
+  .hero h1 { font-size: 28px; font-weight: 600; margin-bottom: 12px; }
+  .hero .subtitle { font-size: 15px; color: #a0a0b8; margin-bottom: 24px; }
+  .hero-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 13px; }
+  
+  /* Section */
+  .section { margin-bottom: 48px; }
+  .section-title { font-size: 22px; font-weight: 600; margin-bottom: 8px; padding-bottom: 12px; border-bottom: 2px solid #e0e0e0; }
+  .section-desc { font-size: 14px; color: #666; margin-bottom: 24px; }
+  
+  /* Dimension cards */
+  .dim-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .dim-card { background: #fff; border-radius: 12px; padding: 20px; border: 1px solid #e5e5e7; }
+  .dim-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .dim-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; }
+  .dim-card p { font-size: 13px; color: #555; }
+  .dim-card .options { font-size: 12px; color: #888; margin-top: 8px; }
+  
+  /* Matrix table */
+  .matrix-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid #e5e5e7; }
+  table.matrix { width: 100%; border-collapse: collapse; background: #fff; font-size: 12px; }
+  table.matrix th { background: #1a1a2e; color: #fff; padding: 10px 8px; text-align: center; font-weight: 500; white-space: nowrap; }
+  table.matrix td { padding: 8px; text-align: center; border-bottom: 1px solid #f0f0f0; border-right: 1px solid #f0f0f0; }
+  table.matrix tr:hover { background: #f8f8fa; }
+  .market-eu { background: #e6f1fb; color: #0c447c; font-weight: 600; }
+  .market-uk { background: #f0eaf7; color: #3c3489; font-weight: 600; }
+  .market-us { background: #e1f5ee; color: #085041; font-weight: 600; }
+  
+  /* Store card */
+  .store-card { background: #fff; border-radius: 16px; overflow: hidden; margin-bottom: 24px; border: 1px solid #e5e5e7; }
+  .store-header { padding: 20px 24px; display: flex; align-items: center; gap: 16px; }
+  .store-num { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; }
+  .store-info h3 { font-size: 17px; font-weight: 600; }
+  .store-info .store-meta { font-size: 12px; color: #888; margin-top: 2px; }
+  .store-body { padding: 0 24px 24px; }
+  
+  /* Identity tags */
+  .identity-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .id-tag { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 500; }
+  
+  /* Image plan grid */
+  .img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .img-card { background: #f8f8fa; border-radius: 10px; padding: 14px; border: 1px solid #ececef; }
+  .img-card .img-label { font-size: 12px; font-weight: 600; color: #1a1a2e; margin-bottom: 6px; }
+  .img-card .img-desc { font-size: 12px; color: #555; line-height: 1.6; }
+  
+  /* Tips */
+  .tips-box { background: #fff8e1; border: 1px solid #ffe082; border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; }
+  .tips-box h4 { font-size: 15px; font-weight: 600; margin-bottom: 10px; color: #854f0b; }
+  .tips-box ul { list-style: none; }
+  .tips-box li { font-size: 13px; color: #5d4037; margin-bottom: 6px; padding-left: 18px; position: relative; }
+  .tips-box li::before { content: "→"; position: absolute; left: 0; color: #b08020; }
+  
+  /* Checklist */
+  .checklist { background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #e5e5e7; }
+  .checklist ol { padding-left: 20px; }
+  .checklist li { font-size: 13px; margin-bottom: 8px; color: #333; }
+  
+  /* Color swatches */
+  .color-swatch { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: middle; margin-right: 4px; border: 1px solid #ddd; }
+  
+  /* Footer */
+  .footer { text-align: center; padding: 32px; color: #999; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Temu 半托管 · 15 店铺改图差异化方案</h1>
+  <p class="subtitle">欧盟 / 英国 / 美国 三站点 · 加绒睡袍 / 男女内裤 / 防滑袜 / 普通袜 / 混合袜 全品类覆盖</p>
+  <div class="hero-badges">
+    <span class="hero-badge">6 大差异化维度</span>
+    <span class="hero-badge">15 套独立视觉识别系统</span>
+    <span class="hero-badge">每店 6 张主图详细方案</span>
+    <span class="hero-badge">核价提升策略</span>
+    <span class="hero-badge">比价规避执行清单</span>
+  </div>
+</div>
+
+<!-- SECTION 1: 策略框架 -->
+<div class="section">
+  <h2 class="section-title">一、核心策略：为什么 15 个店铺的图必须完全不同</h2>
+  <p class="section-desc">Temu 平台使用 AI 图像识别系统自动比价：当多个店铺的产品主图在背景、角度、模特、色调等维度高度相似时，系统会判定为「同款」，强制进入价格竞争池，核价被压到最低，流量被限。要打破这个死循环，每个店铺必须在以下 6 个维度中至少有 4 个维度完全不同。</p>
+  
+  <div class="dim-grid">
+    <div class="dim-card">
+      <h3><span class="dim-icon" style="background:#378ADD">1</span>背景色系</h3>
+      <p>主图背景颜色/纹理是 AI 识别最敏感的维度。纯白、灰渐变、木纹、布纹、深色、彩色渐变——15 个店铺必须各不相同。</p>
+      <div class="options">可用方案：纯白 · 浅灰渐变 · 木纹桌面 · 米色布纹 · 深灰 · 藏青布纹 · 室内场景 · 浅绿渐变 · 白底卡片 · 美式家居 · 纯白盒装 · 深色 · 木质墙面 · 撞色 · 莫兰迪渐变</div>
+    </div>
+    <div class="dim-card">
+      <h3><span class="dim-icon" style="background:#7F77DD">2</span>拍摄角度</h3>
+      <p>90°俯拍平铺、45°斜角、平视正面、生活场景多角度、微距特写、悬挂展示、创意造型——角度不同，AI 比对相似度骤降。</p>
+      <div class="options">可用方案：正上方俯拍 · 45°斜角 · 平视正面 · 场景生活化 · 微距特写 · 悬挂展示 · 创意造型排列 · 盒装组合</div>
+    </div>
+    <div class="dim-card">
+      <h3><span class="dim-icon" style="background:#D85A30">3</span>模特策略</h3>
+      <p>无模特纯产品、手部模特、脚部/腿部模特、全身欧美模特、全身亚洲模特——模特类型直接决定图片的视觉指纹。</p>
+      <div class="options">可用方案：无模特 · 手部 · 脚部 · 腿部坐姿 · 全身欧美 · 全身亚洲 · 手+腿组合</div>
+    </div>
+    <div class="dim-card">
+      <h3><span class="dim-icon" style="background:#1D9E75">4</span>道具场景</h3>
+      <p>道具是区分「同款」最有效的视觉锚点。无道具 vs 绿植 vs 沙发 vs 编织篮 vs 包装盒 vs 木质衣架——每个道具组合都是独特的视觉签名。</p>
+      <div class="options">可用方案：无道具 · 绿植盆栽 · 沙发抱枕 · 编织篮 · 包装盒 · 木质衣架 · 咖啡杯书本 · 地毯 · 床品</div>
+    </div>
+    <div class="dim-card">
+      <h3><span class="dim-icon" style="background:#EF9F27">5</span>文字标注</h3>
+      <p>主图上的文字风格是 AI 识别的重要维度。无文字 vs 极简参数 vs 卖点图标 vs 技术标注 vs 趣味标语——文字风格必须各不相同。</p>
+      <div class="options">可用方案：无文字 · 极简参数 · 卖点气泡 · 技术标注 · 数字编号 · 认证标识 · 材质成分 · 趣味标语</div>
+    </div>
+    <div class="dim-card">
+      <h3><span class="dim-icon" style="background:#D4537E">6</span>色调氛围</h3>
+      <p>后期色调处理是最后的关键。自然光 vs 冷色调 vs 暖色调 vs 暗调高级 vs 高饱和活力 vs 低饱和文艺——色调统一调整后，即使产品相同，AI 也无法关联。</p>
+      <div class="options">可用方案：自然光 · 冷色调 · 暖色调 · 暗调高级 · 高饱和活力 · 低饱和文艺 · 清新绿色 · 温馨生活</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: 15店总览矩阵 -->
+<div class="section">
+  <h2 class="section-title">二、15 店铺差异化总览矩阵</h2>
+  <p class="section-desc">下表是 15 个店铺在 6 大维度上的分配方案。每一列的值都不重复——确保 AI 比价系统无法在任意 4 个维度上将两个店铺判定为「同款」。</p>
+  
+  <div class="matrix-wrap">
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>店铺</th>
+          <th>站点</th>
+          <th>视觉风格</th>
+          <th>背景色系</th>
+          <th>拍摄角度</th>
+          <th>模特</th>
+          <th>道具</th>
+          <th>文字</th>
+          <th>色调</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- EU -->
+        <tr>
+          <td class="market-eu">1</td>
+          <td class="market-eu">欧盟</td>
+          <td>极简白底平铺</td>
+          <td><span class="color-swatch" style="background:#fff;border:1px solid #ddd"></span>纯白</td>
+          <td>90°俯拍</td>
+          <td>无</td>
+          <td>无</td>
+          <td>极简参数</td>
+          <td>自然光</td>
+        </tr>
+        <tr>
+          <td class="market-eu">2</td>
+          <td class="market-eu">欧盟</td>
+          <td>灰调质感渐变</td>
+          <td><span class="color-swatch" style="background:linear-gradient(135deg,#e8e8e8,#b0b0b0)"></span>灰渐变</td>
+          <td>45°斜角</td>
+          <td>无</td>
+          <td>无</td>
+          <td>卖点标签</td>
+          <td>冷色调</td>
+        </tr>
+        <tr>
+          <td class="market-eu">3</td>
+          <td class="market-eu">欧盟</td>
+          <td>木纹桌面温馨</td>
+          <td><span class="color-swatch" style="background:#d4a76a"></span>浅木纹</td>
+          <td>平视</td>
+          <td>脚部/腿部</td>
+          <td>地毯+木托盘</td>
+          <td>无文字</td>
+          <td>暖色调</td>
+        </tr>
+        <tr>
+          <td class="market-eu">4</td>
+          <td class="market-eu">欧盟</td>
+          <td>米色布纹自然</td>
+          <td><span class="color-swatch" style="background:#f5f0e8"></span>米色布纹</td>
+          <td>悬挂展示</td>
+          <td>无</td>
+          <td>绿植点缀</td>
+          <td>底部参数</td>
+          <td>暖色调</td>
+        </tr>
+        <tr>
+          <td class="market-eu">5</td>
+          <td class="market-eu">欧盟</td>
+          <td>渐变彩色活力</td>
+          <td><span class="color-swatch" style="background:linear-gradient(135deg,#fce4ec,#e3f2fd,#ede7f6)"></span>莫兰迪渐变</td>
+          <td>创意角度</td>
+          <td>全身/手部</td>
+          <td>咖啡杯+书本</td>
+          <td>气泡卖点</td>
+          <td>高饱和活力</td>
+        </tr>
+        <!-- UK -->
+        <tr>
+          <td class="market-uk">6</td>
+          <td class="market-uk">英国</td>
+          <td>深色高级质感</td>
+          <td><span class="color-swatch" style="background:#2c2c2c"></span>深灰/炭灰</td>
+          <td>平视正面</td>
+          <td>全身欧美</td>
+          <td>床品</td>
+          <td>无文字</td>
+          <td>暗调高级</td>
+        </tr>
+        <tr>
+          <td class="market-uk">7</td>
+          <td class="market-uk">英国</td>
+          <td>布纹商务质感</td>
+          <td><span class="color-swatch" style="background:#1a2b3c"></span>藏青布纹</td>
+          <td>俯拍展开</td>
+          <td>无</td>
+          <td>无</td>
+          <td>认证标识</td>
+          <td>冷色调商务</td>
+        </tr>
+        <tr>
+          <td class="market-uk">8</td>
+          <td class="market-uk">英国</td>
+          <td>生活场景温馨</td>
+          <td><span class="color-swatch" style="background:#f5e6d3"></span>室内实景</td>
+          <td>场景生活化</td>
+          <td>腿部坐姿</td>
+          <td>沙发+抱枕</td>
+          <td>防滑箭头</td>
+          <td>温馨生活</td>
+        </tr>
+        <tr>
+          <td class="market-uk">9</td>
+          <td class="market-uk">英国</td>
+          <td>绿植清新折叠</td>
+          <td><span class="color-swatch" style="background:#e8f5e9"></span>浅绿渐变</td>
+          <td>俯拍排列</td>
+          <td>无</td>
+          <td>编织篮+绿植</td>
+          <td>材质标注</td>
+          <td>清新绿色</td>
+        </tr>
+        <tr>
+          <td class="market-uk">10</td>
+          <td class="market-uk">英国</td>
+          <td>卡片简约分割</td>
+          <td><span class="color-swatch" style="background:#fff;border:1px solid #ccc"></span>白底卡片</td>
+          <td>多角度拼贴</td>
+          <td>手部</td>
+          <td>无</td>
+          <td>数字编号</td>
+          <td>黑白灰</td>
+        </tr>
+        <!-- US -->
+        <tr>
+          <td class="market-us">11</td>
+          <td class="market-us">美国</td>
+          <td>美式居家生活</td>
+          <td><span class="color-swatch" style="background:#faf0e6"></span>美式家居</td>
+          <td>场景多角度</td>
+          <td>全身欧美</td>
+          <td>沙发+毯子+咖啡桌</td>
+          <td>场景气泡</td>
+          <td>温暖生活</td>
+        </tr>
+        <tr>
+          <td class="market-us">12</td>
+          <td class="market-us">美国</td>
+          <td>极简盒装展示</td>
+          <td><span class="color-swatch" style="background:#fff;border:1px solid #ddd"></span>纯白</td>
+          <td>盒装组合</td>
+          <td>无</td>
+          <td>精美包装盒</td>
+          <td>极简品牌名</td>
+          <td>极简黑白</td>
+        </tr>
+        <tr>
+          <td class="market-us">13</td>
+          <td class="market-us">美国</td>
+          <td>专业特写暗调</td>
+          <td><span class="color-swatch" style="background:#1a1a1a"></span>深灰/黑</td>
+          <td>微距特写</td>
+          <td>脚部底部</td>
+          <td>无</td>
+          <td>技术参数</td>
+          <td>暗调专业</td>
+        </tr>
+        <tr>
+          <td class="market-us">14</td>
+          <td class="market-us">美国</td>
+          <td>文艺木质悬挂</td>
+          <td><span class="color-swatch" style="background:#c4a882"></span>木质墙面</td>
+          <td>悬挂排列</td>
+          <td>无</td>
+          <td>木衣架+木夹</td>
+          <td>无文字</td>
+          <td>低饱和文艺</td>
+        </tr>
+        <tr>
+          <td class="market-us">15</td>
+          <td class="market-us">美国</td>
+          <td>撞色创意造型</td>
+          <td><span class="color-swatch" style="background:linear-gradient(135deg,#ffd54f,#4fc3f7)"></span>撞色背景</td>
+          <td>创意造型</td>
+          <td>手+腿组合</td>
+          <td>无</td>
+          <td>趣味标语</td>
+          <td>高饱和撞色</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 3: 15店铺详细方案 -->
+
+<!-- ===== 欧盟站点 ===== -->
+<div class="section">
+  <h2 class="section-title">三、欧盟站点详细方案（店铺 1-5）</h2>
+  
+  <!-- 店铺1 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#e6f1fb,#f5f5f7)">
+      <div class="store-num" style="background:#378ADD">1</div>
+      <div class="store-info">
+        <h3>极简白底平铺风</h3>
+        <div class="store-meta">欧盟站点 · 适配品类：加绒睡袍 / 内裤 / 袜子全品类</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#e6f1fb;color:#0c447c">背景：纯白 #FFFFFF</span>
+        <span class="id-tag" style="background:#e6f1fb;color:#0c447c">角度：90°正上方俯拍</span>
+        <span class="id-tag" style="background:#e6f1fb;color:#0c447c">模特：无</span>
+        <span class="id-tag" style="background:#e6f1fb;color:#0c447c">道具：无</span>
+        <span class="id-tag" style="background:#e6f1fb;color:#0c447c">文字：左上角极简参数</span>
+        <span class="id-tag" style="background:#e6f1fb;color:#0c447c">色调：自然光无色偏</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 正面平铺</div><div class="img-desc">产品正面朝上，完全展开平铺在纯白背景上。90°正上方拍摄。左上角标注「材质 / 尺码」小字（白底黑字 10px）。睡袍需展示完整版型；内裤展示正面腰头；袜子展示袜筒正面。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 反面/内侧</div><div class="img-desc">产品翻面展示。睡袍展示绒面内侧；内裤展示内侧裆部缝线；袜子展示脚底防滑面（如有）。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 材质微距</div><div class="img-desc">面料纹理微距特写，纯白背景。放大展示织物密度。可放一枚硬币做参照物。标注「克重 / 成分」。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 尺码对照</div><div class="img-desc">白底尺码表图片。用简洁线框图展示各部位尺寸。男女分开标注。底部小字标注测量方式。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 多色排列</div><div class="img-desc">同款不同色整齐排列，白底。色卡编号标注在每件下方。展示 SKU 全色系。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 包装展示</div><div class="img-desc">产品折叠整齐放入透明袋/盒中，白底。展示整洁包装状态。无任何文字干扰。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>主图 3 材质微距必须展示高密度织物的「贵感」——拍出绒毛的浓密感，让核价员直观感受到用料扎实</li>
+          <li>主图 4 尺码表标注实际测量值而非标称值，体现尺寸诚意，支撑更高核价</li>
+          <li>整体风格走「亚马逊白底风」，但通过极简参数标注区分于纯白无字风格</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 店铺2 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#f0eaf7,#f5f5f7)">
+      <div class="store-num" style="background:#7F77DD">2</div>
+      <div class="store-info">
+        <h3>灰调质感渐变风</h3>
+        <div class="store-meta">欧盟站点 · 适配品类：加绒睡袍 / 内裤 / 袜子全品类</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#f0eaf7;color:#3c3489">背景：浅灰→深灰渐变</span>
+        <span class="id-tag" style="background:#f0eaf7;color:#3c3489">角度：45°斜角俯拍</span>
+        <span class="id-tag" style="background:#f0eaf7;color:#3c3489">模特：无</span>
+        <span class="id-tag" style="background:#f0eaf7;color:#3c3489">道具：无</span>
+        <span class="id-tag" style="background:#f0eaf7;color:#3c3489">文字：右侧竖排卖点</span>
+        <span class="id-tag" style="background:#f0eaf7;color:#3c3489">色调：冷色高级感</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 斜角主视觉</div><div class="img-desc">产品45°斜角放置，浅灰到深灰渐变背景。右侧竖排3条核心卖点（浅灰底白字，如「加厚280g」「亲肤面料」「4色可选」）。突出产品立体质感。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 折叠质感</div><div class="img-desc">产品折叠整齐，灰渐变背景。通过光线打侧光突出面料纹理和厚度。睡袍展示折叠后的绒面厚度；内裤展示腰头弹性；袜子展示袜口弹性。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 拉伸/弹性</div><div class="img-desc">用手（不露脸）拉伸产品展示弹性。灰背景。内裤拉伸腰头；袜子拉伸袜口。配标注「高弹不变形」。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 材质微距</div><div class="img-desc">面料微距，侧光打质感。灰渐变背景。放大展示织物纹理。旁边竖排材质成分标注。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 多件渐变排列</div><div class="img-desc">多件产品由近到远排列在灰渐变背景上，形成视觉纵深。近大远小排列。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 缝线做工</div><div class="img-desc">重点展示缝线工艺。微距拍摄走线、包边、加固缝。灰背景。标注「双针缝制」「加固包边」等卖点。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>灰调背景+侧光=「高级质感」视觉效果，让产品看起来比实际更贵</li>
+          <li>主图 6 缝线做工展示是核价杀手锏——展示双针/加固缝/包边，直接证明做工成本</li>
+          <li>右侧竖排卖点标签是区别于店铺1（无文字极简）的关键差异</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 店铺3 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#fff3e0,#f5f5f7)">
+      <div class="store-num" style="background:#D85A30">3</div>
+      <div class="store-info">
+        <h3>木纹桌面温馨风</h3>
+        <div class="store-meta">欧盟站点 · 适配品类：防滑袜 / 各类袜子为主，睡袍内裤辅助</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#fff3e0;color:#712b13">背景：浅木纹桌面 #D4A76A系</span>
+        <span class="id-tag" style="background:#fff3e0;color:#712b13">角度：平视角度</span>
+        <span class="id-tag" style="background:#fff3e0;color:#712b13">模特：脚部/腿部</span>
+        <span class="id-tag" style="background:#fff3e0;color:#712b13">道具：地毯+木托盘</span>
+        <span class="id-tag" style="background:#fff3e0;color:#712b13">文字：无文字纯视觉</span>
+        <span class="id-tag" style="background:#fff3e0;color:#712b13">色调：暖色调温馨</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 桌面产品主视觉</div><div class="img-desc">产品放置在浅木纹桌面上，平视角度拍摄。旁边放一个木质小托盘做点缀。暖色调灯光。袜子整齐摆放在桌面上，展现居家温馨感。无任何文字。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 脚部穿着特写</div><div class="img-desc">模特脚部（仅露脚和腿下半部分）穿着袜子，踩在木地板上。展示穿着效果。防滑袜展示底部防滑胶点。暖色调自然光。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 地毯搭配场景</div><div class="img-desc">产品放置在地毯上，旁边有木质托盘。营造居家场景感。展示产品在真实环境中的样子。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 材质细节</div><div class="img-desc">产品面料特写，放在木桌面上。放大展示纹理。旁边可放一小块木片做材质对比参照。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 多件搭配排列</div><div class="img-desc">多双/多条产品整齐排列在木桌面上，旁边点缀绿植或干花。暖色调场景。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 卧室场景</div><div class="img-desc">产品放置在卧室木桌/床头柜上，背景虚化展示卧室环境。营造温馨居家氛围。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>木纹+暖色调=「居家品质」感知，比白底图更容易让核价员给出高分</li>
+          <li>主图 2 防滑胶点特写必须清晰——展示防滑等级/胶点分布密度，直接支撑防滑袜的核价溢价</li>
+          <li>无文字纯视觉风格是与店铺1（有文字）和店铺2（有标签）的核心差异</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 店铺4 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#fff8e1,#f5f5f7)">
+      <div class="store-num" style="background:#EF9F27">4</div>
+      <div class="store-info">
+        <h3>米色布纹自然风</h3>
+        <div class="store-meta">欧盟站点 · 适配品类：普通袜 / 各类袜子为主，内裤辅助</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#fff8e1;color:#633806">背景：米色亚麻布纹 #F5F0E8</span>
+        <span class="id-tag" style="background:#fff8e1;color:#633806">角度：悬挂展示</span>
+        <span class="id-tag" style="background:#fff8e1;color:#633806">模特：无</span>
+        <span class="id-tag" style="background:#fff8e1;color:#633806">道具：绿植点缀</span>
+        <span class="id-tag" style="background:#fff8e1;color:#633806">文字：底部参数小字</span>
+        <span class="id-tag" style="background:#fff8e1;color:#633806">色调：暖色自然</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 悬挂主视觉</div><div class="img-desc">产品用木质夹子悬挂在米色亚麻布纹背景前。自然光照射。展示产品垂坠感和完整形态。底部小字标注材质成分。旁边放一束干花或小绿植做点缀。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 折叠布纹展示</div><div class="img-desc">产品折叠整齐放在亚麻布纹背景上。展示折叠面和纹理。布纹背景与产品面料形成材质呼应。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 材质特写</div><div class="img-desc">面料微距特写，亚麻布纹背景。放大展示织物密度。旁边放一片干花花瓣做参照。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 尺码图</div><div class="img-desc">简洁线框尺码图，米色布纹背景。深棕色线条标注尺寸。底部小字「手工测量误差±2cm」。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 多色悬挂排列</div><div class="img-desc">多个颜色的产品用木夹悬挂排列在布纹背景前。形成色彩渐变效果。旁边绿植点缀。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 绿植搭配场景</div><div class="img-desc">产品与盆栽绿植搭配，布纹背景。营造自然清新感。展示产品在日常家居中的样子。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>亚麻布纹背景暗示「天然/棉麻」材质定位，与产品面料形成呼应，提升天然感认知</li>
+          <li>悬挂展示方式突出了产品的垂坠感和形态完整度——好形态=好面料=可支撑更高核价</li>
+          <li>绿植点缀是与店铺3（地毯+木托盘）的核心道具差异</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 店铺5 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#fce4ec,#f5f5f7)">
+      <div class="store-num" style="background:#D4537E">5</div>
+      <div class="store-info">
+        <h3>渐变彩色活力风</h3>
+        <div class="store-meta">欧盟站点 · 适配品类：混合袜子 / 睡袍为主，各类辅助</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#fce4ec;color:#72243e">背景：莫兰迪柔和渐变（粉→蓝→紫）</span>
+        <span class="id-tag" style="background:#fce4ec;color:#72243e">角度：创意角度</span>
+        <span class="id-tag" style="background:#fce4ec;color:#72243e">模特：全身/手部</span>
+        <span class="id-tag" style="background:#fce4ec;color:#72243e">道具：咖啡杯+书本+抱枕</span>
+        <span class="id-tag" style="background:#fce4ec;color:#72243e">文字：圆形气泡卖点</span>
+        <span class="id-tag" style="background:#fce4ec;color:#72243e">色调：高饱和活力</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 渐变主视觉</div><div class="img-desc">产品在莫兰迪渐变背景前展示（左粉右紫）。圆形气泡标注核心卖点（如「3双装」「加厚」）。睡袍用全身模特展示；袜子/内裤用手部模特手持展示。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 模特+场景</div><div class="img-desc">模特（全身）穿着产品，手持咖啡杯或书本。渐变背景。展示产品穿着后的时尚效果。气泡标注穿着场景卖点。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 细节+渐变</div><div class="img-desc">产品细节特写，渐变背景。放大展示面料纹理/缝线。旁边放一个抱枕做质感呼应。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 多色组合</div><div class="img-desc">多色产品排列在渐变背景上。色彩从粉到蓝到紫渐变排列。展示全色系选择。气泡标注颜色名称。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 生活场景搭配</div><div class="img-desc">产品与生活道具（咖啡杯、书本、抱枕）搭配展示在渐变背景前。营造时尚生活方式感。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 创意造型</div><div class="img-desc">产品折叠成创意造型（如袜子折成花朵形状、睡袍卷成圆形）。渐变背景。展示创意和趣味性。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>渐变背景+生活道具=「时尚生活方式」定位，跳出纯产品展示的同质化竞争</li>
+          <li>主图 2 模特穿着+场景是最能支撑核价的图——展示穿着效果直接证明产品价值</li>
+          <li>圆形气泡卖点标注是与店铺2（竖排标签）和店铺4（底部小字）的文字风格差异</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 英国站点 ===== -->
+<div class="section">
+  <h2 class="section-title">四、英国站点详细方案（店铺 6-10）</h2>
+
+  <!-- 店铺6 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#e8e8e8,#f5f5f7)">
+      <div class="store-num" style="background:#2C2C2C">6</div>
+      <div class="store-info">
+        <h3>深色高级质感风</h3>
+        <div class="store-meta">英国站点 · 适配品类：加绒睡袍为主，内裤袜子辅助</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#e0e0e0;color:#2c2c2c">背景：深灰/炭灰 #2C2C2C→#4A4A4A</span>
+        <span class="id-tag" style="background:#e0e0e0;color:#2c2c2c">角度：平视正面</span>
+        <span class="id-tag" style="background:#e0e0e0;color:#2c2c2c">模特：全身欧美</span>
+        <span class="id-tag" style="background:#e0e0e0;color:#2c2c2c">道具：床品</span>
+        <span class="id-tag" style="background:#e0e0e0;color:#2c2c2c">文字：无文字</span>
+        <span class="id-tag" style="background:#e0e0e0;color:#2c2c2c">色调：暗调高级</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 深色正面</div><div class="img-desc">产品正面展示，深灰背景。光线从侧方打出，突出面料质感和光泽。睡袍展示完整版型轮廓。无文字。暗调后期处理，营造高端感。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 模特穿着</div><div class="img-desc">欧美全身模特穿着睡袍，深色背景。模特站在床上或床边，旁边有床品做背景虚化。展示穿着效果和版型。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 内侧/反面</div><div class="img-desc">产品翻面展示。睡袍重点展示绒面内侧厚度。深色背景+侧光突出绒毛密度。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 材质特写</div><div class="img-desc">面料微距特写，深色背景。用侧光突出织物立体感。展示密度和厚度。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 尺码图</div><div class="img-desc">简洁深色系尺码图。白色线条标注尺寸。深灰底。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 高级包装</div><div class="img-desc">产品在精美包装中展示（如丝带捆扎、礼盒）。深色背景。营造礼品级高端感。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>深色背景+暗调后期=「高端品牌」视觉认知，是所有风格中最容易拉高核价的</li>
+          <li>主图 6 礼盒包装展示直接将产品从「日用品」升级为「礼品」定位，核价空间+30%以上</li>
+          <li>欧美全身模特穿着展示是证明版型的最佳方式——好版型=高核价</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 店铺7 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#d0d8e8,#f5f5f7)">
+      <div class="store-num" style="background:#1A2B3C">7</div>
+      <div class="store-info">
+        <h3>布纹商务质感风</h3>
+        <div class="store-meta">英国站点 · 适配品类：男女内裤为主，袜子辅助</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#d0d8e8;color:#1a2b3c">背景：藏青布纹 #1A2B3C</span>
+        <span class="id-tag" style="background:#d0d8e8;color:#1a2b3c">角度：正上方俯拍展开</span>
+        <span class="id-tag" style="background:#d0d8e8;color:#1a2b3c">模特：无</span>
+        <span class="id-tag" style="background:#d0d8e8;color:#1a2b3c">道具：无</span>
+        <span class="id-tag" style="background:#d0d8e8;color:#1a2b3c">文字：左下角认证标识</span>
+        <span class="id-tag" style="background:#d0d8e8;color:#1a2b3c">色调：冷色商务</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 布纹俯拍</div><div class="img-desc">产品完全展开平铺，藏青布纹背景。正上方俯拍。左下角放置CE/OEKO-TEX等认证标识小图标。展示产品完整形态和版型。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 展开正面</div><div class="img-desc">产品展开正面朝上。布纹背景。重点展示腰头设计/袜口设计。认证标识放左下角。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 材质微距</div><div class="img-desc">面料微距，布纹背景。放大展示织物密度和纱线质感。标注纱线支数/成分。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 尺码表</div><div class="img-desc">深色系尺码表。藏青底白字。展示腰围/臀围/裤长等数据。标注国际尺码对照。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 多件平铺</div><div class="img-desc">多件产品平铺排列在布纹背景上。展示套装组合。每件旁边标注尺码编号。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 缝线做工</div><div class="img-desc">缝线工艺特写。展示三针缝/包边/加固等做工细节。布纹背景。标注缝制工艺名称。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>认证标识（CE/OEKO-TEX）是核价加分项——展示产品通过国际标准认证，直接支撑溢价</li>
+          <li>布纹背景+商务色调定位「专业/可靠」，区别于家居温馨风，吸引不同客群</li>
+          <li>主图 6 缝线做工+工艺名称标注，直接证明制造成本</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 店铺8 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#fff3e0,#f5f5f7)">
+      <div class="store-num" style="background:#D85A30">8</div>
+      <div class="store-info">
+        <h3>生活场景温馨风</h3>
+        <div class="store-meta">英国站点 · 适配品类：防滑袜为主，睡袍内裤辅助</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#fff3e0;color:#712b13">背景：室内实景（客厅/卧室）</span>
+        <span class="id-tag" style="background:#fff3e0;color:#712b13">角度：生活化多角度</span>
+        <span class="id-tag" style="background:#fff3e0;color:#712b13">模特：腿部坐姿</span>
+        <span class="id-tag" style="background:#fff3e0;color:#712b13">道具：沙发+抱枕+地板</span>
+        <span class="id-tag" style="background:#fff3e0;color:#712b13">文字：防滑箭头标注</span>
+        <span class="id-tag" style="background:#fff3e0;color:#712b13">色调：温馨生活</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 场景主视觉</div><div class="img-desc">产品放置在真实室内场景中（沙发旁/地板上）。自然光。腿部模特坐在沙发上展示穿着效果。防滑袜在底部用箭头标注「防滑底」。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 模特使用场景</div><div class="img-desc">模特坐在沙发上，腿搭在茶几上，穿着产品。展示真实使用场景。抱枕做背景道具。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 防滑底部特写</div><div class="img-desc">防滑袜底部特写。模特脚抬起展示底部防滑胶点分布。用红色箭头标注防滑区域。地板场景背景。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 材质细节场景</div><div class="img-desc">面料特写，场景中拍摄。放大展示织物纹理。旁边可放一杯茶做生活道具。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 多件场景</div><div class="img-desc">多件产品在场景中展示。如沙发上叠放多条、茶几上摆放多双。展示组合搭配。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 场景包装</div><div class="img-desc">产品包装在场景中展示。如产品放在沙发旁的编织盒中。营造居家收纳场景。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>真实场景+模特使用=「所见即所得」，核价员更易认可产品实际价值</li>
+          <li>主图 3 防滑底部箭头标注是防滑袜核价的核心——直观展示防滑性能，支撑溢价</li>
+          <li>室内场景与店铺3（木纹桌面）的区别在于：店铺3是桌面小场景，店铺8是完整室内大场景</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 店铺9 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#e8f5e9,#f5f5f7)">
+      <div class="store-num" style="background:#1D9E75">9</div>
+      <div class="store-info">
+        <h3>绿植清新折叠风</h3>
+        <div class="store-meta">英国站点 · 适配品类：普通袜 / 各类袜子为主</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#e8f5e9;color:#085041">背景：浅绿/白绿渐变 #E8F5E9→#C8E6C9</span>
+        <span class="id-tag" style="background:#e8f5e9;color:#085041">角度：俯拍折叠排列</span>
+        <span class="id-tag" style="background:#e8f5e9;color:#085041">模特：无</span>
+        <span class="id-tag" style="background:#e8f5e9;color:#085041">道具：绿植盆栽+编织篮</span>
+        <span class="id-tag" style="background:#e8f5e9;color:#085041">文字：材质成分标注</span>
+        <span class="id-tag" style="background:#e8f5e9;color:#085041">色调：清新绿色</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 绿植搭配主视觉</div><div class="img-desc">产品折叠整齐放置在浅绿渐变背景上。旁边放一盆绿色盆栽做点缀。俯拍。标注材质成分（如「80%棉 18%锦纶 2%氨纶」）。清新自然感。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 编织篮展示</div><div class="img-desc">产品折叠后放入编织篮中。绿植背景。展示收纳场景感。编织篮做道具。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 材质特写</div><div class="img-desc">面料微距，绿色背景。放大展示织物纹理。旁边放一片绿叶做参照。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 尺码图</div><div class="img-desc">简洁绿色系尺码图。浅绿底深绿字。标注袜码/脚长对照。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 多件绿植排列</div><div class="img-desc">多件产品排列在绿色背景上，旁边绿植点缀。展示全色系选择。每件标注颜色名称。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 自然清新场景</div><div class="img-desc">产品在自然光下的清新场景。如窗台边、绿植旁。展示产品在清新环境中的样子。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>绿色背景暗示「环保/天然」定位，与棉袜/天然材质产品的核价提升直接相关</li>
+          <li>材质成分标注（精确百分比）是核价员评估面料成本的关键依据——标注越精确，核价越有支撑</li>
+          <li>编织篮道具是与店铺3（木托盘）、店铺4（绿植直接点缀）的核心道具差异</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 店铺10 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#f5f5f5,#f5f5f7)">
+      <div class="store-num" style="background:#5F5E5A">10</div>
+      <div class="store-info">
+        <h3>卡片简约分割风</h3>
+        <div class="store-meta">英国站点 · 适配品类：各类袜子为主，内裤辅助</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#f5f5f5;color:#2c2c2c">背景：纯白+灰色分割卡片</span>
+        <span class="id-tag" style="background:#f5f5f5;color:#2c2c2c">角度：多角度拼贴</span>
+        <span class="id-tag" style="background:#f5f5f5;color:#2c2c2c">模特：手部</span>
+        <span class="id-tag" style="background:#f5f5f5;color:#2c2c2c">道具：无</span>
+        <span class="id-tag" style="background:#f5f5f5;color:#2c2c2c">文字：数字编号+参数卡片</span>
+        <span class="id-tag" style="background:#f5f5f5;color:#2c2c2c">色调：黑白灰极简</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 多角度拼贴主图</div><div class="img-desc">纯白背景，产品从多个角度拼贴展示。每个角度用灰色分割线分隔，形成卡片式布局。每张卡片标注数字编号（1-4）。手部模特展示产品。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 细节卡片</div><div class="img-desc">产品细节用卡片式布局展示。白底灰框。每张细节卡片标注编号和说明。放大展示缝线/弹性/厚度。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 材质卡片</div><div class="img-desc">面料微距，卡片式排版。标注纱线成分/克重/支数。白底灰框。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 尺码卡片</div><div class="img-desc">尺码表用卡片式布局展示。白底灰框。数字编号标注不同尺码。清晰规范。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 组合卡片</div><div class="img-desc">多件产品用卡片式组合展示。每件一张卡片，整齐排列。白底灰框。标注编号。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 包装卡片</div><div class="img-desc">包装展示，卡片式排版。白底灰框。编号标注包装各面。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>卡片式排版=「信息规范/专业」定位，让核价员一目了然地看到所有参数</li>
+          <li>数字编号系统是区别于所有其他店铺的核心——没有任何其他店铺使用编号式文字</li>
+          <li>多角度拼贴主图在一张图内展示了正面/侧面/细节，信息密度高，核价效率高</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 美国站点 ===== -->
+<div class="section">
+  <h2 class="section-title">五、美国站点详细方案（店铺 11-15）</h2>
+
+  <!-- 店铺11 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#fff8e1,#f5f5f7)">
+      <div class="store-num" style="background:#854F0B">11</div>
+      <div class="store-info">
+        <h3>美式居家生活风</h3>
+        <div class="store-meta">美国站点 · 适配品类：加绒睡袍为主，各类辅助</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#fff8e1;color:#412402">背景：美式家居实景（客厅/卧室）</span>
+        <span class="id-tag" style="background:#fff8e1;color:#412402">角度：场景多角度</span>
+        <span class="id-tag" style="background:#fff8e1;color:#412402">模特：全身欧美</span>
+        <span class="id-tag" style="background:#fff8e1;color:#412402">道具：沙发+毯子+咖啡桌</span>
+        <span class="id-tag" style="background:#fff8e1;color:#412402">文字：场景卖点气泡（英文）</span>
+        <span class="id-tag" style="background:#fff8e1;color:#412402">色调：温暖生活</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 美式居家主视觉</div><div class="img-desc">欧美全身模特穿着产品在美式家居场景中（沙发旁/咖啡桌边）。英文场景气泡标注卖点（如「Cozy & Warm」）。温暖色调。展示美式生活方式。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 产品细节场景</div><div class="img-desc">产品细节特写，在生活场景中拍摄。如模特坐在沙发上展示袖口/领口细节。旁边有毯子做背景。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 多场景展示</div><div class="img-desc">产品在不同美式场景中展示：客厅+卧室各一张拼合。展示多场景适用性。英文气泡标注场景名称。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 材质场景特写</div><div class="img-desc">面料微距，场景中拍摄。放大展示纹理。旁边可放一杯咖啡做美式生活道具。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 多件生活化</div><div class="img-desc">多件产品在生活场景中展示。如沙发上叠放多条、咖啡桌上摆放多双。展示组合搭配。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 包装+场景</div><div class="img-desc">产品包装在生活场景中展示。如产品放在沙发旁的收纳盒中。展示居家收纳场景。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>美式场景+英文气泡=「本土化」定位，美国站核价员更有认同感，核价更友好</li>
+          <li>全身欧美模特穿着展示是美国站核价的关键——展示版型适合欧美体型，直接支撑定价</li>
+          <li>与店铺8（英国生活场景）的区别：店铺8偏英式简约室内，店铺11偏美式暖色大场景+英文文案</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 店铺12 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#f5f5f5,#f5f5f7)">
+      <div class="store-num" style="background:#444441">12</div>
+      <div class="store-info">
+        <h3>极简盒装展示风</h3>
+        <div class="store-meta">美国站点 · 适配品类：男女内裤为主，袜子辅助</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#f5f5f5;color:#2c2c2c">背景：纯白 #FFFFFF</span>
+        <span class="id-tag" style="background:#f5f5f5;color:#2c2c2c">角度：盒装组合展示</span>
+        <span class="id-tag" style="background:#f5f5f5;color:#2c2c2c">模特：无</span>
+        <span class="id-tag" style="background:#f5f5f5;color:#2c2c2c">道具：精美包装盒</span>
+        <span class="id-tag" style="background:#f5f5f5;color:#2c2c2c">文字：极简品牌名+参数</span>
+        <span class="id-tag" style="background:#f5f5f5;color:#2c2c2c">色调：极简黑白</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 产品+包装盒</div><div class="img-desc">产品与精美包装盒组合展示，纯白背景。产品半入盒/半出盒展示。极简英文品牌名+参数标注。展示盒装品质感。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 从盒中取出</div><div class="img-desc">产品从包装盒中取出的瞬间。展示开箱体验。白底。突出包装的高级感。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 包装盒特写</div><div class="img-desc">包装盒各面特写。展示包装设计、材质、印刷。白底。突出包装品质。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 材质细节</div><div class="img-desc">产品面料微距，白底。放大展示织物纹理。旁边放包装盒做参照。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 多件盒装组合</div><div class="img-desc">多件产品盒装组合展示。多个包装盒整齐排列。白底。展示套装组合。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 尺码+参数</div><div class="img-desc">极简白底尺码参数图。黑色文字。简洁规范。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>包装盒展示直接将产品从「散装」升级为「品牌装」定位——有包装=有品牌=可溢价</li>
+          <li>与店铺1（纯白平铺无包装）的区别：店铺12有包装盒道具+极简品牌名，店铺1无道具无品牌名</li>
+          <li>开箱体验图是美国站转化率最高的图片类型之一，也是核价加分项</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 店铺13 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#e0e0e0,#f5f5f7)">
+      <div class="store-num" style="background:#1A1A1A">13</div>
+      <div class="store-info">
+        <h3>专业特写暗调风</h3>
+        <div class="store-meta">美国站点 · 适配品类：防滑袜为主，各类袜子辅助</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#e0e0e0;color:#1a1a1a">背景：深灰/黑 #1A1A1A→#333333</span>
+        <span class="id-tag" style="background:#e0e0e0;color:#1a1a1a">角度：微距特写</span>
+        <span class="id-tag" style="background:#e0e0e0;color:#1a1a1a">模特：脚部底部特写</span>
+        <span class="id-tag" style="background:#e0e0e0;color:#1a1a1a">道具：无</span>
+        <span class="id-tag" style="background:#e0e0e0;color:#1a1a1a">文字：技术参数标注</span>
+        <span class="id-tag" style="background:#e0e0e0;color:#1a1a1a">色调：暗调专业</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 暗调特写主视觉</div><div class="img-desc">产品微距特写，深色背景。侧光突出面料质感和工艺细节。技术参数标注（如防滑系数/耐磨等级/克重）。暗调专业感。防滑袜展示底部胶点分布。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 防滑底部微距</div><div class="img-desc">防滑袜底部极度微距特写。展示每个防滑胶点的形状/分布密度/材质。深色背景。标注「PVC防滑点」「硅胶底」等技术参数。用标尺线标注胶点直径。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 截面微距</div><div class="img-desc">产品面料截面微距（切面展示）。展示面料层次结构（如面层+夹层+底层）。深色背景。标注每层材质。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 缝线工艺</div><div class="img-desc">缝线微距特写。展示针距/走线/加固缝。深色背景。标注「针距2mm」「双针缝制」等技术参数。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 弹性测试</div><div class="img-desc">产品拉伸状态展示。深色背景。标注「拉伸率>200%」「回弹率>98%」等技术数据。展示弹性性能。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 技术参数总表</div><div class="img-desc">技术参数总览图。深色背景白字。列出所有技术指标（克重/成分/防滑等级/弹性/耐磨等）。专业数据表风格。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>技术参数标注是核价的终极武器——数据越精确（防滑系数/克重/弹性率），核价越有依据</li>
+          <li>截面微距展示面料层次结构直接证明多层复合成本，可支撑更高核价</li>
+          <li>与店铺6（深色高级）的区别：店铺6走「品牌高级感」无文字，店铺13走「技术专业感」全数据标注</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 店铺14 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#f5efe6,#f5f5f7)">
+      <div class="store-num" style="background:#854F0B">14</div>
+      <div class="store-info">
+        <h3>文艺木质悬挂风</h3>
+        <div class="store-meta">美国站点 · 适配品类：普通袜 / 各类袜子为主，内裤辅助</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#f5efe6;color:#412402">背景：木质墙面/衣架 #C4A882</span>
+        <span class="id-tag" style="background:#f5efe6;color:#412402">角度：悬挂排列展示</span>
+        <span class="id-tag" style="background:#f5efe6;color:#412402">模特：无</span>
+        <span class="id-tag" style="background:#f5efe6;color:#412402">道具：木衣架+木夹子+复古木框</span>
+        <span class="id-tag" style="background:#f5efe6;color:#412402">文字：无文字纯视觉</span>
+        <span class="id-tag" style="background:#f5efe6;color:#412402">色调：低饱和文艺</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 木质悬挂主视觉</div><div class="img-desc">产品用木衣架/木夹子悬挂在木质墙面前。低饱和暖色调后期处理。无文字。展示产品垂坠感和文艺复古氛围。旁边可挂一个复古木框做装饰。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 多件悬挂排列</div><div class="img-desc">多件产品用木夹子整齐悬挂排列在木质墙面前。形成视觉节奏感。低饱和色调。展示多色系选择。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 材质细节</div><div class="img-desc">面料微距，木质背景。放大展示织物纹理。旁边放一小块木片做材质对比。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 尺码图</div><div class="img-desc">文艺风格尺码图。木质背景。手绘风格线框。深棕色标注。低饱和。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 木框道具搭配</div><div class="img-desc">产品与复古木框/木质道具搭配展示。木质墙面前。营造文艺画廊感。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 文艺场景全览</div><div class="img-desc">产品在文艺木质场景中的全览。木质墙面+木衣架+木夹子+复古木框。低饱和暖色调。整体氛围感。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>文艺风定位=「设计感/独特性」认知，区别于功能性展示，可支撑设计溢价</li>
+          <li>低饱和色调是区别于所有其他店铺的关键——没有任何其他店铺使用低饱和处理</li>
+          <li>与店铺4（米色布纹悬挂）的区别：店铺4是布纹背景+绿植，店铺14是木质墙面+木衣架+低饱和</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 店铺15 -->
+  <div class="store-card">
+    <div class="store-header" style="background:linear-gradient(90deg,#fff3e0,#e3f2fd,#f3e5f5)">
+      <div class="store-num" style="background:#D4537E">15</div>
+      <div class="store-info">
+        <h3>撞色创意造型风</h3>
+        <div class="store-meta">美国站点 · 适配品类：混合袜子 / 各类袜子为主</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="identity-tags">
+        <span class="id-tag" style="background:#fce4ec;color:#72243e">背景：撞色（黄+蓝 / 橙+绿 / 粉+紫）</span>
+        <span class="id-tag" style="background:#fce4ec;color:#72243e">角度：创意造型</span>
+        <span class="id-tag" style="background:#fce4ec;color:#72243e">模特：手部+腿部组合</span>
+        <span class="id-tag" style="background:#fce4ec;color:#72243e">道具：无</span>
+        <span class="id-tag" style="background:#fce4ec;color:#72243e">文字：趣味英文标语</span>
+        <span class="id-tag" style="background:#fce4ec;color:#72243e">色调：高饱和撞色</span>
+      </div>
+      <div class="img-grid">
+        <div class="img-card"><div class="img-label">主图 1 - 撞色创意主视觉</div><div class="img-desc">产品在撞色背景前创意展示（如黄+蓝色块分割）。产品折叠成创意造型（袜子折成心形/花朵）。趣味英文标语（如「Sock Game Strong!」）。高饱和色调。</div></div>
+        <div class="img-card"><div class="img-label">主图 2 - 模特撞色展示</div><div class="img-desc">手部+腿部模特组合展示产品。撞色背景。手拿产品+脚穿产品同时展示。趣味英文文案。高饱和。</div></div>
+        <div class="img-card"><div class="img-label">主图 3 - 创意排列图案</div><div class="img-desc">多双产品排列成创意图案（如彩虹/花朵/几何图形）。撞色背景。展示创意和趣味性。高饱和色调。</div></div>
+        <div class="img-card"><div class="img-label">主图 4 - 材质撞色</div><div class="img-desc">面料微距，撞色背景。放大展示织物纹理。高饱和色调。趣味文案标注材质特点。</div></div>
+        <div class="img-card"><div class="img-label">主图 5 - 多色撞色组合</div><div class="img-desc">多色产品在撞色背景前展示。色彩碰撞效果。展示全色系选择。趣味颜色名称标注。</div></div>
+        <div class="img-card"><div class="img-label">主图 6 - 趣味场景</div><div class="img-desc">产品在趣味场景中展示。如产品在撞色背景前摆出有趣造型。高饱和色调。趣味英文文案。展示品牌个性。</div></div>
+      </div>
+      <div class="tips-box" style="margin-top:16px">
+        <h4>核价提升要点</h4>
+        <ul>
+          <li>创意造型+撞色=「设计品牌」定位，跳出功能性竞争，走设计溢价路线</li>
+          <li>趣味英文标语是与店铺5（气泡卖点）和店铺11（场景气泡）的文字风格差异——走口语化/趣味化路线</li>
+          <li>高饱和撞色是所有店铺中唯一使用的色调风格，AI 比价系统几乎不可能将其与其他店铺关联</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: 核价提升综合策略 -->
+<div class="section">
+  <h2 class="section-title">六、核价提升综合策略（全店铺通用）</h2>
+  <p class="section-desc">以下策略适用于所有 15 个店铺，请结合各店铺的视觉风格一并执行。</p>
+  
+  <div class="tips-box">
+    <h4>策略一：通过图片展示「产品升级点」拉高核价</h4>
+    <ul>
+      <li>睡袍：主图必须展示绒面厚度（微距侧拍绒毛密度）+ 克重标注（如「280g/㎡ 加厚」）</li>
+      <li>内裤：主图必须展示腰头弹性（拉伸对比图）+ 裆部双层加固特写</li>
+      <li>防滑袜：主图必须展示底部胶点分布（微距+箭头标注）+ 防滑等级标注</li>
+      <li>普通袜：主图必须展示袜口弹性（拉伸展示）+ 脚尖无骨缝制特写</li>
+    </ul>
+  </div>
+  
+  <div class="tips-box">
+    <h4>策略二：通过图片展示「附加值」突破核价天花板</h4>
+    <ul>
+      <li>精美包装展示：在主图中加入包装盒/礼盒元素（店铺6、12已规划），将产品从「散装」升级为「品牌装」</li>
+      <li>认证标识展示：在主图中加入 OEKO-TEX / CE / SGS 等认证标识（店铺7已规划），直接证明品质标准</li>
+      <li>尺码对照表：提供国际尺码对照（EU/UK/US），展示专业度</li>
+      <li>多件组合展示：展示3件装/5件装组合，提升客单价感知</li>
+    </ul>
+  </div>
+  
+  <div class="tips-box">
+    <h4>策略三：通过场景化展示提升「感知价值」</h4>
+    <ul>
+      <li>生活场景 > 纯白底：有场景的图片核价更高（店铺3、8、11已规划）</li>
+      <li>模特穿着 > 纯产品：有模特的图片核价更高（店铺5、6、11已规划）</li>
+      <li>暗调高级 > 明亮普通：暗调后期处理的产品看起来更贵（店铺6、13已规划）</li>
+      <li>技术参数 > 无参数：有技术标注的图片核价依据更充分（店铺13已规划）</li>
+    </ul>
+  </div>
+  
+  <div class="tips-box">
+    <h4>策略四：SKU 与标题差异化（配合图片差异化）</h4>
+    <ul>
+      <li>不同店铺的同一产品必须使用不同的 SKU 编码体系</li>
+      <li>产品标题关键词差异化：如「加绒睡袍」vs「保暖浴袍」vs「冬季家居服」vs「法兰绒晨衣」</li>
+      <li>卖点描述侧重点不同：如店铺1侧重参数、店铺13侧重技术、店铺15侧重创意</li>
+      <li>副图排列顺序不同：即使内容相似，6张图的排列顺序也要打乱</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 7: 执行清单 -->
+<div class="section">
+  <h2 class="section-title">七、执行清单（按优先级排序）</h2>
+  <div class="checklist">
+    <ol>
+      <li><strong>第一步（1-2天）：</strong>对照本方案，确认每个店铺的视觉风格定位，将 15 个店铺的当前风格与本方案逐一比对，标记需要改图的店铺</li>
+      <li><strong>第二步（3-5天）：</strong>按店铺编号顺序，先改主图1（主视觉图），这是流量入口最重要的一张图</li>
+      <li><strong>第三步（5-10天）：</strong>改主图2-3，补充产品细节和材质展示，提升核价支撑</li>
+      <li><strong>第四步（10-15天）：</strong>改主图4-6，完善尺码/场景/包装展示</li>
+      <li><strong>第五步（持续）：</strong>同步更新 SKU 编码、产品标题关键词、卖点描述，确保全维度差异化</li>
+      <li><strong>第六步（每周）：</strong>监控各店铺流量变化，对核价仍偏低的店铺加强技术参数标注和场景化升级</li>
+      <li><strong>关键提醒：</strong>改图后务必检查 AI 比价是否仍将不同店铺关联为「同款」——如仍关联，说明差异化程度不够，需在更多维度上拉开差距</li>
+    </ol>
+  </div>
+</div>
+
+<!-- SECTION 8: 差异化检查表 -->
+<div class="section">
+  <h2 class="section-title">八、店铺间差异化自查表</h2>
+  <p class="section-desc">改图完成后，用此表检查任意两个店铺之间是否满足差异化要求。任意两店铺在以下 6 项中至少 4 项不同才算合格。</p>
+  <div class="matrix-wrap">
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>检查项</th>
+          <th>合格标准</th>
+          <th>不合格风险</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>背景色系</td><td>色值差异肉眼可辨</td><td>AI 比价系统直接关联为同款</td></tr>
+        <tr><td>拍摄角度</td><td>俯拍/平视/斜角/特写完全不同</td><td>图片结构相似，AI 识别为同款</td></tr>
+        <tr><td>模特类型</td><td>无/手部/脚部/全身完全不同</td><td>人体特征相似，AI 识别为同款</td></tr>
+        <tr><td>道具搭配</td><td>道具种类完全不同</td><td>道具相同，AI 识别为同款</td></tr>
+        <tr><td>文字风格</td><td>无字/参数/标签/编号完全不同</td><td>文字布局相似，AI 识别为同款</td></tr>
+        <tr><td>色调处理</td><td>暖/冷/暗/高饱和/低饱和完全不同</td><td>色调相似，AI 识别为同款</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Temu 半托管 15 店铺改图差异化方案 · 欧盟/英国/美国三站点全品类覆盖</p>
+  <p>每店 6 张主图详细方案 · 6 大差异化维度 · 核价提升策略 · 执行清单</p>
+</div>
+
+</div>
+
+</body>
+</html>

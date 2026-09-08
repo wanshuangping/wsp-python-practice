@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>加绒睡袍改图指令手册 · ChatGPT 直用版（15店铺×6图=90条指令）</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f4f6f8; color: #1d1d1f; line-height: 1.65; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 36px 24px 80px; }
+
+  .hero { background: linear-gradient(135deg, #4a1a3a 0%, #7a2d4e 50%, #a8446b 100%); color: #fff; padding: 44px 40px; border-radius: 16px; margin-bottom: 32px; }
+  .hero h1 { font-size: 27px; font-weight: 800; margin-bottom: 10px; }
+  .hero .subtitle { font-size: 14.5px; color: #f0c8d8; margin-bottom: 22px; }
+  .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero-badge { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); padding: 5px 13px; border-radius: 20px; font-size: 12.5px; }
+
+  .section { margin-bottom: 44px; }
+  .section-title { font-size: 21px; font-weight: 800; margin-bottom: 8px; padding-bottom: 12px; border-bottom: 2px solid #dde3e8; }
+  .section-desc { font-size: 13.5px; color: #5c6670; margin-bottom: 20px; }
+
+  .howto { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 14px; }
+  .howto-card { background: #fff; border-radius: 12px; padding: 18px 20px; border: 1px solid #e5e9ee; border-top: 4px solid #7a2d4e; }
+  .howto-card .step { font-size: 11px; font-weight: 800; color: #7a2d4e; letter-spacing: 1px; }
+  .howto-card h4 { font-size: 15px; font-weight: 700; margin: 4px 0 6px; }
+  .howto-card p { font-size: 12.5px; color: #555; }
+  .howto-card code { background: #eef3f7; padding: 1px 6px; border-radius: 4px; font-size: 11.5px; color: #0f4d6e; }
+
+  .store-card { background: #fff; border-radius: 16px; overflow: hidden; margin-bottom: 26px; border: 1px solid #e5e9ee; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .store-header { padding: 18px 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid #eef1f4; }
+  .store-num { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: #fff; flex-shrink: 0; }
+  .store-info { flex: 1; min-width: 180px; }
+  .store-info h3 { font-size: 17px; font-weight: 800; }
+  .store-info .store-meta { font-size: 11.5px; color: #888; margin-top: 2px; }
+  .style-chip { background: #f7eef2; border: 1px solid #e8cdd9; color: #7a2d4e; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 16px; }
+  .store-body { padding: 20px 24px 24px; }
+
+  .prompt { background: #f7fafc; border: 1px solid #e2eaf0; border-left: 4px solid #7a2d4e; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; position: relative; }
+  .prompt .p-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .prompt .p-label { font-size: 12.5px; font-weight: 800; color: #2a0f20; }
+  .prompt .p-src { font-size: 11px; color: #6b7785; background: #e8eef3; padding: 2px 8px; border-radius: 10px; }
+  .prompt .p-text { font-size: 13px; color: #2a3540; line-height: 1.75; }
+  .prompt .p-text b { color: #7a2d4e; }
+  .copy-btn { position: absolute; top: 12px; right: 12px; background: #7a2d4e; color: #fff; border: none; border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer; font-weight: 600; }
+  .copy-btn:hover { background: #5f2240; }
+  .copied { background: #1d9e75 !important; }
+
+  .matrix-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid #e5e9ee; margin-bottom: 26px; }
+  table.matrix { width: 100%; border-collapse: collapse; background: #fff; font-size: 11.5px; min-width: 940px; }
+  table.matrix th { background: #4a1a3a; color: #fff; padding: 9px 7px; text-align: center; font-weight: 600; white-space: nowrap; }
+  table.matrix td { padding: 7px 6px; text-align: center; border-bottom: 1px solid #f0f2f4; border-right: 1px solid #f0f2f4; }
+  table.matrix tr:hover { background: #f7fafc; }
+  .market-eu { background: #e6f1fb !important; color: #0c447c; font-weight: 700; }
+  .market-uk { background: #f0eaf7 !important; color: #3c3489; font-weight: 700; }
+  .market-us { background: #e1f5ee !important; color: #085041; font-weight: 700; }
+
+  .sw { display: inline-block; width: 13px; height: 13px; border-radius: 3px; vertical-align: -2px; margin-right: 4px; border: 1px solid rgba(0,0,0,0.12); }
+
+  .tips-box { background: #fff8e1; border: 1px solid #ffe082; border-radius: 12px; padding: 18px 22px; margin-bottom: 16px; }
+  .tips-box h4 { font-size: 14.5px; font-weight: 700; margin-bottom: 8px; color: #854f0b; }
+  .tips-box ul { list-style: none; }
+  .tips-box li { font-size: 12.5px; color: #5d4037; margin-bottom: 5px; padding-left: 18px; position: relative; }
+  .tips-box li::before { content: "→"; position: absolute; left: 0; color: #b08020; }
+
+  .checklist { background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #e5e9ee; }
+  .checklist ol { padding-left: 20px; }
+  .checklist li { font-size: 13px; margin-bottom: 8px; color: #333; }
+
+  .copy-zone { background: #4a1a3a; color: #f0c8d8; border-radius: 10px; padding: 13px 18px; font-size: 12.5px; margin-top: 10px; line-height: 1.8; }
+  .copy-zone b { color: #fff; }
+
+  .footer { text-align: center; padding: 30px; color: #99a3ad; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <h1>加绒睡袍 · 改图指令手册</h1>
+  <p class="subtitle">ChatGPT 直用版 · 15 个店铺 × 6 张主图 = 90 条可复制指令 · 每条指令包含具体色值、角度、构图、文字与色调参数</p>
+  <div class="hero-badges">
+    <span class="hero-badge">90 条指令</span>
+    <span class="hero-badge">复制 → 粘贴 → 出图</span>
+    <span class="hero-badge">每店视觉完全独立</span>
+    <span class="hero-badge">规避 AI 比价限流</span>
+  </div>
+</div>
+
+<!-- 怎么用 -->
+<div class="section">
+  <h2 class="section-title">零、3 步用法（先读这个）</h2>
+  <p class="section-desc">你把任意一张加绒睡袍原图发给 ChatGPT，再复制对应店铺对应主图的指令贴给它，它就能按指令改出一张与其他店铺完全不同的图。</p>
+  <div class="howto">
+    <div class="howto-card">
+      <div class="step">STEP 1</div>
+      <h4>选原图</h4>
+      <p>从你手头的睡袍原图（平铺图 / 挂拍图 / 模特图 / 细节图）里挑一张上传给 ChatGPT。每条指令开头标注「基于原图」作为建议，可混用。</p>
+    </div>
+    <div class="howto-card">
+      <div class="step">STEP 2</div>
+      <h4>复制指令</h4>
+      <p>找到对应店铺（店1~店15）的对应主图（主图1~主图6），点指令右上角的「复制」，整段贴到 ChatGPT 对话框。</p>
+    </div>
+    <div class="howto-card">
+      <div class="step">STEP 3</div>
+      <h4>微调出图</h4>
+      <p>ChatGPT 出图后不满意，追加一句即可：<code>睡袍再蓬松一点</code>、<code>背景换成米色</code>、<code>去掉文字</code>。每店固定用同一套指令，不要跨店混用。</p>
+    </div>
+    <div class="howto-card">
+      <div class="step">STEP 4</div>
+      <h4>同步改文案</h4>
+      <p>每店底部有一段「SKU + 标题关键词」参考，改图时把店铺链接里的 SKU 和标题也一并换掉，图+文+编码三层不同，平台才无法关联。</p>
+    </div>
+  </div>
+  <div class="tips-box" style="margin-top:18px">
+    <h4>⚠️ 用前必看 3 条红线</h4>
+    <ul>
+      <li>同一张原图在 15 个店必须「水平翻转 + 裁切比例 + 调色」三样至少做两样，直接发原图 = 白改</li>
+      <li>睡袍核心卖点词 15 店不能重复：Fluffy / Plush / Cozy / Snug / Fleece / Premium / Thermal / Warmth / Soft-Fleece / Warm-Grade / CozyWarm / MorningGlow / ThermoSoft / Heritage / CloudWarm（按店分配）</li>
+      <li>每条指令里的 <b>色值 / 角度 / 文字</b> 参数别乱换，那是每店独有的视觉指纹</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 15店总览 -->
+<div class="section">
+  <h2 class="section-title">一、15 店改图配方总览（一图看懂差异）</h2>
+  <p class="section-desc">每个店铺的「底色 + 主角度 + 卖点表达 + 文字风格」四项组合全不同，这是 90 条指令背后的骨架。</p>
+  <div class="matrix-wrap">
+    <table class="matrix">
+      <thead>
+        <tr><th>店铺</th><th>站点</th><th>底色方案</th><th>主角度</th><th>卖点表达</th><th>文字风格</th><th>核心卖点词</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="market-eu">1</td><td class="market-eu">欧盟</td><td><span class="sw" style="background:#ffffff;border:1px solid #ccc"></span>纯白</td><td>90°俯拍平铺</td><td>里绒特写+箭头</td><td>极简参数</td><td>Fluffy</td></tr>
+        <tr><td class="market-eu">2</td><td class="market-eu">欧盟</td><td><span class="sw" style="background:linear-gradient(135deg,#e8e8e8,#b0b0b0)"></span>灰渐变</td><td>45°斜角挂拍</td><td>面料分层示意</td><td>卖点标签</td><td>Plush</td></tr>
+        <tr><td class="market-eu">3</td><td class="market-eu">欧盟</td><td><span class="sw" style="background:#e3c9a0"></span>浅木纹</td><td>平视坐姿</td><td>抱杯暖手动作</td><td>无文字</td><td>Cozy</td></tr>
+        <tr><td class="market-eu">4</td><td class="market-eu">欧盟</td><td><span class="sw" style="background:#f5f0e8"></span>米色布纹</td><td>悬挂展示</td><td>里绒翻转对比</td><td>底部参数</td><td>Snug</td></tr>
+        <tr><td class="market-eu">5</td><td class="market-eu">欧盟</td><td><span class="sw" style="background:linear-gradient(135deg,#a8c8e8,#e8c8d8)"></span>莫兰迪渐变</td><td>全身模特</td><td>慵懒包裹姿态</td><td>气泡卖点</td><td>Fleece</td></tr>
+        <tr><td class="market-uk">6</td><td class="market-uk">英国</td><td><span class="sw" style="background:#2b2b33"></span>深灰黑</td><td>暗调侧光</td><td>里绒微距+光晕</td><td>认证标识</td><td>Premium</td></tr>
+        <tr><td class="market-uk">7</td><td class="market-uk">英国</td><td><span class="sw" style="background:#1d2f4f"></span>藏青布纹</td><td>俯拍展开</td><td>绒面纹理放大</td><td>认证标识</td><td>Thermal</td></tr>
+        <tr><td class="market-uk">8</td><td class="market-uk">英国</td><td><span class="sw" style="background:#d9c9b4"></span>米色室内</td><td>生活场景</td><td>裹紧身体示意</td><td>保暖箭头</td><td>Warmth</td></tr>
+        <tr><td class="market-uk">9</td><td class="market-uk">英国</td><td><span class="sw" style="background:#dcefe3"></span>浅绿渐变</td><td>创意折叠</td><td>温度计保暖示意</td><td>材质标注</td><td>Soft-Fleece</td></tr>
+        <tr><td class="market-uk">10</td><td class="market-uk">英国</td><td><span class="sw" style="background:#fafafa"></span>白底卡片</td><td>多角度拼贴</td><td>四宫格对比</td><td>数字编号</td><td>Warm-Grade</td></tr>
+        <tr><td class="market-us">11</td><td class="market-us">美国</td><td><span class="sw" style="background:#d8cfc0"></span>美式家居</td><td>沙发场景</td><td>裹毯喝咖啡对比</td><td>英文气泡</td><td>CozyWarm</td></tr>
+        <tr><td class="market-us">12</td><td class="market-us">美国</td><td><span class="sw" style="background:#ffffff"></span>盒装白底</td><td>盒装组合</td><td>开箱见绒</td><td>品牌大字</td><td>MorningGlow</td></tr>
+        <tr><td class="market-us">13</td><td class="market-us">美国</td><td><span class="sw" style="background:#1a1a1f"></span>纯黑特写</td><td>微距面料</td><td>绒粒颗粒放大</td><td>技术参数</td><td>ThermoSoft</td></tr>
+        <tr><td class="market-us">14</td><td class="market-us">美国</td><td><span class="sw" style="background:#c9b8a2"></span>木质墙面</td><td>悬挂展示</td><td>翻面悬挂</td><td>复古标语</td><td>Heritage</td></tr>
+        <tr><td class="market-us">15</td><td class="market-us">美国</td><td><span class="sw" style="background:linear-gradient(135deg,#ffd166,#ef476f)"></span>撞色</td><td>创意造型</td><td>绒面拼字</td><td>趣味标语</td><td>CloudWarm</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 店铺 1 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#378ADD">1</div>
+    <div class="store-info">
+      <h3>店铺 1 · 欧盟站</h3>
+      <div class="store-meta">底色：纯白 #FFFFFF ｜ 角度：90°俯拍平铺 ｜ 卖点词：Fluffy ｜ 文字：极简参数</div>
+    </div>
+    <span class="style-chip">极简白底平铺系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">把睡袍平铺图背景替换成<b>纯白色 #FFFFFF</b>，去掉阴影和道具。睡袍<b>正面朝上完整展开</b>，占画面 <b>75%</b>，<b>90°俯拍</b>，腰带自然摆成一条直线。袍身一侧掀起小角露出<b>加绒里料</b>。画面右下角加一行小字 <b>"Fluffy Fleece Robe"</b>，深灰色细体，字号为画面宽度 3.5%。整体高曝光、低对比，冷白调，饱和度 -10%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>袍身里绒局部</b>裁剪放大，背景纯白。用<b>红色弧形箭头</b>指向绒面，旁边标注 <b>"Soft Fleece Lining"</b> 小字，灰色 #666。画面底部加一行参数：<b>"100% Polyester Fleece"</b>。冷白调，锐度 +20%，绒面纤维根根可见。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">保留模特穿着画面，但把背景用 AI 换成<b>纯白摄影棚</b>，地面加轻微<b>倒影</b>。模特穿睡袍站立正面入镜，腰带系好。画面顶部加一行无衬线字 <b>"Fluffy"</b>，深灰 #333，字号为画面宽度 6%。整体高调明亮、干净冷白。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍平铺，背景纯白。画面左侧加<b>竖向尺码条</b>：<b>S/M/L/XL</b> 四段，细线框。右上角标注材质图标+文字 <b>"Fleece Lined"</b>。90°俯拍，冷白调，留白多一点（睡袍占 58%）。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍<b>并排平铺成 1×3 网格</b>（浅灰/粉/蓝），每件独立一格，背景纯白，间距均匀。每格右下角标色号 <b>C01/C02/C03</b> 小字。底部加两行极简参数：<b>"3 Colors"</b> 和 <b>"Machine Washable"</b>，灰色 #666。90°俯拍，冷白调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左侧普通薄睡袍面料（灰白、无绒），右侧本产品绒面（蓬松厚实），中间用 <b>红色 X 和绿色 ✓</b> 对比。背景纯白。底部加一行小字 <b>"Fluffy Inside, Warm Outside"</b>。冷白调，干净。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> EU01-FLY-WHT-M ｜ <b>标题关键词：</b> Fluffy Fleece Robe, Women Warm Bathrobe, Cozy Winter Robe ｜ <b>卖点词：</b> Fluffy（本店专用，其他店勿用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 2 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#7F77DD">2</div>
+    <div class="store-info">
+      <h3>店铺 2 · 欧盟站</h3>
+      <div class="store-meta">底色：灰渐变 #E8E8E8→#B0B0B0 ｜ 角度：45°斜角挂拍 ｜ 卖点词：Plush ｜ 文字：卖点标签</div>
+    </div>
+    <span class="style-chip">灰调质感渐变系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：挂拍图</span></div>
+      <div class="p-text">背景换成<b>浅灰到深灰径向渐变</b>（#E8E8E8 中心 → #B0B0B0 边缘）。睡袍改为<b>45°斜角挂拍</b>：挂在<b>哑光黑色衣架</b>上，衣架杆从画面右上角斜入，睡袍自然垂坠，袍角微掀露出里绒。画面左侧叠一个<b>半透明圆形标签</b>写 <b>"Plush"</b> 白色粗体。冷灰调，对比度 +15%，饱和度 -20%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">做<b>「面料分层」示意</b>：画面左侧是睡袍外层（顺滑面），右侧是掀开的里绒层，中间用<b>弧形箭头</b>连接表示「外层防泼、里层蓄暖」。背景灰渐变。下方加卖点标签胶囊：<b>"Plush Inside"</b>、<b>"Smooth Outside"</b> 两条。冷灰调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">背景调成<b>冷灰色调</b>，模特穿睡袍侧身站姿，一只手插口袋、另一只手轻提袍领。画面加 <b>45° 侧光</b>，让绒面产生高光层次。左上角加小标签 <b>"Plush Comfort"</b>。整体冷调质感偏商务。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：挂拍图</span></div>
+      <div class="p-text">睡袍挂拍，背景灰渐变。下方加一条<b>横向信息栏</b>（灰色半透明底）：<b>Size S-XXL</b> ｜ <b>Material: Fleece+Woven</b> ｜ <b>Wash: 30°C</b>，白色小字。45°斜角挂拍，冷灰调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍<b>从浅到深排成一行挂拍</b>（灰、粉、深蓝），前后错落有层次，背景灰渐变。下方加卖点胶囊一排：<b>"3 Colors" / "Plush" / "Breathable"</b>。冷灰调，商品感强。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边普通薄绒在灰背景上呈<b>扁塌</b>效果，右边本产品绒面<b>蓬松立体</b>，中间斜向虚线分隔。左红字 <b>"Thin"</b>，右绿字 <b>"Plush"</b>。背景灰渐变，冷调。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> EU02-PLS-GRY-M ｜ <b>标题关键词：</b> Plush Bathrobe, Warm Fleece Robe Men, Premium Cozy Robe ｜ <b>卖点词：</b> Plush（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 3 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#D85A30">3</div>
+    <div class="store-info">
+      <h3>店铺 3 · 欧盟站</h3>
+      <div class="store-meta">底色：浅木纹 #E3C9A0 ｜ 角度：平视坐姿 ｜ 卖点词：Cozy ｜ 文字：无文字</div>
+    </div>
+    <span class="style-chip">木纹桌面温馨系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">场景改为<b>浅原木色家居</b>：模特穿睡袍<b>坐在木质餐椅上</b>，旁边是浅木桌面（#E3C9A0），桌上放一杯冒热气的<b>马克杯</b>，模特双手<b>捧杯暖手</b>，睡袍衣襟自然敞开露出里绒。窗光柔和。<b>不加任何文字</b>。暖色调，色温 5800K，饱和度 +5%，温馨居家感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>衣领翻边处里绒</b>特写，背景浅木纹。模特手部入镜，手指<b>轻轻抓揉绒面</b>（表现柔软）。暖光从窗口方向照入。<b>无文字</b>。暖色调，自然光，绒面蓬松感强。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">改成<b>早晨起床场景</b>：床边浅木床头柜上放咖啡，模特穿睡袍<b>坐在床沿</b>，双腿垂下，睡袍下摆微垂，脚踩毛绒拖鞋。背景虚化出窗帘透进的晨光。暖色调，自然光。<b>无文字</b>。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍平铺在<b>浅木桌面</b>上，旁边摆<b>一杯热茶和一本书</b>做道具。画面自然不做文字标注（或极小木质标签牌手写体 <b>"Soft & Cozy"</b>）。暖色调，俯拍 50°，自然窗光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍<b>叠放成堆</b>放在浅木桌上，旁边散落几颗松果和一条针织毯，最上面一件的衣领翻出里绒。<b>无文字</b>。暖调，俯拍 45°，柔和自然光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">同一件睡袍，左边穿在<b>寒冷感的灰暗环境</b>（模特缩肩），右边在<b>温暖木色环境</b>（模特舒展微笑），中间暖色光带分隔。<b>无文字</b>，纯画面表达「一件睡袍=两种冬天」。暖色调。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> EU03-CZY-BRN-L ｜ <b>标题关键词：</b> Cozy Fleece Robe, Warm Bathrobe for Women, Soft Home Robe ｜ <b>卖点词：</b> Cozy（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 4 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#1D9E75">4</div>
+    <div class="store-info">
+      <h3>店铺 4 · 欧盟站</h3>
+      <div class="store-meta">底色：米色布纹 #F5F0E8 ｜ 角度：悬挂展示 ｜ 卖点词：Snug ｜ 文字：底部参数</div>
+    </div>
+    <span class="style-chip">米色布纹自然系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：挂拍图</span></div>
+      <div class="p-text">背景换成<b>米色亚麻布纹</b>（#F5F0E8，细腻织纹肌理）。睡袍改为<b>悬挂展示</b>：挂在<b>原木色木质衣架</b>上，衣架悬挂在画面中心，睡袍自然垂坠，<b>袍身一侧翻起露出里绒</b>。衣架上方点缀<b>一片干花或尤加利叶</b>。画面下方加一行小字 <b>"Snug Fleece"</b>，卡其色 #8a7a5c。米色自然调，暖光，饱和度 -10%，布纹肌理明显。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>袍身里绒</b>特写，画面右下角放大一个<b>圆形局部框</b>圈出绒面纤维细节。局部框旁标注 <b>"Snug Fleece"</b>，米棕色 #7a6a4f。背景米色布纹，暖调自然光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">模特穿睡袍坐在<b>米色亚麻布艺沙发上</b>，旁边放<b>一杯热茶和一本书</b>，脚边趴一只猫（或用毛绒玩偶替代）。睡袍领口微敞露出里绒。暖光，背景虚化。右下角加一行小字 <b>"Cozy & Snug"</b>，浅棕色。米色调，自然舒适。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍平铺在<b>米色亚麻布</b>上，袖口卷边展示厚度。画面下方加<b>一行小字参数</b>：<b>"S-XL ｜ Fleece 100% ｜ Winter Warm"</b>，米棕色 #7a6a4f。俯拍 90°，暖调自然光，布纹背景。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍<b>一排悬挂在原木色衣架上</b>（像衣橱陈列），颜色交替排列，领口统一翻出里绒。背景米色布纹，左下角放一小盆绿植。加一行小字 <b>"3 Colors"</b>。暖调自然光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">两块面料并排放在米色布纹上：左边普通薄绒（扁塌），右边本产品绒面（蓬松），旁边用<b>细线标注</b>：本产品侧写 <b>"Snug"</b>、普通侧写 <b>"Thin"</b>（米棕色小字）。暖调自然光。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> EU04-SNG-NAT-XL ｜ <b>标题关键词：</b> Snug Fleece Robe, Natural Cotton Bathrobe, Warm Home Robe ｜ <b>卖点词：</b> Snug（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 5 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#EF9F27">5</div>
+    <div class="store-info">
+      <h3>店铺 5 · 欧盟站</h3>
+      <div class="store-meta">底色：莫兰迪渐变 ｜ 角度：全身模特 ｜ 卖点词：Fleece ｜ 文字：气泡卖点</div>
+    </div>
+    <span class="style-chip">渐变彩色活力系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">整体改为<b>莫兰迪渐变背景</b>（#A8C8E8 淡蓝 → #E8C8D8 淡粉，斜向渐变）。<b>全身模特</b>穿睡袍居中站立，做<b>慵懒包裹姿态</b>（双手交叉抱臂，衣襟裹紧，像被自己抱住）。画面叠 2 个<b>圆形气泡标签</b>：<b>"Fleece Warm"</b> 和 <b>"Cloud Soft"</b>，白色圆底灰字。整体清新活力，明度偏高，饱和度 +10%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取里绒特写，背景莫兰迪渐变。绒面区域用<b>浅蓝色圆角框描边</b>，旁边气泡标注 <b>"Fleece"</b>。画面底部加一行活泼字体 <b>"Wrap yourself in softness"</b>，深灰。整体清新，明快。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">模特在莫兰迪渐变背景中做<b>旋转裙摆/袍摆飞扬</b>的动态姿势，睡袍下摆扬起，露出里绒。加气泡 <b>"Twirl into warmth"</b>。清新活力色调，明快。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍平铺，背景莫兰迪渐变。袍身旁加<b>彩色小圆点</b>（对应色号）。下方加一行小字 <b>"Size S-XL ｜ Fleece ｜ Warm"</b>。清新明快，俯拍。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍以<b>扇形排列</b>展开（像扑克扇面），衣领统一朝外翻出里绒。背景莫兰迪渐变。中间加一个大气泡 <b>"3 Colors × Fleece"</b>。整体活泼，高明度。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">双画面上下对比：上方普通睡袍穿在模特身上<b>扁塌不保暖</b>（模特抱臂发抖），下方本产品<b>蓬松包裹</b>（模特微笑舒展）。分隔线用彩色斜线。上下各加气泡：<b>"Brr..."</b> 和 <b>"Ahh..."</b>。背景莫兰迪渐变，清新活力。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> EU05-FLC-PNK-M ｜ <b>标题关键词：</b> Fleece Robe Women, Soft Warm Bathrobe, Cute Winter Robe ｜ <b>卖点词：</b> Fleece（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 6 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#2b2b33">6</div>
+    <div class="store-info">
+      <h3>店铺 6 · 英国站</h3>
+      <div class="store-meta">底色：深灰黑 #2B2B33 ｜ 角度：暗调侧光 ｜ 卖点词：Premium ｜ 文字：认证标识</div>
+    </div>
+    <span class="style-chip">深色高级质感系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：挂拍图</span></div>
+      <div class="p-text">背景换成<b>深灰黑色 #2B2B33</b>，用<b>单束侧光</b>（左上方 45° 打光）照亮睡袍，其他区域陷入暗影。睡袍挂在<b>黑色哑光衣架</b>上，领口翻出的绒面在侧光下产生明显高光。画面左上角加 <b>金色认证徽章</b>（圆形，写 "Premium"）。整体暗调高级感，对比度 +25%，饱和度 -15%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>里绒微距特写</b>，深色背景。用<b>一束顶光</b>打在绒面上，绒纤维呈<b>丝绒般的立体光泽</b>。画面下方加一行细体白字 <b>"Premium Fleece · Double Layer"</b>。暗调高级，微距锐利。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">模特穿睡袍站在<b>深色大理石墙面</b>前，一束<b>聚光灯</b>从上方打下来形成圆形光斑，模特手端一杯红酒（或高脚杯）。背景全暗。左上角加金色小字 <b>"Premium"</b>。整体黑金色调，奢华高级。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍平铺在深色石板上，侧光照明。右下角加<b>极简参数</b>（细体白字）：<b>"S-XXL ｜ Fleece Rich ｜ Dry Clean"</b>。暗调，留白多，高级感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍装在<b>黑色礼盒</b>里，盒盖打开一半，睡袍整齐叠放，最上面一件领口翻出绒面。侧光照明，盒内衬黑色绒布。右下角加金字 <b>"3 Pairs · Premium"</b>（睡袍改 "3 Colors"）。黑金暗调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">深色石板上左右对比：左边普通薄绒（暗光、扁塌），右边本产品绒面（被光打亮、蓬松）。中间金色分隔线。下方加一行金字 <b>"Built for Warmth"</b>。黑金暗调，高级感。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> UK06-PRM-BLK-M ｜ <b>标题关键词：</b> Premium Fleece Robe, Luxury Bathrobe, Hotel Style Robe ｜ <b>卖点词：</b> Premium（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 7 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#1d2f4f">7</div>
+    <div class="store-info">
+      <h3>店铺 7 · 英国站</h3>
+      <div class="store-meta">底色：藏青布纹 #1D2F4F ｜ 角度：俯拍展开 ｜ 卖点词：Thermal ｜ 文字：认证标识</div>
+    </div>
+    <span class="style-chip">藏青布纹商务系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景换成<b>藏青色粗布纹</b>（#1D2F4F，有明显织物纹理）。睡袍<b>90°俯拍完整展开</b>平铺在布面上，腰带整齐摆直，<b>一侧袍身掀开露出整片里绒</b>。右上角加<b>白色圆形认证印章</b>（写 "Thermal Certified"）。左下角加一行白色小字 <b>"Thermal Fleece Robe"</b>。商务沉稳，冷色调，对比度 +15%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>绒面纹理放大图</b>（占画面 70%），藏青布纹背景。绒面区域加<b>白色点状标注线</b>连接白色小字 <b>"Thermal Fleece"</b>。右下角加<b>白色认证对勾徽章</b>。商务冷调，清晰锐利。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">背景调成<b>藏青色+冷调</b>，模特穿睡袍正面站立，双手插口袋，画面冷调处理，窗光偏冷白。右下角加白色小字 <b>"Thermal for Winter"</b>。商务冷静感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍平铺展开，藏青布纹背景。下方加一条<b>白色信息条</b>：<b>"Size: S-XXL"</b> ｜ <b>"Fleece+Woven"</b> ｜ <b>"Tested -10°C"</b>。90°俯拍，商务冷调，布局规整。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍<b>整齐平铺成 2 行</b>（每行 3 件），衣领统一翻出里绒，藏青布纹背景。每件下方标白色小字色号 <b>A/B/C</b>。右下角加白色徽章 <b>"3 Colors"</b>。商务感，规整冷调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边普通睡袍面料（灰白、无绒）打上<b>红色 X</b>，右边本产品绒面（蓬松藏青）打上<b>白色对勾</b>。背景藏青布纹。底部加白色小字 <b>"Thermal vs Thin"</b>。商务冷调。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> UK07-THM-NAV-L ｜ <b>标题关键词：</b> Thermal Fleece Robe, Winter Warm Bathrobe Men, Insulated Robe ｜ <b>卖点词：</b> Thermal（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 8 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#b08968">8</div>
+    <div class="store-info">
+      <h3>店铺 8 · 英国站</h3>
+      <div class="store-meta">底色：米色室内 #D9C9B4 ｜ 角度：生活场景 ｜ 卖点词：Warmth ｜ 文字：保暖箭头</div>
+    </div>
+    <span class="style-chip">生活场景温馨系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">场景改为<b>英式客厅</b>：壁炉前、地毯上。模特穿睡袍<b>盘腿坐在地毯</b>上，双手<b>裹紧衣襟</b>（做「把自己包住」的动作），睡袍下摆铺开。背景虚化出壁炉火光、书架。画面加<b>暖色箭头图标</b>（橙色箭头向上指向衣领，配小字 "Warmth"）。暖色居家光，壁炉火光偏暖。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>衣领里绒</b>特写，加<b>橙色弧形箭头</b>表示「热量锁在绒里」，箭头旁小字 <b>"Locks in warmth"</b>。暖调自然光，绒面蓬松。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">改成<b>睡前场景</b>：床边落地灯暖光，模特穿睡袍<b>坐在床边看手机</b>，一只脚搭在床沿，睡袍敞开露出里绒，床头柜上放一杯牛奶。背景虚化床品。加<b>橙色保暖箭头</b>指向衣身。暖调居家光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍放在<b>沙发坐垫</b>上，旁边搭一条针织毛毯。袖口卷边展示厚度。右下角加小字 <b>"UK 8-20 ｜ Fleece Lined ｜ Warm"</b>。暖调居家光，平视角度。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍叠放在<b>木质衣篓</b>里，篓放在壁炉边地毯上，最上面一件领口翻出里绒。背景有壁炉暖光。<b>无文字</b>（或用极小标签 "3 Colors"）。暖调居家，生活气息浓。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边普通薄睡袍穿在模特身上（模特<b>抱臂发抖</b>），右边本产品（模特<b>舒展微笑</b>）。地面从左边冷灰地毯过渡到右边暖色地毯。中间橙色分隔。下方小字 <b>"Feel the Warmth"</b>。暖调。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> UK08-WRM-BGE-M ｜ <b>标题关键词：</b> Warm Fleece Robe, Cozy Bathrobe for Winter, Fireplace Robe ｜ <b>卖点词：</b> Warmth（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 9 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#3a7d5c">9</div>
+    <div class="store-info">
+      <h3>店铺 9 · 英国站</h3>
+      <div class="store-meta">底色：浅绿渐变 #DCEFE3 ｜ 角度：创意折叠 ｜ 卖点词：Soft-Fleece ｜ 文字：材质标注</div>
+    </div>
+    <span class="style-chip">绿植清新系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景换成<b>浅绿色渐变</b>（#DCEFE3 → #B8D8C0）。睡袍做<b>创意折叠造型</b>：折叠成<b>整齐方块</b>放在<b>浅色编织圆垫</b>上，垫子旁撒几片<b>薄荷叶/尤加利叶</b>，方块的衣领翻出一点里绒。画面左上角加<b>材质标签</b>（半透明白底）：<b>"Soft-Fleece™ ｜ 100% Polyester"</b>。清新绿色调，自然光，饱和度 +5%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取绒面特写，背景浅绿渐变。做一个<b>「温度计保暖」示意</b>：绒面旁画一个<b>小温度计图标</b>（指针指向暖区），旁标注 <b>"Warmth Tested"</b> 小字。整体清新绿色调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">模特穿睡袍在<b>绿植环绕的阳台/阳光房</b>里，坐在藤椅上喝茶，晨光透过绿植洒在绒面上。加材质标注 <b>"Breathable & Warm"</b>。清新绿调，自然光偏暖。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍平铺在<b>绿色亚麻布</b>上，旁边放一小枝尤加利叶。画面下方加<b>材质标注条</b>：<b>"Soft-Fleece ｜ Breathable ｜ S-XL"</b>，深绿色小字。清新自然，俯拍。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍<b>卷成卷</b>（像毛巾卷）竖放在浅绿背景上，露出衣领绒面一端。旁边摆一片大绿叶。下方标注 <b>"3 Colors ｜ Soft-Fleece"</b>。清新绿色调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边普通化纤面料（硬、无绒、反光强），右边本产品绒面（软、蓬松、哑光）。分隔线绿色。下方标注 <b>"Soft-Fleece™ vs Regular"</b>。清新绿调。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> UK09-SFT-GRN-S ｜ <b>标题关键词：</b> Soft-Fleece Robe, Eco Friendly Bathrobe, Lightweight Warm Robe ｜ <b>卖点词：</b> Soft-Fleece（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 10 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#4a4e69">10</div>
+    <div class="store-info">
+      <h3>店铺 10 · 英国站</h3>
+      <div class="store-meta">底色：白底卡片 #FAFAFA ｜ 角度：多角度拼贴 ｜ 卖点词：Warm-Grade ｜ 文字：数字编号</div>
+    </div>
+    <span class="style-chip">卡片简约分割系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：任意图</span></div>
+      <div class="p-text">构图改为<b>四宫格拼贴</b>：画面均分 4 格，第 1 格放睡袍正面平铺、第 2 格放里绒特写、第 3 格放模特穿着、第 4 格放多色排列。每格背景<b>白色 #FAFAFA</b>，格子间留白线。每格右下角加<b>数字编号 01/02/03/04</b>。白底卡片风，干净利落，中性光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">绒面特写占画面 75%，白底。绒面区域加<b>数字标注</b>：三个白色圆点标 1/2/3，分别指向绒面、缝线、腰带，右下角列出小字说明：<b>"1. Fleece Lining 2. Double Stitch 3. Belt Loop"</b>。白底卡片风，中性光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">改为<b>「说明书插画风」场景</b>：白底，模特全身线稿+实拍结合，衣身位置标注<b>数字 1 箭头</b>指向绒里。画面一侧加小字 <b>"Warm-Grade: Tested to -10°C"</b>。白底，极简信息图风格。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍平铺白底，旁边加<b>尺码对比条</b>：用 1:1 直尺图标注衣长（S-XL 四档）。画面下方加编号列表：<b>"01 Fleece 02 Woven Shell 03 Warm-Grade"</b>。白底卡片风，中性光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍<b>一字排开</b>，白底，每件下方标数字色号 <b>01-03</b>。右上角加一个小圆标 <b>"3 Colors"</b>。整体信息图表风格，中性光，干净。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比图，白底：左边普通睡袍标 <b>"X Thin"</b>（红叉），右边本产品标 <b>"✓ Warm-Grade"</b>（绿勾）。下方加一行小字 <b>"Tested in Winter"</b>。白底卡片风，信息清晰。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> UK10-WMG-WHT-L ｜ <b>标题关键词：</b> Warm-Grade Robe, Insulated Bathrobe, Cold Weather Robe ｜ <b>卖点词：</b> Warm-Grade（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 11 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#c47f17">11</div>
+    <div class="store-info">
+      <h3>店铺 11 · 美国站</h3>
+      <div class="store-meta">底色：美式家居 #D8CFC0 ｜ 角度：沙发场景 ｜ 卖点词：CozyWarm ｜ 文字：英文气泡</div>
+    </div>
+    <span class="style-chip">美式居家生活系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">场景改为<b>美式客厅</b>：米色布艺沙发、木地板、毛毯。模特穿睡袍<b>盘腿窝在沙发里</b>，双手捧<b>大号咖啡杯</b>，睡袍裹到下巴（露出里绒领口）。画面叠<b>英文对话气泡</b>：<b>"This robe = my happy place"</b>（白色气泡，黑色手写风字）。暖色居家光，美式生活气息，饱和度 +5%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>领口里绒</b>特写，放在<b>沙发扶手</b>上，旁边有一杯咖啡冒热气。加气泡 <b>"So soft I never take it off"</b>。气泡用<b>美式涂鸦风</b>（带尾巴的白色气泡）。暖调自然光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">模特穿睡袍<b>早晨在厨房煮咖啡</b>的动态画面：背对镜头微微侧身，睡袍随动作摆动，背景是美式厨房（木柜、吧台）。加气泡 <b>"Morning, but make it cozy"</b>。暖调，生活感强。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍放在<b>沙发扶手</b>上，旁边放一篮面包和一本杂志。袖口卷边展示厚度。加气泡 <b>"Thick, warm, & dreamy"</b>。暖调居家光，平视。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍摊在<b>木地板</b>上呈环形排列，中间放一个抱枕。加气泡 <b>"Pick your vibe"</b>。暖调居家光，俯拍。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边普通薄睡袍（模特<b>缩在沙发里发抖</b>），右边穿本产品（模特<b>舒展窝着</b>）。加气泡：左边 <b>"Meh"</b>（灰气泡）、右边 <b>"CozyWarm!"</b>（彩气泡）。暖调居家风。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> US11-CZW-TAN-M ｜ <b>标题关键词：</b> CozyWarm Robe, Soft Fleece Bathrobe Women, Lounge Robe ｜ <b>卖点词：</b> CozyWarm（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 12 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#8e44ad">12</div>
+    <div class="store-info">
+      <h3>店铺 12 · 美国站</h3>
+      <div class="store-meta">底色：盒装白底 ｜ 角度：盒装组合 ｜ 卖点词：MorningGlow ｜ 文字：品牌大字</div>
+    </div>
+    <span class="style-chip">极简盒装展示系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">构图改为<b>产品盒装展示</b>：浅色牛皮纸盒（#F2EDE6）半开，盒内露出整齐叠放的睡袍，最上面一件<b>领口翻出里绒</b>。盒子放在白底上，旁边垂出一根腰带。盒盖印品牌大字 <b>"MorningGlow"</b>（深灰粗体）。整体干净，暖白调，侧光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取绒面特写，白底，旁边放<b>一个小包装盒</b>（同款牛皮纸盒）呼应品牌。绒面区域加<b>深灰描边圆圈</b>标注。右下角品牌小字 <b>"MorningGlow™ Fleece"</b>。干净暖白调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">「开箱体验」场景：打开牛皮纸盒，<b>手部从盒里取出睡袍</b>的动作（手抓衣领），睡袍半展开露出里绒。白底+桌面。加品牌大字 <b>"Rise. Wrap. Glow."</b>。暖白调，干净。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍叠放在<b>牛皮纸盒</b>旁，盒侧印 <b>"Size: S / M / L ｜ Fleece"</b>。画面留白，白底。品牌极简风，暖白调，侧光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍<b>整齐码放在盒内</b>（俯拍盒内视角），颜色分层排列，最上层翻出绒领。盒盖半开。加品牌大字 <b>"3 Colors"</b>。暖白调，干净高级。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">对比构图：左边普通睡袍配<b>灰色纸盒</b>（印 "Chilly"），右边本产品配<b>牛皮纸盒</b>（印 "MorningGlow"），两盒并排。中间品牌大字 <b>"Choose Warm"</b>。干净暖白调。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> US12-MGL-KIT-M ｜ <b>标题关键词：</b> MorningGlow Robe, Fleece Bathrobe Gift Set, Premium Robe Box ｜ <b>卖点词：</b> MorningGlow（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 13 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#1a1a1f">13</div>
+    <div class="store-info">
+      <h3>店铺 13 · 美国站</h3>
+      <div class="store-meta">底色：纯黑特写 #1A1A1F ｜ 角度：微距面料 ｜ 卖点词：ThermoSoft ｜ 文字：技术参数</div>
+    </div>
+    <span class="style-chip">专业特写暗调系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景改为<b>纯黑 #1A1A1F</b>。睡袍以 <b>微距俯拍</b>居中（拍摄胸口绒面部分），绒面被<b>顶部环形光</b>打得非常立体。画面四周留黑，主体占 60%。下方加<b>技术参数</b>（白色等宽字体小字）：<b>"DOUBLE FLEECE ｜ 380GSM ｜ HEAT LOCK"</b>。整体暗调专业，锐度 +30%，科技感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text"><b>绒粒极致微距</b>：单簇绒纤维放大占画面 60%，展示纤维的卷曲结构和光泽。黑底，单束侧光。下方加参数 <b>"MICRO FIBER Ø25µm ｜ 380GSM"</b>。专业暗调，微距锐利。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">模特穿睡袍站在<b>黑色磨砂背景</b>前，一束聚光灯从正上方打下，只照亮睡袍。模特双手插口袋，绒面在光下纹理清晰。加参数 <b>"HEAT RETENTION TESTED"</b> 白色小字。暗调专业。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍平铺黑底，微距角度。右下角加<b>参数表</b>：<b>"US S-XL ｜ 100% Microfiber ｜ Tested 8h Warmth"</b>。暗调，信息专业感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍<b>层叠微距</b>：从侧面拍叠放厚度，黑白灰三色渐变过渡。黑底，顶部光。加参数 <b>"3-COLOR ｜ TECH SERIES"</b>。暗调专业。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">微距对比：左边普通面料（纤维稀疏、扁塌），右边本产品绒面（纤维密集、蓬松）。黑底，分隔线细白线。下方参数 <b>"THERMOSOFT™ ＞ REGULAR"</b>。专业暗调。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> US13-TMS-BLK-L ｜ <b>标题关键词：</b> ThermoSoft Robe, Technical Fleece Bathrobe, Pro-Warmth Robe ｜ <b>卖点词：</b> ThermoSoft（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 14 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#8b6f47">14</div>
+    <div class="store-info">
+      <h3>店铺 14 · 美国站</h3>
+      <div class="store-meta">底色：木质墙面 #C9B8A2 ｜ 角度：悬挂展示 ｜ 卖点词：Heritage ｜ 文字：复古标语</div>
+    </div>
+    <span class="style-chip">文艺木质悬挂系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：挂拍图</span></div>
+      <div class="p-text">背景改为<b>复古木质墙面</b>（#C9B8A2 旧木纹，有节疤和划痕）。睡袍<b>悬挂在黄铜挂钩</b>上，领口自然敞开露出里绒。<b>低饱和滤镜</b>，复古胶片感。墙面下方挂一块<b>小黑板</b>，粉笔字写 <b>"Heritage — warmth that lasts"</b>（手写体白色）。整体低饱和文艺调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>翻面悬挂</b>的绒里特写：睡袍里子朝外挂在黄铜挂钩上，展示整片绒面。背景旧木墙。旁边挂一块<b>木质小标签牌</b>，刻字 <b>"Heritage"</b>。低饱和复古调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">模特穿睡袍坐在<b>旧木椅上</b>，旁边一盏<b>老式台灯</b>（暖光）和一叠旧书。画面加<b>复古胶片颗粒</b>和轻微暗角。低饱和、暖黄调，文艺氛围。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍叠放在<b>藤编筐</b>里，筐放在旧木椅上，背景木墙。筐边挂小木牌写 <b>"US S-XL ｜ Fleece-Cotton"</b>。低饱和复古，自然光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍<b>依次挂在木质梯子上</b>（乡村风木梯），不同颜色错落悬挂，领口翻出里绒。木墙背景。加复古手写体小字 <b>"A robe for every season"</b>。低饱和复古。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">对比构图：左边普通睡袍挂在一根<b>旧铁钉</b>上（灰扑扑），右边本产品挂在<b>黄铜挂钩</b>上（有光感）。中间复古分隔线。下方黑板上粉笔字 <b>"Thin robes slip away. Heritage holds."</b>。低饱和文艺。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> US14-HRT-TAN-M ｜ <b>标题关键词：</b> Heritage Robe, Vintage Style Bathrobe, Fleece Cotton Robe ｜ <b>卖点词：</b> Heritage（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 15 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#ef476f">15</div>
+    <div class="store-info">
+      <h3>店铺 15 · 美国站</h3>
+      <div class="store-meta">底色：撞色渐变 #FFD166→#EF476F ｜ 角度：创意造型 ｜ 卖点词：CloudWarm ｜ 文字：趣味标语</div>
+    </div>
+    <span class="style-chip">撞色创意造型系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景改为<b>撞色渐变</b>（#FFD166 明黄 → #EF476F 玫红，斜对角）。睡袍做<b>创意造型</b>：折叠后摆成<b>「云朵」形状</b>（用叠放曲线营造云感），领口绒面朝上。画面加<b>趣味标语</b>：大字 <b>"Cloud? No. Robe."</b>（白色粗体，手写风）和小字 <b>"Warm like a hug"</b>。高饱和活力，撞色冲击力强。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 加绒细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取绒面特写，背景撞色渐变。把<b>绒面颗粒处理成云朵渐变效果</b>（PS 叠加云朵纹理），创意十足。下方加趣味小字 <b>"Cloud-soft inside"</b>。高饱和撞色，活泼。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：模特图</span></div>
+      <div class="p-text">场景改为<b>撞色背景的棚拍跳跃</b>：模特穿睡袍<b>跳起的瞬间</b>（袍摆飞扬，露出里绒），背景是明黄到玫红的撞色墙。加趣味标语 <b>"Bounce into warmth"</b>。高饱和，动感活力。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">睡袍平铺在撞色背景上，中间放一个<b>彩色棉花糖</b>当道具（呼应云朵主题）。加趣味小字 <b>"US S-XL ｜ Soft as candy"</b>。高饱和撞色，年轻化。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多件睡袍<b>搭成彩虹拱形</b>（不同颜色依次排列成半圆），领口绒面朝外。撞色背景。下方加趣味标语 <b>"A rainbow of warm"</b>。高饱和活力。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">对比构图：左边普通薄睡袍标红字 <b>"COLD!"</b>（模特发抖，加滑稽抖动效果），右边本产品标大字 <b>"CLOUD WARM"</b>（模特微笑，脚下有撞色光环）。背景撞色。趣味风格，高饱和。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> US15-CLW-MIX-S ｜ <b>标题关键词：</b> CloudWarm Robe, Fun Colorful Bathrobe, Youth Warm Robe ｜ <b>卖点词：</b> CloudWarm（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 执行清单 ============ -->
+<div class="section" style="margin-top:8px">
+  <h2 class="section-title">二、执行顺序与自查清单</h2>
+  <div class="tips-box">
+    <h4>⚠️ 改图时最容易犯的 3 个错误</h4>
+    <ul>
+      <li><b>只改背景不改角度：</b>换了底色但睡袍还是原来的平铺正面照，AI 仍能通过轮廓特征关联。每条指令里的「角度/裁切/翻转」必须同步执行。</li>
+      <li><b>15 店用同一句文案：</b>别图省事每店都写 "Fluffy"。手册已给每店分配专属卖点词（Fluffy / Plush / Cozy / Snug / Fleece / Premium / Thermal / Warmth / Soft-Fleece / Warm-Grade / CozyWarm / MorningGlow / ThermoSoft / Heritage / CloudWarm），文案、SKU、标题三处必须一致且不同店。</li>
+      <li><b>原图直接复用：</b>从原图裁剪的局部也必须二次处理（翻转/调色/加颗粒），否则局部特征仍会被识别。</li>
+    </ul>
+  </div>
+  <div class="checklist">
+    <h4 style="margin-bottom:12px;font-size:15px;font-weight:700">每周执行清单（按店推进）</h4>
+    <ol>
+      <li>按店1→店15顺序，每店先改 <b>主图1（主视觉）</b>，上传到店铺；观察 3 天流量/曝光变化</li>
+      <li>主图1 稳定后，补齐主图2（加绒细节）和主图3（场景图）</li>
+      <li>每改一店，同步更新该店 <b>SKU 编码 + 标题关键词 + 卖点描述</b>（见每店底部参考）</li>
+      <li>每周检查一次平台是否把两店关联为同款：若被关联，把两店的主图1 底色或角度拉开（换用另一店方案的参数）</li>
+      <li>防滑袜、内裤等其他产品线也要用同样的 15 套视觉系统，保持每店风格统一</li>
+    </ol>
+  </div>
+</div>
+
+<div class="footer">Temu 半托管 · 加绒睡袍 15 店铺改图指令手册 ｜ 90 条指令可复制给 ChatGPT 直接执行 ｜ 改图同时必须同步改 SKU 与标题，三层联动才有效</div>
+
+<script>
+function copyP(btn) {
+  var txt = btn.parentElement.querySelector('.p-text').innerText;
+  var done = function() {
+    btn.classList.add('copied');
+    btn.textContent = '已复制 ✓';
+    setTimeout(function() { btn.classList.remove('copied'); btn.textContent = '复制'; }, 1500);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(done).catch(function() { fallbackCopy(txt, done); });
+  } else {
+    fallbackCopy(txt, done);
+  }
+}
+function fallbackCopy(txt, done) {
+  var ta = document.createElement('textarea');
+  ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+  done();
+}
+</script>
+
+</div>
+</body>
+</html>

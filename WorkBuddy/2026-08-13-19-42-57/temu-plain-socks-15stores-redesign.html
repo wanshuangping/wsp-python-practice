@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>普通袜改图指令手册 · ChatGPT 直用版（15店铺×6图=90条指令）</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f4f6f8; color: #1d1d1f; line-height: 1.65; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 36px 24px 80px; }
+
+  .hero { background: linear-gradient(135deg, #5d3a1f 0%, #8a5a2b 50%, #c98d4e 100%); color: #fff; padding: 44px 40px; border-radius: 16px; margin-bottom: 32px; }
+  .hero h1 { font-size: 27px; font-weight: 800; margin-bottom: 10px; }
+  .hero .subtitle { font-size: 14.5px; color: #f0dcc4; margin-bottom: 22px; }
+  .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero-badge { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); padding: 5px 13px; border-radius: 20px; font-size: 12.5px; }
+
+  .section { margin-bottom: 44px; }
+  .section-title { font-size: 21px; font-weight: 800; margin-bottom: 8px; padding-bottom: 12px; border-bottom: 2px solid #dde3e8; }
+  .section-desc { font-size: 13.5px; color: #5c6670; margin-bottom: 20px; }
+
+  .howto { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 14px; }
+  .howto-card { background: #fff; border-radius: 12px; padding: 18px 20px; border: 1px solid #e5e9ee; border-top: 4px solid #8a5a2b; }
+  .howto-card .step { font-size: 11px; font-weight: 800; color: #8a5a2b; letter-spacing: 1px; }
+  .howto-card h4 { font-size: 15px; font-weight: 700; margin: 4px 0 6px; }
+  .howto-card p { font-size: 12.5px; color: #555; }
+  .howto-card code { background: #f6efe6; padding: 1px 6px; border-radius: 4px; font-size: 11.5px; color: #7a4a21; }
+
+  .store-card { background: #fff; border-radius: 16px; overflow: hidden; margin-bottom: 26px; border: 1px solid #e5e9ee; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .store-header { padding: 18px 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid #eef1f4; }
+  .store-num { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: #fff; flex-shrink: 0; }
+  .store-info { flex: 1; min-width: 180px; }
+  .store-info h3 { font-size: 17px; font-weight: 800; }
+  .store-info .store-meta { font-size: 11.5px; color: #888; margin-top: 2px; }
+  .style-chip { background: #f6efe6; border: 1px solid #e3d3bd; color: #7a4a21; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 16px; }
+  .store-body { padding: 20px 24px 24px; }
+
+  .prompt { background: #fbf8f3; border: 1px solid #efe6d8; border-left: 4px solid #8a5a2b; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; position: relative; }
+  .prompt .p-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .prompt .p-label { font-size: 12.5px; font-weight: 800; color: #4a2f14; }
+  .prompt .p-src { font-size: 11px; color: #8a6f52; background: #f0e7d9; padding: 2px 8px; border-radius: 10px; }
+  .prompt .p-text { font-size: 13px; color: #2a3540; line-height: 1.75; }
+  .prompt .p-text b { color: #8a5a2b; }
+  .copy-btn { position: absolute; top: 12px; right: 12px; background: #8a5a2b; color: #fff; border: none; border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer; font-weight: 600; }
+  .copy-btn:hover { background: #6e451e; }
+  .copied { background: #1d9e75 !important; }
+
+  .matrix-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid #e5e9ee; margin-bottom: 26px; }
+  table.matrix { width: 100%; border-collapse: collapse; background: #fff; font-size: 11.5px; min-width: 940px; }
+  table.matrix th { background: #5d3a1f; color: #fff; padding: 9px 7px; text-align: center; font-weight: 600; white-space: nowrap; }
+  table.matrix td { padding: 7px 6px; text-align: center; border-bottom: 1px solid #f0f2f4; border-right: 1px solid #f0f2f4; }
+  table.matrix tr:hover { background: #fbf8f3; }
+  .market-eu { background: #e6f1fb !important; color: #0c447c; font-weight: 700; }
+  .market-uk { background: #f0eaf7 !important; color: #3c3489; font-weight: 700; }
+  .market-us { background: #e1f5ee !important; color: #085041; font-weight: 700; }
+
+  .sw { display: inline-block; width: 13px; height: 13px; border-radius: 3px; vertical-align: -2px; margin-right: 4px; border: 1px solid rgba(0,0,0,0.12); }
+
+  .tips-box { background: #fff8e1; border: 1px solid #ffe082; border-radius: 12px; padding: 18px 22px; margin-bottom: 16px; }
+  .tips-box h4 { font-size: 14.5px; font-weight: 700; margin-bottom: 8px; color: #854f0b; }
+  .tips-box ul { list-style: none; }
+  .tips-box li { font-size: 12.5px; color: #5d4037; margin-bottom: 5px; padding-left: 18px; position: relative; }
+  .tips-box li::before { content: "→"; position: absolute; left: 0; color: #b08020; }
+
+  .checklist { background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #e5e9ee; }
+  .checklist ol { padding-left: 20px; }
+  .checklist li { font-size: 13px; margin-bottom: 8px; color: #333; }
+
+  .copy-zone { background: #5d3a1f; color: #f0dcc4; border-radius: 10px; padding: 13px 18px; font-size: 12.5px; margin-top: 10px; line-height: 1.8; }
+  .copy-zone b { color: #fff; }
+
+  .footer { text-align: center; padding: 30px; color: #99a3ad; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <h1>普通袜（无防滑胶）· 改图指令手册</h1>
+  <p class="subtitle">ChatGPT 直用版 · 15 个店铺 × 6 张主图 = 90 条可复制指令 · 每条指令包含具体色值、角度、构图、文字与色调参数</p>
+  <div class="hero-badges">
+    <span class="hero-badge">90 条指令</span>
+    <span class="hero-badge">复制 → 粘贴 → 出图</span>
+    <span class="hero-badge">每店视觉完全独立</span>
+    <span class="hero-badge">规避 AI 比价限流</span>
+  </div>
+</div>
+
+<!-- 怎么用 -->
+<div class="section">
+  <h2 class="section-title">零、3 步用法（先读这个）</h2>
+  <p class="section-desc">你把任意一张普通袜原图发给 ChatGPT，再复制对应店铺对应主图的指令贴给它，它就能按指令改出一张与其他店铺完全不同的图。</p>
+  <div class="howto">
+    <div class="howto-card">
+      <div class="step">STEP 1</div>
+      <h4>选原图</h4>
+      <p>从你手头的普通袜原图（平铺图 / 挂拍图 / 脚部模特图 / 细节图）里挑一张上传给 ChatGPT。每条指令标注「基于原图」作为建议，可混用。</p>
+    </div>
+    <div class="howto-card">
+      <div class="step">STEP 2</div>
+      <h4>复制指令</h4>
+      <p>找到对应店铺（店1~店15）的对应主图（主图1~主图6），点指令右上角的「复制」，整段贴到 ChatGPT 对话框。</p>
+    </div>
+    <div class="howto-card">
+      <div class="step">STEP 3</div>
+      <h4>微调出图</h4>
+      <p>ChatGPT 出图后不满意，追加一句即可：<code>袜口再松一点</code>、<code>背景换成米色</code>、<code>去掉文字</code>。每店固定用同一套指令，不要跨店混用。</p>
+    </div>
+    <div class="howto-card">
+      <div class="step">STEP 4</div>
+      <h4>同步改文案</h4>
+      <p>每店底部有一段「SKU + 标题关键词」参考，改图时把店铺链接里的 SKU 和标题也一并换掉，图+文+编码三层不同，平台才无法关联。</p>
+    </div>
+  </div>
+  <div class="tips-box" style="margin-top:18px">
+    <h4>⚠️ 用前必看 3 条红线</h4>
+    <ul>
+      <li>同一张原图在 15 个店必须「水平翻转 + 裁切比例 + 调色」三样至少做两样，直接发原图 = 白改</li>
+      <li>普通袜核心卖点词 15 店不能重复：PureCotton / EverydayFit / AllSeason / SoftKnit / DryFresh / LuxuryCotton / StretchFlex / TerryCushion / EcoSoft / MultiPack / NoShow / SportDry / CushionSole / RibbedKnit / ColorPop（按店分配）</li>
+      <li>每条指令里的 <b>色值 / 角度 / 文字</b> 参数别乱换，那是每店独有的视觉指纹</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 15店总览 -->
+<div class="section">
+  <h2 class="section-title">一、15 店改图配方总览（一图看懂差异）</h2>
+  <p class="section-desc">普通袜（无防滑胶）的 4 大核心卖点——<b>纯棉材质、舒适贴合、四季透气、百搭日常</b>——在 15 个店铺用 15 种不同的方式表达，组合全不同，这是 90 条指令背后的骨架。</p>
+  <div class="matrix-wrap">
+    <table class="matrix">
+      <thead>
+        <tr><th>店铺</th><th>站点</th><th>底色方案</th><th>主角度</th><th>核心卖点表达</th><th>文字风格</th><th>核心卖点词</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="market-eu">1</td><td class="market-eu">欧盟</td><td><span class="sw" style="background:#ffffff;border:1px solid #ccc"></span>纯白</td><td>90°俯拍平铺</td><td>纯棉标签+织纹特写</td><td>极简参数</td><td>PureCotton</td></tr>
+        <tr><td class="market-eu">2</td><td class="market-eu">欧盟</td><td><span class="sw" style="background:linear-gradient(135deg,#e8e8e8,#b0b0b0)"></span>灰渐变</td><td>45°斜角</td><td>日常穿搭示意</td><td>卖点标签</td><td>EverydayFit</td></tr>
+        <tr><td class="market-eu">3</td><td class="market-eu">欧盟</td><td><span class="sw" style="background:#e3c9a0"></span>浅木纹</td><td>平视</td><td>四季场景拼贴</td><td>无文字</td><td>AllSeason</td></tr>
+        <tr><td class="market-eu">4</td><td class="market-eu">欧盟</td><td><span class="sw" style="background:#f5f0e8"></span>米色布纹</td><td>悬挂展示</td><td>织法细腻展示</td><td>底部参数</td><td>SoftKnit</td></tr>
+        <tr><td class="market-eu">5</td><td class="market-eu">欧盟</td><td><span class="sw" style="background:linear-gradient(135deg,#a8c8e8,#e8c8d8)"></span>莫兰迪渐变</td><td>腿部模特</td><td>轻盈迈步姿态</td><td>气泡卖点</td><td>DryFresh</td></tr>
+        <tr><td class="market-uk">6</td><td class="market-uk">英国</td><td><span class="sw" style="background:#2b2b33"></span>深灰黑</td><td>暗调侧光</td><td>纯棉微距+光晕</td><td>认证标识</td><td>LuxuryCotton</td></tr>
+        <tr><td class="market-uk">7</td><td class="market-uk">英国</td><td><span class="sw" style="background:#1d2f4f"></span>藏青布纹</td><td>俯拍展开</td><td>弹力面料拉伸</td><td>参数标注</td><td>StretchFlex</td></tr>
+        <tr><td class="market-uk">8</td><td class="market-uk">英国</td><td><span class="sw" style="background:#d9c9b4"></span>米色室内</td><td>生活场景</td><td>居家毛圈质感</td><td>舒适箭头</td><td>TerryCushion</td></tr>
+        <tr><td class="market-uk">9</td><td class="market-uk">英国</td><td><span class="sw" style="background:#dcefe3"></span>浅绿渐变</td><td>创意折叠</td><td>环保棉示意</td><td>材质标注</td><td>EcoSoft</td></tr>
+        <tr><td class="market-uk">10</td><td class="market-uk">英国</td><td><span class="sw" style="background:#fafafa"></span>白底卡片</td><td>多角度拼贴</td><td>多双组合对比</td><td>数字编号</td><td>MultiPack</td></tr>
+        <tr><td class="market-us">11</td><td class="market-us">美国</td><td><span class="sw" style="background:#d8cfc0"></span>美式家居</td><td>卧室场景</td><td>船袜隐形对比</td><td>英文气泡</td><td>NoShow</td></tr>
+        <tr><td class="market-us">12</td><td class="market-us">美国</td><td><span class="sw" style="background:#ffffff"></span>盒装白底</td><td>盒装组合</td><td>运动吸汗卖点</td><td>品牌大字</td><td>SportDry</td></tr>
+        <tr><td class="market-us">13</td><td class="market-us">美国</td><td><span class="sw" style="background:#1a1a1f"></span>纯黑特写</td><td>微距面料</td><td>厚底缓冲剖面</td><td>技术参数</td><td>CushionSole</td></tr>
+        <tr><td class="market-us">14</td><td class="market-us">美国</td><td><span class="sw" style="background:#c9b8a2"></span>木质墙面</td><td>悬挂展示</td><td>罗纹工艺放大</td><td>复古标语</td><td>RibbedKnit</td></tr>
+        <tr><td class="market-us">15</td><td class="market-us">美国</td><td><span class="sw" style="background:linear-gradient(135deg,#ffd166,#ef476f)"></span>撞色</td><td>创意造型</td><td>袜子拼色图案</td><td>趣味标语</td><td>ColorPop</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 店铺 1 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#378ADD">1</div>
+    <div class="store-info">
+      <h3>店铺 1 · 欧盟站</h3>
+      <div class="store-meta">底色：纯白 #FFFFFF ｜ 角度：90°俯拍平铺 ｜ 卖点词：PureCotton ｜ 文字：极简参数</div>
+    </div>
+    <span class="style-chip">极简白底平铺系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">把袜子平铺图背景替换成<b>纯白色 #FFFFFF</b>，去掉阴影和道具。袜子<b>正面朝上完整展开</b>（两只并排），占画面 <b>72%</b>，<b>90°俯拍</b>。画面右下角放一枚<b>白色圆形棉质标签</b>（像衣服吊牌），上面写 <b>"100% Cotton"</b>，深灰细体，字号为画面宽度 3.5%。整体高曝光、低对比，冷白调，饱和度 -10%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 材质细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>袜身中段织纹</b>裁剪放大，背景纯白。用<b>细线框圈出织纹区域</b>，旁边标注 <b>"Pure Cotton Knit"</b> 小字，灰色 #666。画面底部加一行参数：<b>"Cotton 100% ｜ Breathable"</b>。冷白调，锐度 +20%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">保留脚部穿着画面，把背景用 AI 换成<b>纯白摄影棚</b>，地面加轻微<b>倒影</b>。脚部侧面入镜，一只脚微微抬起。画面顶部加一行无衬线字 <b>"PureCotton"</b>，深灰 #333，字号为画面宽度 6%。整体高调明亮、干净冷白。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">袜子平铺，背景纯白。画面左侧加<b>竖向尺码条</b>：<b>36-41 / 42-46 / 47-50</b> 三段，细线框。右上角标注材质图标+文字 <b>"100% Cotton"</b>。90°俯拍，冷白调，留白多一点（袜子占 58%）。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多双袜子<b>并排平铺成 1×3 网格</b>（白/浅灰/浅蓝），每双独立一格，背景纯白，间距均匀。每格右下角标色号 <b>C01/C02/C03</b> 小字。底部加两行极简参数：<b>"3 Pairs"</b> 和 <b>"Machine Washable"</b>，灰色 #666。90°俯拍，冷白调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左侧<b>化纤袜起球发闷</b>（加毛球圈注），右侧<b>本产品纯棉干爽透气</b>，中间用 <b>红色 X 和绿色 ✓</b> 对比。背景纯白。底部加一行小字 <b>"100% Cotton. Feel the Difference."</b>。冷白调，干净。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> EU01-PCT-WHT-M ｜ <b>标题关键词：</b> PureCotton Socks, 100% Cotton Socks, Everyday Cotton Socks ｜ <b>卖点词：</b> PureCotton（本店专用，其他店勿用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 2 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#7F77DD">2</div>
+    <div class="store-info">
+      <h3>店铺 2 · 欧盟站</h3>
+      <div class="store-meta">底色：灰渐变 #E8E8E8→#B0B0B0 ｜ 角度：45°斜角 ｜ 卖点词：EverydayFit ｜ 文字：卖点标签</div>
+    </div>
+    <span class="style-chip">灰调质感渐变系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景换成<b>浅灰到深灰径向渐变</b>（#E8E8E8 中心 → #B0B0B0 边缘）。袜子以 <b>45°斜角</b>平放，旁边放<b>一双帆布鞋（鞋口露出袜边）</b>作为日常穿搭参照。画面左侧叠一个<b>半透明圆形标签</b>写 <b>"EverydayFit"</b> 白色粗体。整体冷灰色调，对比度 +15%，饱和度 -20%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 弹力细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">做<b>「贴合不勒」示意</b>：画面左侧是<b>过紧的袜口</b>（在脚踝处画一道勒痕），右侧是<b>本产品弹性袜口</b>（贴合无痕），中间用<b>弧形箭头</b>连接。背景灰渐变。下方加卖点标签胶囊：<b>"EverydayFit"</b>、<b>"No Marks"</b> 两条。冷灰调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">背景调成<b>冷灰色调</b>，脚部穿着袜子<b>踩在木地板上</b>（表现日常百搭），旁边放一双拖鞋。画面加 <b>45° 侧光</b>。左上角加小标签 <b>"EverydayFit"</b>。整体冷调质感偏商务。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">袜子平铺，背景灰渐变。下方加一条<b>横向信息栏</b>（灰色半透明底）：<b>Size 36-50</b> ｜ <b>Cotton+Elastane</b> ｜ <b>Wash: 30°C</b>，白色小字。45°斜角，冷灰调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多双袜子<b>从浅到深排成一行</b>（白、灰、黑），45°斜角侧放，前后错落有层次。背景灰渐变。下方加卖点胶囊一排：<b>"5 Pairs" / "EverydayFit" / "Breathable"</b>。冷灰调，商品感强。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>普通袜穿一天塌陷变形</b>，右边<b>本产品回弹挺括</b>，中间斜向虚线分隔。左红字 <b>"Slouchy"</b>，右绿字 <b>"EverydayFit"</b>。背景灰渐变，冷调。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> EU02-EDF-GRY-M ｜ <b>标题关键词：</b> EverydayFit Socks, Casual Cotton Socks, Daily Comfort Socks ｜ <b>卖点词：</b> EverydayFit（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 3 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#D85A30">3</div>
+    <div class="store-info">
+      <h3>店铺 3 · 欧盟站</h3>
+      <div class="store-meta">底色：浅木纹 #E3C9A0 ｜ 角度：平视 ｜ 卖点词：AllSeason ｜ 文字：无文字</div>
+    </div>
+    <span class="style-chip">木纹桌面温馨系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景换成<b>浅原木色桌面</b>（#E3C9A0 木纹），袜子<b>叠放整齐</b>放在桌面上，旁边放<b>一枚干花和一片枫叶</b>（暗示四季皆宜）。<b>不加任何文字</b>。整体暖色调，色温 5800K，饱和度 +5%，温馨居家感，平视 40°。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 面料细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>袜口处</b>特写，背景浅木纹。手部入镜，手指<b>轻轻抚过面料</b>（表现柔软亲肤）。暖光从窗口方向照入。<b>无文字</b>。暖色调，自然光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">做成<b>四季四宫格</b>：同一双袜子在春（花丛）、夏（沙滩）、秋（落叶）、冬（雪地）四个小场景各出现一次，拼成 2×2 方格。整体暖色调。<b>无文字</b>，突出"一年四季都能穿"。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">袜子平铺在木纹桌面上。右下角用<b>麻绳小卡片</b>（像手工标签）写 <b>"36-46"</b> 和 <b>"Cotton Blend"</b>，手写体风格。暖色调，自然光。<b>无多余文字</b>。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多双袜子<b>卷成圆筒形</b>并排立在木纹桌面上（像小卷卷），颜色：米白、燕麦、浅咖、灰蓝。旁边撒几片落叶。<b>无文字</b>。暖色调，平视 45°，温馨感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>冬季厚袜闷热</b>、右边<b>夏季薄袜太薄</b>，中间<b>本产品适中厚度</b>（用三块面料厚度小样并排示意：薄/适中/厚，中间打勾）。木纹背景，暖色调，<b>无文字</b>，纯视觉表达"四季皆宜"。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> EU03-ALS-BRN-L ｜ <b>标题关键词：</b> AllSeason Socks, 4 Season Cotton Socks, All Weather Socks ｜ <b>卖点词：</b> AllSeason（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 4 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#A4772B">4</div>
+    <div class="store-info">
+      <h3>店铺 4 · 欧盟站</h3>
+      <div class="store-meta">底色：米色布纹 #F5F0E8 ｜ 角度：悬挂展示 ｜ 卖点词：SoftKnit ｜ 文字：底部参数</div>
+    </div>
+    <span class="style-chip">米色布纹悬挂系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：挂拍图</span></div>
+      <div class="p-text">背景换成<b>米色细布纹</b>（#F5F0E8，带自然褶皱布料感）。袜子<b>用木夹悬挂</b>在细绳上（两只并排挂起），占画面 <b>70%</b>，平视。底部加一行灰色小字：<b>"Fine Knit ｜ Soft Touch"</b>，字号为画面宽度 3%。整体暖米色调，饱和度 -5%，柔和自然光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 织法细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>袜身细密织纹</b>特写，背景米色布纹。用<b>细白线框</b>圈出织法区域，旁边标注 <b>"Fine Knit"</b> 小字 #666。底部参数：<b>"SoftKnit ｜ Skin Friendly"</b>。暖米调，锐度 +15%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">背景换成<b>米色布纹墙面</b>，脚部穿着袜子<b>踩在软垫上</b>（家庭感）。画面柔和逆光。底部加一行小字 <b>"SoftKnit"</b>，浅灰 #777。暖米色调，柔和质感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：挂拍图</span></div>
+      <div class="p-text">袜子悬挂展示，背景米色布纹。画面左侧加<b>竖排参数</b>：<b>Size 36-46</b> / <b>Cotton 75%</b> / <b>Wash 30°C</b>，灰色细体。底部加一行 <b>"SoftKnit"</b>。暖米调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多双袜子<b>挂在同一条木夹绳上</b>（米白、燕麦、浅灰、灰蓝），高低错落。背景米色布纹。底部加一行参数 <b>"4 Pairs ｜ SoftKnit"</b>。暖米调，悬挂展示，平视。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>粗织硬感袜</b>（织纹粗糙+褶皱），右边<b>本产品细密柔织</b>（织纹平滑），中间红 X 绿 ✓。背景米色布纹。底部加一行 <b>"Soft Knit for Sensitive Skin"</b>。暖米调。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> EU04-SKT-NAT-XL ｜ <b>标题关键词：</b> SoftKnit Socks, Fine Knit Cotton Socks, Gentle Weave Socks ｜ <b>卖点词：</b> SoftKnit（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 5 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#6FB7B7">5</div>
+    <div class="store-info">
+      <h3>店铺 5 · 欧盟站</h3>
+      <div class="store-meta">底色：莫兰迪渐变 #A8C8E8→#E8C8D8 ｜ 角度：腿部模特 ｜ 卖点词：DryFresh ｜ 文字：气泡卖点</div>
+    </div>
+    <span class="style-chip">莫兰迪渐变活力系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">背景换成<b>莫兰迪蓝粉渐变</b>（#A8C8E8 → #E8C8D8 对角渐变）。穿袜子的腿 <b>从画面左下向上迈步</b>（动态感），脚踝处加<b>水滴/清爽图标</b>。画面右上加<b>气泡卖点</b>：<b>"DryFresh"</b> 白色圆角气泡。整体清新柔和，饱和度 -10%，明快。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 吸汗细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>袜底织法</b>特写，背景莫兰迪渐变。画一条<b>从袜底向上飘的水汽箭头</b>（表示透气排汗），旁边标注 <b>"Moisture Wicking"</b> 小字。右上角加气泡 <b>"DryFresh"</b>。清新调，明快。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">穿袜子的腿<b>踩在浅色瑜伽垫上</b>（运动场景），背景保持莫兰迪渐变。腿部微微弯曲，<b>脚趾张开抓地</b>（表现灵活透气）。加气泡卖点 <b>"DryFresh"</b>、<b>"Breathable"</b>。清新明快色调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">袜子平铺，背景莫兰迪渐变。右下角放<b>圆角信息卡</b>（半透明白）：<b>Size 36-46</b> / <b>Cotton+Spandex</b> / <b>Quick Dry</b>。左上角气泡 <b>"DryFresh"</b>。清新调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多双袜子<b>扇形展开</b>（雾蓝、浅粉、米白、浅绿），像孔雀开屏。背景莫兰迪渐变。底部加气泡排：<b>"4 Pairs" / "DryFresh" / "All-Day Comfort"</b>。清新明快。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>普通棉袜湿透发闷</b>（袜底加蓝色水渍），右边<b>本产品干爽</b>（袜底干燥+清爽图标），中间红 X 绿 ✓。背景莫兰迪渐变。底部气泡 <b>"Stay Dry All Day"</b>。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> EU05-DRF-PNK-M ｜ <b>标题关键词：</b> DryFresh Socks, Moisture Wicking Socks, Breathable Cotton Socks ｜ <b>卖点词：</b> DryFresh（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 6 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#4A4A52">6</div>
+    <div class="store-info">
+      <h3>店铺 6 · 英国站</h3>
+      <div class="store-meta">底色：深灰黑 #2B2B33 ｜ 角度：暗调侧光 ｜ 卖点词：LuxuryCotton ｜ 文字：认证标识</div>
+    </div>
+    <span class="style-chip">深色高级暗调系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景换成<b>深灰黑 #2B2B33</b>，袜子平铺，用<b>一束顶侧光</b>打亮袜身（其他区域压暗），营造高级质感。袜子占画面 <b>68%</b>，45°斜角。右下角放一枚<b>金色圆形认证徽章</b>写 <b>"OEKO-TEX®"</b>。暗调，对比度 +20%，饱和度 -15%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 材质微距</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>袜身织纹微距</b>，深色背景。织纹上用<b>一束光扫过</b>（表现丝光棉质感），周围<b>轻微光晕</b>。画面角落加小字 <b>"Long-Staple Cotton"</b>，金色 #C9A227。暗调高级感，锐度 +25%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">穿袜子的脚<b>踩在深色丝绒面料上</b>，侧光勾勒轮廓，背景压暗至 #2B2B33。画面加<b>轻微烟雾/尘雾效果</b>（高级影棚感）。右下角金色小字 <b>"LuxuryCotton"</b>。暗调，电影感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">袜子平铺，深色背景。画面左侧竖排金色小字：<b>Size 36-46</b> / <b>Premium Cotton</b> / <b>Made to Last</b>。右下角认证徽章 <b>"OEKO-TEX®"</b>。暗调，侧光。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多双袜子<b>深色系一字排开</b>（炭黑、深灰、藏青、墨绿），叠放成梯形。深色背景，侧光打亮。底部金色小字 <b>"4 Pairs ｜ Luxury Cotton"</b>。暗调高级感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>普通棉袜发黄起球</b>，右边<b>本产品丝光棉亮洁</b>，中间金色分隔线。左灰字 <b>"Standard"</b>，右金字 <b>"LuxuryCotton"</b>。深色背景，暗调。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> UK06-LXC-BLK-M ｜ <b>标题关键词：</b> LuxuryCotton Socks, Premium Cotton Socks, Oeko-Tex Cotton Socks ｜ <b>卖点词：</b> LuxuryCotton（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 7 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#3D5A80">7</div>
+    <div class="store-info">
+      <h3>店铺 7 · 英国站</h3>
+      <div class="store-meta">底色：藏青布纹 #1D2F4F ｜ 角度：俯拍展开 ｜ 卖点词：StretchFlex ｜ 文字：参数标注</div>
+    </div>
+    <span class="style-chip">藏青布纹商务系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景换成<b>藏青色布纹</b>（#1D2F4F，细纹布料质感）。袜子<b>俯拍展开</b>在画面中央，双手<b>向两侧拉伸袜口</b>（表现弹力，手部入镜），占画面 <b>70%</b>。画面顶部加白字 <b>"StretchFlex"</b>，加号 +15% 弹力标识。冷色调，商务感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 弹力细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">特写<b>袜口被手指拉开</b>的画面，标注<b>双向箭头 +15% Stretch</b>。画面右侧叠一个<b>蓝色半透明参数框</b>：<b>"Elastane 8%"</b>。背景藏青布纹。冷调，清晰锐利。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">穿袜子的脚<b>踩在商务皮鞋里</b>（半脱鞋状态露出袜口），背景藏青布纹。画一条<b>弹力弧线箭头</b>在脚踝处。右上角白字 <b>"StretchFlex"</b>。冷调商务感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">袜子俯拍展开，背景藏青布纹。画面下方加<b>蓝色细线信息栏</b>：<b>Size 39-46</b> ｜ <b>Cotton 78% / Polyester 14% / Elastane 8%</b> ｜ <b>Wash 40°C</b>。顶部白字 <b>"StretchFlex"</b>。冷调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多双袜子<b>深色商务色系并排</b>（藏青、深灰、黑、墨蓝），俯拍整齐排列，每双旁边标色号 <b>01/02/03/04</b>。背景藏青布纹。底部白字 <b>"4 Pairs ｜ StretchFlex"</b>。冷调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>无弹力袜洗后缩水变形</b>（画缩水前后对比框），右边<b>本产品回弹不变形</b>（标注 "No Shrink"），中间红 X 绿 ✓。背景藏青布纹。冷调。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> UK07-STF-NAV-L ｜ <b>标题关键词：</b> StretchFlex Socks, Stretchy Cotton Socks, No Shrink Socks ｜ <b>卖点词：</b> StretchFlex（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 8 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#B08968">8</div>
+    <div class="store-info">
+      <h3>店铺 8 · 英国站</h3>
+      <div class="store-meta">底色：米色室内 #D9C9B4 ｜ 角度：生活场景 ｜ 卖点词：TerryCushion ｜ 文字：舒适箭头</div>
+    </div>
+    <span class="style-chip">米色室内生活系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景换成<b>米色室内家居场景</b>（#D9C9B4 墙面 + 木地板一角）。袜子<b>卷好叠放在编织收纳篮里</b>，旁边放<b>一双毛绒拖鞋</b>。画面加<b>柔和的舒适箭头</b>指向袜底（箭头旁小字 <b>"Terry Cushion"</b>）。暖色调，色温 5600K，居家感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 毛圈细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>袜底毛圈织法</b>特写（毛巾质感），背景米色室内。用<b>舒适箭头</b>指向毛圈，标注 <b>"Plush Terry Sole"</b> 小字。暖色调，柔和光，锐度 +15%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">穿袜子的脚<b>踩在暖色地毯上</b>，旁边一杯热茶和一本翻开的书（居家阅读场景）。画面用<b>舒适箭头</b>指向袜底（缓冲感）。暖色调，温馨居家。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">袜子平铺在木地板上，旁边放<b>软木杯垫</b>。右下角小卡牌写 <b>"Size 36-46"</b> / <b>"Cotton Terry"</b>。舒适箭头指向袜底。暖色调，居家感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多双袜子<b>堆叠在编织篮里</b>（米白、浅棕、灰、浅粉），露出袜口。背景米色室内。底部舒适箭头 + 小字 <b>"4 Pairs ｜ TerryCushion"</b>。暖色调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>薄袜踩地硌脚</b>（脚底加硬物图标），右边<b>本产品毛圈厚底</b>（脚底加软垫图标），中间红 X 绿 ✓。背景米色室内。暖色调。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> UK08-TCS-BGE-M ｜ <b>标题关键词：</b> TerryCushion Socks, Plush Sole Socks, Cozy Home Socks ｜ <b>卖点词：</b> TerryCushion（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 9 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#5E9E7A">9</div>
+    <div class="store-info">
+      <h3>店铺 9 · 英国站</h3>
+      <div class="store-meta">底色：浅绿渐变 #DCEFE3 ｜ 角度：创意折叠 ｜ 卖点词：EcoSoft ｜ 文字：材质标注</div>
+    </div>
+    <span class="style-chip">浅绿清新自然系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景换成<b>浅绿到白渐变</b>（#DCEFE3 → #FFFFFF）。袜子<b>创意折叠</b>成小方块堆叠，旁边放<b>一片绿色植物叶子和麻绳</b>（环保感）。画面左下加小字 <b>"Organic Cotton"</b>，墨绿 #3E6B4F。清新自然调，饱和度 +5%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 面料细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>袜身面料</b>特写，背景浅绿渐变。旁边放<b>一小朵棉铃花</b>（棉花原生态示意），标注 <b>"Organic Cotton"</b> 墨绿小字。清新自然光，锐度 +15%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">穿袜子的脚<b>踩在浅绿色草坪上</b>（户外自然场景），背景柔和虚化。画面加<b>阳光光斑</b>。左下角小字 <b>"EcoSoft"</b>，墨绿 #3E6B4F。清新自然，色温 5400K。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">袜子折叠平铺，背景浅绿渐变。右下角<b>树叶形状标签</b>写 <b>"Size 36-46 ｜ Organic Cotton 95%"</b>。左下角小字 <b>"EcoSoft"</b>。清新自然调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多双袜子<b>自然色系堆叠</b>（米白、燕麦、浅绿、浅棕），旁边放绿植叶。背景浅绿渐变。底部小字 <b>"4 Pairs ｜ EcoSoft"</b> 墨绿色。清新自然调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>化纤袜标识</b>（画一滴石油+塑料图标），右边<b>本产品有机棉标识</b>（棉花+叶子图标），中间红 X 绿 ✓。背景浅绿渐变。底部小字 <b>"Kind to Skin & Planet"</b>。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> UK09-ECS-GRN-S ｜ <b>标题关键词：</b> EcoSoft Socks, Organic Cotton Socks, Eco Friendly Socks ｜ <b>卖点词：</b> EcoSoft（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 10 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#8E8E93">10</div>
+    <div class="store-info">
+      <h3>店铺 10 · 英国站</h3>
+      <div class="store-meta">底色：白底卡片 #FAFAFA ｜ 角度：多角度拼贴 ｜ 卖点词：MultiPack ｜ 文字：数字编号</div>
+    </div>
+    <span class="style-chip">白底多角度拼贴系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景纯白 #FAFAFA。做成<b>四宫格拼贴</b>：四双同款袜用不同角度各占一格（平铺/对折/卷筒/悬挂），每格右上角标数字 <b>1/2/3/4</b>。底部中央加白底黑字条 <b>"MultiPack 4 Pairs"</b>。整体明亮干净，中性调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 材质细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">袜身织纹特写，背景纯白。右下角加<b>白底信息小卡</b>（细边框）：<b>"Combed Cotton ｜ Durable"</b>。画面左上角数字编号 <b>①</b>。明亮干净，中性调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">穿袜子的脚踩在<b>纯白地面</b>，旁边按数字顺序 <b>1-4</b> 摆着四双待穿的袜子（暗示一周替换装）。背景纯白。顶部黑字 <b>"MultiPack"</b>。明亮干净。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">袜子平铺，背景纯白。画面左侧加<b>白底黑字信息卡</b>：<b>Size 36-46</b> / <b>Cotton 80%</b> / <b>Machine Wash</b>。右下角数字编号 <b>④</b>。明亮干净，中性调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text"><b>8 双袜子分两排整齐排列</b>（一排 4 双），每双标数字 <b>1-8</b>。背景纯白。底部中央加<b>黑字白底条</b>：<b>"MultiPack 8 Pairs"</b>。明亮干净，库存感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>单双装价格高</b>（画 1 双 + 高价格感），右边<b>本产品 8 双超值装</b>（画 8 双 + 每双均摊价格低），中间红 X 绿 ✓。背景纯白。底部 <b>"Best Value Pack"</b>。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> UK10-MPT-WHT-L ｜ <b>标题关键词：</b> MultiPack Socks, 8 Pack Cotton Socks, Value Socks Bundle ｜ <b>卖点词：</b> MultiPack（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 11 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#C08552">11</div>
+    <div class="store-info">
+      <h3>店铺 11 · 美国站</h3>
+      <div class="store-meta">底色：美式家居 #D8CFC0 ｜ 角度：卧室场景 ｜ 卖点词：NoShow ｜ 文字：英文气泡</div>
+    </div>
+    <span class="style-chip">美式居家卧室系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景换成<b>美式卧室场景</b>（#D8CFC0 墙面 + 木地板 + 床边一角）。<b>低帮船袜</b>摆在床边的木地板上，旁边放<b>一双乐福鞋（鞋口贴着袜边，露出"隐形"效果）</b>。画面加<b>英文气泡</b>：<b>"Invisible Under Shoes"</b>。暖色调，美式家居感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 隐形细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">做<b>「穿上隐形」对比</b>：左侧画面是<b>穿普通袜的脚</b>（袜口露出鞋外），右侧是<b>穿本产品船袜的脚</b>（袜口完全藏进鞋里），中间画<b>虚线圈</b>标出本产品。右下角英文气泡 <b>"NoShow"</b>。暖色调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">穿船袜的脚<b>正要踩进乐福鞋里</b>（动态瞬间），背景美式卧室。画面加英文气泡 <b>"Invisible Comfort"</b>。暖色调，自然窗光，美式生活感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">船袜平铺在木地板上，旁边放<b>乐福鞋和卷尺</b>。右下角<b>白底英文信息卡</b>：<b>"Size US 6-12 ｜ Cotton Blend"</b>。英文气泡 <b>"NoShow Socks"</b>。暖色调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text"><b>6 双船袜扇形排开</b>（白、黑、灰、米、棕、蓝）在木地板上，每双配英文色标 <b>White/Black/Grey/Beige/Brown/Blue</b>。背景美式卧室。顶部气泡 <b>"6 Pairs NoShow"</b>。暖色调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>普通袜滑脚跟掉</b>（画袜子滑落状态），右边<b>本产品后跟硅胶条/立体跟型贴合</b>（标注 "Stay Put"），中间红 X 绿 ✓。背景美式卧室。英文气泡 <b>"No Slip. No Show."</b>。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> US11-NSH-TAN-M ｜ <b>标题关键词：</b> NoShow Socks, Invisible Socks for Loafers, Low Cut Socks ｜ <b>卖点词：</b> NoShow（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 12 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#4E9F3D">12</div>
+    <div class="store-info">
+      <h3>店铺 12 · 美国站</h3>
+      <div class="store-meta">底色：盒装白底 #FFFFFF ｜ 角度：盒装组合 ｜ 卖点词：SportDry ｜ 文字：品牌大字</div>
+    </div>
+    <span class="style-chip">盒装组合白底系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景纯白 #FFFFFF。袜子<b>放在运动风抽屉式纸盒里</b>（盒子抽出一半，露出 3 双运动袜），旁边放<b>一只哑铃</b>。画面顶部加大字 <b>"SportDry"</b> 黑色粗体（占宽度 12%）。明亮运动感，对比度 +10%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 吸汗细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>运动袜脚背网眼织法</b>特写，背景纯白。用<b>蓝色箭头</b>标出透气网眼，标注 <b>"Ventilation Mesh"</b>。右下角大字 <b>"SportDry"</b>。明亮，运动感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">穿运动袜的脚<b>踩在跑步机履带上</b>（运动场景），背景纯白棚拍。画面加<b>动感水珠飞溅效果</b>（排汗联想）。顶部大字 <b>"SportDry"</b> 黑色粗体。明亮运动感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">袜子平铺，背景纯白。右侧加<b>白底黑字信息条</b>：<b>"Size US 6-13 ｜ Quick-Dry ｜ Arch Support"</b>。画面左上角大字 <b>"SportDry"</b>。明亮运动感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text"><b>3 双运动袜竖排放进盒装展示</b>（白/黑/荧光绿），盒子立起，旁边放运动水壶。背景纯白。底部大字 <b>"3 Pack SportDry"</b>。明亮运动感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>棉袜运动后湿透</b>（袜底蓝色水渍+滴水），右边<b>本产品干爽速干</b>（袜底干燥+闪电图标 "Dries Fast"），中间红 X 绿 ✓。背景纯白。底部大字 <b>"Stay Dry. Train Hard."</b></div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> US12-SPD-KIT-M ｜ <b>标题关键词：</b> SportDry Socks, Athletic Socks 3 Pack, Quick Dry Sports Socks ｜ <b>卖点词：</b> SportDry（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 13 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#2C2C31">13</div>
+    <div class="store-info">
+      <h3>店铺 13 · 美国站</h3>
+      <div class="store-meta">底色：纯黑特写 #1A1A1F ｜ 角度：微距面料 ｜ 卖点词：CushionSole ｜ 文字：技术参数</div>
+    </div>
+    <span class="style-chip">纯黑特写微距系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景<b>纯黑 #1A1A1F</b>，袜子平铺，<b>顶光微距</b>拍摄，袜底朝上。做<b>剖面示意</b>：袜底一侧切开露出<b>加厚缓冲层</b>（用半透明标注 "Cushion Layer 8mm"）。画面右下角加<b>技术参数</b>：<b>"Impact Absorb ｜ 8mm Padding"</b> 白色等宽字体。暗调，对比度 +25%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 缓冲细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>袜底加厚区域剖面</b>微距特写，纯黑背景。用<b>白色细箭头</b>标出缓冲层厚度，旁边技术参数 <b>"8mm Cushioning"</b>。暗调，锐度 +30%，科技感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">穿袜子的脚<b>踩在硬木地板上</b>，背景纯黑，<b>侧逆光</b>勾勒轮廓。画面加<b>冲击波减震图标</b>（脚底向下压的箭头被缓冲层挡住）。右下角技术参数 <b>"CushionSole"</b> 白色等宽字体。暗调科技感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">袜子平铺，纯黑背景。画面左侧竖排<b>白色等宽技术参数</b>：<b>Size US 6-13</b> / <b>Cotton 70% / Polyester 30%</b> / <b>Cushion: 8mm</b>。顶部小字 <b>"CushionSole"</b>。暗调科技感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多双袜子在纯黑背景上<b>叠成科技感菱形阵列</b>（黑白灰三色），每双下方标<b>技术参数小字</b>：<b>C01/C02/C03</b>。底部中央 <b>"3 Pairs ｜ CushionSole"</b> 白色等宽字体。暗调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>薄底袜硬感</b>（脚底加硬板图标+冲击线），右边<b>本产品厚缓冲</b>（脚底加软垫剖面图标+缓冲线），中间红 X 绿 ✓。纯黑背景。底部 <b>"Protect Every Step"</b> 白色等宽字体。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> US13-CSL-BLK-L ｜ <b>标题关键词：</b> CushionSole Socks, Thick Padded Socks, Cushioned Comfort Socks ｜ <b>卖点词：</b> CushionSole（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 14 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#9C7A4F">14</div>
+    <div class="store-info">
+      <h3>店铺 14 · 美国站</h3>
+      <div class="store-meta">底色：木质墙面 #C9B8A2 ｜ 角度：悬挂展示 ｜ 卖点词：RibbedKnit ｜ 文字：复古标语</div>
+    </div>
+    <span class="style-chip">木质墙面复古系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：挂拍图</span></div>
+      <div class="p-text">背景换成<b>浅木质墙面</b>（#C9B8A2 木纹）。<b>罗纹袜用复古黄铜夹</b>悬挂在钉板上，旁边挂一块<b>做旧木牌</b>写 <b>"Ribbed Knit"</b>（复古手写体）。画面加<b>暖黄复古滤镜</b>，色温 5000K，轻微颗粒感，饱和度 -10%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 罗纹细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>罗纹织纹竖条</b>特写，背景木质墙面。用<b>细麻绳圈</b>圈出罗纹区域，旁边小木牌写 <b>"Classic Rib"</b>。暖黄滤镜，复古颗粒感，锐度 +15%。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">穿罗纹袜的脚<b>踩在复古木椅上</b>（老式木椅+皮靴背景），旁边放<b>一本旧书</b>。画面加<b>做旧滤镜</b>和轻微暗角。右下角复古字体 <b>"Heritage Style"</b>。暖黄复古调。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：挂拍图</span></div>
+      <div class="p-text">袜子悬挂展示，背景木质墙面。旁边<b>做旧纸签</b>写 <b>"Size 36-46 ｜ Cotton & Wool Blend"</b>（复古手写体）。暖黄滤镜，颗粒感。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text">多双罗纹袜<b>挂在钉板的黄铜夹上</b>（米白、驼色、深棕、墨绿），高低错落。背景木质墙面。底部做旧木牌写 <b>"4 Pairs"</b>。暖黄复古滤镜。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>机器平纹袜</b>（无纹理感），右边<b>本产品罗纹工艺</b>（竖条罗纹+质感标注），中间红 X 绿 ✓。木质背景。底部复古字体 <b>"Crafted Like the Classics"</b>。</div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> US14-RBK-TAN-M ｜ <b>标题关键词：</b> RibbedKnit Socks, Classic Ribbed Socks, Vintage Style Socks ｜ <b>卖点词：</b> RibbedKnit（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 店铺 15 ============ -->
+<div class="store-card">
+  <div class="store-header">
+    <div class="store-num" style="background:#EF476F">15</div>
+    <div class="store-info">
+      <h3>店铺 15 · 美国站</h3>
+      <div class="store-meta">底色：撞色 #FFD166→#EF476F ｜ 角度：创意造型 ｜ 卖点词：ColorPop ｜ 文字：趣味标语</div>
+    </div>
+    <span class="style-chip">撞色创意系</span>
+  </div>
+  <div class="store-body">
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图1 · 主视觉</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">背景换成<b>黄粉撞色渐变</b>（#FFD166 → #EF476F 对角）。袜子<b>摆成 V 字火箭造型</b>（创意摆拍），画面加<b>趣味标语</b>：<b>"Socks with POP!"</b> 白色粗体带彩色描边。整体高饱和 +15%，活力感，45°俯拍。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图2 · 色彩细节</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">取<b>彩色织纹</b>特写，背景撞色渐变。画面加<b>彩色圆点/纸屑</b>装饰（派对感），标注 <b>"ColorPop"</b> 白色粗体。高饱和，明快活泼。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图3 · 场景图</span><span class="p-src">基于原图：脚部模特图</span></div>
+      <div class="p-text">穿彩色袜子的脚<b>踩在滑板上</b>（街头活力场景），背景撞色渐变。<b>脚跳起离板</b>（动感瞬间），加彩色飘带。趣味标语 <b>"Pop on, Roll out!"</b> 白色粗体。高饱和。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图4 · 材质尺码</span><span class="p-src">基于原图：平铺图</span></div>
+      <div class="p-text">袜子平铺，背景撞色渐变。右下角<b>彩色圆角信息卡</b>：<b>"Size 36-46 ｜ Cotton 80%"</b>。画面加彩色贴纸元素。趣味标语 <b>"ColorPop"</b>。高饱和，活力。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图5 · 多色套装</span><span class="p-src">基于原图：多色图</span></div>
+      <div class="p-text"><b>5 双不同颜色的袜子围成彩虹扇形</b>（红橙黄绿蓝），背景撞色渐变。画面加<b>彩色气球</b>点缀。底部趣味标语 <b>"5 Pairs of POP!"</b> 白色粗体。高饱和。</div>
+    </div>
+
+    <div class="prompt">
+      <button class="copy-btn" onclick="copyP(this)">复制</button>
+      <div class="p-head"><span class="p-label">主图6 · 背书对比</span><span class="p-src">基于原图：细节图</span></div>
+      <div class="p-text">左右对比：左边<b>黑白素袜无聊</b>（画面灰暗无趣），右边<b>本产品彩色活力</b>（画面明亮派对感），中间红 X 绿 ✓。背景撞色渐变。趣味标语 <b>"Same Comfort. Way More Fun."</b></div>
+    </div>
+
+    <div class="copy-zone"><b>SKU 参考：</b> US15-CLP-MIX-S ｜ <b>标题关键词：</b> ColorPop Socks, Fun Colorful Socks, Bright Casual Socks ｜ <b>卖点词：</b> ColorPop（本店专用）</div>
+  </div>
+</div>
+
+<!-- ============ 执行清单 ============ -->
+<div class="section" style="margin-top:8px">
+  <h2 class="section-title">二、执行顺序与自查清单</h2>
+  <div class="tips-box">
+    <h4>⚠️ 改图时最容易犯的 3 个错误</h4>
+    <ul>
+      <li><b>只改背景不改角度：</b>换了底色但袜子还是原来的平铺正面照，AI 仍能通过轮廓特征关联。每条指令里的「角度/裁切/翻转」必须同步执行。</li>
+      <li><b>15 店用同一句文案：</b>别图省事每店都写 "Cotton"。手册已给每店分配专属卖点词（PureCotton / EverydayFit / AllSeason / SoftKnit / DryFresh / LuxuryCotton / StretchFlex / TerryCushion / EcoSoft / MultiPack / NoShow / SportDry / CushionSole / RibbedKnit / ColorPop），文案、SKU、标题三处必须一致且不同店。</li>
+      <li><b>原图直接复用：</b>从原图裁剪的局部也必须二次处理（翻转/调色/加颗粒），否则局部特征仍会被识别。</li>
+    </ul>
+  </div>
+  <div class="checklist">
+    <h4 style="margin-bottom:12px;font-size:15px;font-weight:700">每周执行清单（按店推进）</h4>
+    <ol>
+      <li>按店1→店15顺序，每店先改 <b>主图1（主视觉）</b>，上传到店铺；观察 3 天流量/曝光变化</li>
+      <li>主图1 稳定后，补齐主图2（材质细节）和主图3（场景图）</li>
+      <li>每改一店，同步更新该店 <b>SKU 编码 + 标题关键词 + 卖点描述</b>（见每店底部参考）</li>
+      <li>每周检查一次平台是否把两店关联为同款：若被关联，把两店的主图1 底色或角度拉开（换用另一店方案的参数）</li>
+      <li>防滑袜、睡袍、内裤、糖尿病袜等其他产品线也要用同样的 15 套视觉系统，保持每店风格统一</li>
+    </ol>
+  </div>
+</div>
+
+<div class="footer">Temu 半托管 · 普通袜（无防滑胶）15 店铺改图指令手册 ｜ 90 条指令可复制给 ChatGPT 直接执行 ｜ 改图同时必须同步改 SKU 与标题，三层联动才有效</div>
+
+<script>
+function copyP(btn) {
+  var txt = btn.parentElement.querySelector('.p-text').innerText;
+  var done = function() {
+    btn.classList.add('copied');
+    btn.textContent = '已复制 ✓';
+    setTimeout(function() { btn.classList.remove('copied'); btn.textContent = '复制'; }, 1500);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(done).catch(function() { fallbackCopy(txt, done); });
+  } else {
+    fallbackCopy(txt, done);
+  }
+}
+function fallbackCopy(txt, done) {
+  var ta = document.createElement('textarea');
+  ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+  done();
+}
+</script>
+
+</div>
+</body>
+</html>
+
+
+

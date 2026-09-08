@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长安西站 / 长安站周边配套打分</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#f7f9fc;--panel:#fff;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;
+    --c-teal:#1f9d8f;--c-amber:#e8920c;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6;padding:24px;}
+  .wrap{max-width:880px;margin:0 auto;}
+  h1{font-size:21px;margin:0 0 4px;}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:18px;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .card h2{font-size:16px;margin:0 0 12px;}
+  .chart-box{height:360px;display:flex;justify-content:center;}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+  th,td{border:1px solid var(--line);padding:9px 10px;text-align:center;}
+  th{background:#f1f5f9;font-weight:600;}
+  td.dim{text-align:left;font-weight:600;}
+  .s-good{color:var(--c-teal);font-weight:700;}
+  .note{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.8;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>长安西站（厦边） vs 长安站（金沙）周边配套打分</h1>
+  <div class="sub">评分 1–5 分（5=最优）。「安静度」越高越安静；「到西乡通勤」越短越优。基于公开资料与片区特征，供横向参考。</div>
+
+  <div class="card">
+    <h2>① 雷达对比图</h2>
+    <div class="chart-box"><canvas id="radar"></canvas></div>
+  </div>
+
+  <div class="card">
+    <h2>② 打分明细</h2>
+    <table>
+      <tr><th>维度</th><th>厦边（长安西站）</th><th>金沙站 200m 盘</th><th>说明</th></tr>
+      <tr><td class="dim">居住安静度</td><td>2</td><td>2.5</td><td>两者均临主干道/产业园，货车多；金沙略好（非紧邻厂区）</td></tr>
+      <tr><td class="dim">公园绿地</td><td class="s-good">4</td><td class="s-good">4</td><td>厦边：南湖/银城/马山公园；金沙：上沙体育公园、金沙广场</td></tr>
+      <tr><td class="dim">生活市场</td><td class="s-good">5</td><td class="s-good"> 4</td><td>厦边楼下即综合市场+嘉荣/华生；金沙有沙头市场、丰润广场</td></tr>
+      <tr><td class="dim">医疗便利</td><td class="s-good">4</td><td class="s-good">4</td><td>厦边医院约 1km；港湾医院约 1km</td></tr>
+      <tr><td class="dim">到西乡通勤</td><td class="s-good">4</td><td class="s-good">5</td><td>厦边站 500–700m / 电车 40min；金沙滩 200m / 离深圳最近</td></tr>
+      <tr><td class="dim">小区品质</td><td>3.5</td><td>2.5</td><td>厦边多选花园式统建楼（车库+电梯）；金沙房源少、面积小</td></tr>
+      <tr><td class="dim">商业配套</td><td class="s-good">4</td><td>3.5</td><td>厦边商业街成熟；金沙依赖周边商圈</td></tr>
+      <tr><td class="dim"><b>综合合计</b></td><td class="s-good"><b>24.5</b></td><td><b>23.5</b></td><td>厦边总分略高，居住感更均衡</td></tr>
+    </table>
+    <div class="note">
+      评分方法：居住安静度、公园、市场、医疗、通勤、小区品质、商业各 1–5 分，主观加权综合。
+      两者均为<b>产住混合区</b>，宜居度不算高但生活便利、通勤能打。厦边赢在均衡，金沙赢在「离站/离深圳最近」。
+    </div>
+  </div>
+</div>
+
+<script>
+new Chart(document.getElementById('radar'),{
+  type:'radar',
+  data:{labels:['居住安静度','公园绿地','生活市场','医疗便利','到西乡通勤','小区品质','商业配套'],
+    datasets:[
+      {label:'厦边（长安西站）',data:[2, 4, 5, 4, 4, 3.5, 4],
+        borderColor:'#1f9d8f',backgroundColor:'rgba(31,157,143,.18)',borderWidth:2,pointBackgroundColor:'#1f9d8f'},
+      {label:'金沙站 200m 盘',data:[2.5,4,4,4,5,2.5,3.5],
+        borderColor:'#e8920c',backgroundColor:'rgba(232,146,12,.15)',borderWidth:2,pointBackgroundColor:'#e8920c'}
+    ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    scales:{r:{min:0,max:5,ticks:{stepSize:1,backdropColor:'transparent'},
+      grid:{color:'#e5e7eb'},angleLines:{color:'#e5e7eb'},
+      pointLabels:{font:{size:12}}}},
+    plugins:{legend:{position:'bottom'}}
+  }
+});
+</script>
+</body>
+</html>

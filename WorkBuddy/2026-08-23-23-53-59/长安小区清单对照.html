@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长安小产权小区对照清单（农民房档 / 村委统建楼档）</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f6f8;color:#1f2937;padding:24px;line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);overflow:hidden}
+  header{background:linear-gradient(135deg,#2c5282,#2b6cb0);color:#fff;padding:22px 28px}
+  header h1{font-size:21px;font-weight:700;margin-bottom:6px}
+  header p{font-size:13px;opacity:.9}
+  .summary{display:flex;gap:14px;padding:20px 28px;flex-wrap:wrap;border-bottom:1px solid #eef0f3}
+  .card{flex:1;min-width:240px;background:#f8fafc;border:1px solid #e6eaf0;border-radius:10px;padding:14px 16px}
+  .card h3{font-size:14px;margin-bottom:8px;color:#2b6cb0}
+  .card .big{font-size:26px;font-weight:700;color:#1a202c}
+  .card .sub{font-size:12px;color:#64748b;margin-top:4px}
+  .legend{padding:14px 28px;font-size:12px;color:#475569;display:flex;gap:18px;flex-wrap:wrap;align-items:center;border-bottom:1px solid #eef0f3}
+  .badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600;color:#fff}
+  .b-high{background:#e74c3c}.b-mid{background:#f39c12}.b-low{background:#27ae60}
+  .tag{display:inline-block;padding:1px 7px;border-radius:5px;font-size:11px;font-weight:600}
+  .t-ok{background:#dcfce7;color:#166534}.t-near{background:#fef3c7;color:#92400e}.t-no{background:#fee2e2;color:#991b1b}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:11px 12px;text-align:left;border-bottom:1px solid #eef0f3}
+  th{background:#f1f5f9;font-weight:600;color:#334155;font-size:12px;position:sticky;top:0}
+  tr:hover{background:#f8fafc}
+  .tier{font-weight:700;font-size:12px;padding:10px 12px;background:#eef2f7;color:#1e293b}
+  .tier.low{background:#fdeceb;color:#9b2c2c}
+  .tier.mid{background:#eafaf0;color:#1f7a3d}
+  .price{font-weight:700;color:#b45309}
+  .note{font-size:12px;color:#64748b}
+  .sec-title{font-size:15px;font-weight:700;color:#1a202c;padding:18px 28px 8px}
+  .disclaimer{background:#fffbeb;border-top:3px solid #f59e0b;padding:16px 28px;font-size:12px;color:#78350f}
+  .disclaimer b{color:#b45309}
+  footer{padding:12px 28px 20px;font-size:11px;color:#94a3b8;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>长安小产权小区对照清单</h1>
+    <p>按「农民房档 / 村委统建楼档」分档 · 标注风险等级与 20万全款匹配度 · 数据来源：安居客/有驾/牛人吧等平台 2024–2026 挂牌信息，仅供参考</p>
+  </header>
+
+  <div class="summary">
+    <div class="card">
+      <h3>农民房档（🔴 高风险）</h3>
+      <div class="big">2800–5500 元/㎡</div>
+      <div class="sub">20万可全款买 50–70㎡ 小两房；但个人宅基地自建、无村委背书、拆迁补偿归集体</div>
+    </div>
+    <div class="card">
+      <h3>村委统建楼档（🟡/🟢 中–中低）</h3>
+      <div class="big">4680–10000 元/㎡</div>
+      <div class="sub">有绿本/村委背书、报建较全，小产权内相对最稳；但 20万只够单间，小两房需 35–60万</div>
+    </div>
+    <div class="card">
+      <h3>你的 20万全款</h3>
+      <div class="big" style="color:#166534">仅覆盖农民房档</div>
+      <div class="sub">想要村委统建楼小两房，预算需抬到 35–50万</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span>风险等级：</span>
+    <span class="badge b-high">🔴 高</span> 农民房/个人宅基地，无村委背书
+    <span class="badge b-mid">🟡 中</span> 村委统建楼（小产权内较稳）
+    <span class="badge b-low">🟢 中低</span> 大型花园式村委统建楼
+    <span style="margin-left:10px">预算匹配：</span>
+    <span class="tag t-ok">✓ 可全款</span>
+    <span class="tag t-near">~ 接近</span>
+    <span class="tag t-no">✗ 不够</span>
+  </div>
+
+  <div class="sec-title">一、农民房档（个人宅基地自建 / 低价统建，保障最弱）</div>
+  <table>
+    <thead>
+      <tr><th>小区</th><th>片区</th><th>距长安西站</th><th>单价(元/㎡)</th><th>小两房参考总价</th><th>特点</th><th>风险</th><th>20万全款</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>鼎湖家园</td><td>厦岗</td><td>远（近长安站）</td><td class="price">3150</td><td>两房 18.8万起</td><td class="note">两栋规模小，低价统建/农民房</td><td><span class="badge b-high">🔴 高</span></td><td><span class="tag t-ok">✓ 可全款</span></td></tr>
+      <tr><td>时代名城</td><td>沙头</td><td>远</td><td class="price">~4000</td><td>两房 24万</td><td class="note">两房24万/三房43万</td><td><span class="badge b-high">🔴 高</span></td><td><span class="tag t-near">~ 接近</span></td></tr>
+      <tr><td>新城名府</td><td>沙头</td><td>远</td><td class="price">3680</td><td>~25万（50㎡）</td><td class="note">两栋，楼下社区公园</td><td><span class="badge b-high">🔴 高</span></td><td><span class="tag t-near">~ 接近</span></td></tr>
+      <tr><td>鸿轩阁</td><td>沙头</td><td>远</td><td class="price">3558</td><td>三房 33.8万</td><td class="note">分期8年</td><td><span class="badge b-high">🔴 高</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>宏景世家</td><td>街口</td><td>远</td><td class="price">3980</td><td>复式小户</td><td class="note">复式，价格低</td><td><span class="badge b-high">🔴 高</span></td><td><span class="tag t-near">~ 接近</span></td></tr>
+      <tr><td>富豪嘉园</td><td>厦边</td><td>步行10分（近长安西站）</td><td class="price">两房30.8万</td><td>两房30.8万 / 三房46.8万</td><td class="note">80–106㎡，厦边公园零距离，农民房改造</td><td><span class="badge b-high">🔴 高</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>聚兴花园</td><td>乌沙</td><td>远（近长安站）</td><td class="price">5500起</td><td>~40万</td><td class="note">4栋小区，大润发旁</td><td><span class="badge b-high">🔴 高</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title">二、村委统建楼档（村委背书 / 绿本，小产权内相对最稳）</div>
+  <table>
+    <thead>
+      <tr><th>小区</th><th>片区</th><th>距长安西站</th><th>单价(元/㎡)</th><th>小两房参考总价</th><th>特点</th><th>风险</th><th>20万全款</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>公园名城</td><td>厦边</td><td>步行10分</td><td class="price">4680</td><td>两房 38.8万</td><td class="note">三栋统建，近南湖公园</td><td><span class="badge b-mid">🟡 中</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>御林山景</td><td>厦边</td><td>步行10分</td><td class="price">5900</td><td>~45–50万</td><td class="note">湖景，地下车库，天然气</td><td><span class="badge b-mid">🟡 中</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>鼎新滨海城</td><td>厦边</td><td>600m</td><td class="price">6500</td><td>~45–55万</td><td class="note">6栋花园，地下车库，离站最近</td><td><span class="badge b-mid">🟡 中</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>海滨花园</td><td>厦边</td><td>近</td><td class="price">6500</td><td>~45–55万</td><td class="note">6栋</td><td><span class="badge b-mid">🟡 中</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>滨海明珠</td><td>厦边</td><td>近</td><td class="price">6500</td><td>~45–55万</td><td class="note">3栋</td><td><span class="badge b-mid">🟡 中</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>水岸花园</td><td>厦边</td><td>近</td><td class="price">6800</td><td>~50万</td><td class="note">6栋，天然气，停车场</td><td><span class="badge b-mid">🟡 中</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>南湖雅苑</td><td>厦边</td><td>步行10分</td><td class="price">两房40万</td><td>两房40万 / 三房50万</td><td class="note">4栋，带停车场，南湖公园</td><td><span class="badge b-mid">🟡 中</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>金泽家苑</td><td>厦边</td><td>近</td><td class="price">7880</td><td>~55–65万</td><td class="note">6栋封闭花园</td><td><span class="badge b-mid">🟡 中</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>金泽家园</td><td>厦边</td><td>近</td><td class="price">9000</td><td>较高</td><td class="note">6栋湖景，偏贵</td><td><span class="badge b-mid">🟡 中</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>聚和广场</td><td>中心区</td><td>远（近长安站）</td><td class="price">6067</td><td>~50–60万</td><td class="note">1309户，封闭管理，大润发300m</td><td><span class="badge b-mid">🟡 中</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>长有家园</td><td>中心区</td><td>远（近长安站）</td><td class="price">8800–9300</td><td>较高</td><td class="note">9栋围合花园，地下车库，天然气</td><td><span class="badge b-low">🟢 中低</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>畔山花园</td><td>中心区</td><td>远（近长安站）</td><td class="price">9980</td><td>较高</td><td class="note">5栋480户，两层地下车库，人车分流</td><td><span class="badge b-low">🟢 中低</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+      <tr><td>咸西新苑</td><td>中心区</td><td>远（近长安站）</td><td class="price">10000</td><td>较高</td><td class="note">13栋，绿化40%，有电梯</td><td><span class="badge b-low">🟢 中低</span></td><td><span class="tag t-no">✗ 不够</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="disclaimer">
+    <b>⚠️ 关键提示</b><br>
+    1. <b>「距长安西站」</b>：厦边片区的小区步行可达长安西站（你通勤西乡的起点）；中心区/乌沙/沙头/厦岗的小区实际靠近<b>长安站</b>，离长安西站数公里，通勤需先到长安西站或长安站再上城轨。<br>
+    2. <b>农民房档</b>虽能 20万全款买小两房，但属个人宅基地/低价统建，<b>无村委背书、拆迁补偿归集体、不能贷款落户</b>，风险最高；只有「鼎湖家园」两房真正 ≤20万。<br>
+    3. <b>村委统建楼档</b>在小产权内相对最稳（有绿本、报建较全），但<b>仍无国家红本、不能合法过户抵押</b>，且 20万只够单间，小两房需 35–60万。<br>
+    4. 二手房需村委见证/更名、一次性全款，务必核查原始建房批文、上手合同连续性、水电缴费记录，合同加「遇拆迁补偿归买方」条款。<br>
+    5. 所有价格均为平台挂牌/历史信息，<b>实际以实地看房为准</b>，本清单不构成购房建议。
+  </div>
+
+  <footer>生成时间：2026-08-24 · 长安小产权小区对照清单</footer>
+</div>
+</body>
+</html>

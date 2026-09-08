@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长安西 → 西乡 通勤对比</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#f7f9fc; --panel:#ffffff; --ink:#1f2937; --muted:#6b7280;
+    --c-red:#e23b3b; --c-teal:#1f9d8f; --c-amber:#e8920c; --line:#e5e7eb;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei", sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6;padding:24px;}
+  .wrap{max-width:920px;margin:0 auto;}
+  h1{font-size:22px;margin:0 0 4px;}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:24px;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:20px 22px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .card h2{font-size:16px;margin:0 0 16px;}
+  /* Timeline */
+  .tl{display:flex;flex-direction:column;gap:18px;}
+  .row{display:flex;align-items:center;gap:12px;}
+  .label{width:120px;font-size:13px;font-weight:600;flex-shrink:0;}
+  .bar-wrap{flex:1;position:relative;height:40px;background:#eef2f7;border-radius:8px;overflow:hidden;}
+  .seg{position:absolute;top:0;height:100%;display:flex;align-items:center;
+    justify-content:center;color:#fff;font-size:12px;font-weight:600;white-space:nowrap;}
+  .s1{background:var(--c-teal);}
+  .s2{background:#9bbfd4;}
+  .s3{background:var(--c-amber);}
+  .s4{background:var(--c-red);}
+  .meta{font-size:12px;color:var(--muted);margin-top:6px;}
+  .note{font-size:12px;color:var(--muted);margin-top:12px;}
+  .chart-box{height:320px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:center;}
+  th{background:#f1f5f9;font-weight:600;}
+  .hl{background:#fff7ed;font-weight:700;}
+  .foot{font-size:12px;color:var(--muted);margin-top:16px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>长安西 → 西乡：通勤方案对比</h1>
+  <div class="sub">数据基于 2026-08 公开资料与地图实测 · 月度按 22 个工作日、每日往返（44 单程）核算</div>
+
+  <div class="card">
+    <h2>① 通勤时间轴（含换乘等待）</h2>
+    <div class="tl">
+      <div class="row">
+        <div class="label">城轨直达<br><span style="font-weight:400;color:var(--muted)">通车后</span></div>
+        <div class="bar-wrap">
+          <div class="seg s1" style="left:0%;width:55%;">城际 19min</div>
+          <div class="seg s2" style="left:55%;width:30%;">机场→西乡 12min</div>
+        </div>
+      </div>
+      <div class="meta">全程约 31 分钟 · 无换乘</div>
+
+      <div class="row">
+        <div class="label">城际+地铁<br><span style="font-weight:400;color:var(--muted)">现阶段</span></div>
+        <div class="bar-wrap">
+          <div class  ="seg s1" style="left:0%;width:39%;">城际 19min</div>
+          <div class="seg s3" style="left:39%;width:18%;">换乘 10min</div>
+          <div class="seg s4" style="left:57%;width:33%;">地铁 20min</div>
+        </div>
+      </div>
+      <div class="meta">全程约 49 分钟 · 机场站出站换地铁</div>
+
+      <div class="row">
+        <div class="label">自驾</div>
+        <div class="bar-wrap">
+          <div class="seg s4" style="left:0%;width:100%;">全程约 40 分钟（35–38km，不堵）</div>
+        </div>
+      </div>
+      <div class="meta">全程一次性，但需承担停车成本</div>
+    </div>
+    <div class="note">注：城轨直达需等穗深城际机前段 2026 年底通车；现阶段可行方案为「城际+地铁」。</div>
+  </div>
+
+  <div class="card">
+    <h2>② 月度成本对比（22 个工作日，¥）</h2>
+    <div class="chart-box"><canvas id="costChart"></canvas></div>
+    <table>
+      <tr><th>方案</th><th>单程交通费</th><th>月交通费</th><th>月停车费</th><th>月度合计</th></tr>
+      <tr><td>城轨直达（通车后）</td><td>¥28.5</td><td>¥1254</td><td>¥0</td><td class="hl">¥1254</td></tr>
+      <tr><td>城际+地铁（现阶段）</td><td>¥22</td><td>¥968</td><td>¥0</td><td class="hl">¥968</td></tr>
+      <tr><td>自驾（电车）</td><td>¥19</td><td>¥836</td><td>¥440</td><td class="hl">¥1276</td></tr>
+    </table>
+    <div class="foot">
+      明细（电车）：单程电费约 ¥11（38km×0.3 元/km，家充）+ 高速 ¥8；月电费 ¥484、高速 ¥352；西乡停车按 ¥20/工作日≈¥440。
+      城轨/地铁方案步行至车站，停车费按 0 计（东莞侧可免费/低成本停放）。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>③ 结论</h2>
+    <p style="font-size:14px;margin:0;">
+      机前段通车后，<b>城轨直达</b>（约 31 分钟、¥1254/月）与<b>电车自驾</b>（¥1276/月）成本几乎打平，城轨仍小幅领先且免换乘、免停车。<br>
+      现阶段若急需通勤，<b>城际+地铁</b>最省钱（¥968/月），代价是多 10 分钟换乘。<br>
+      <b>电车自驾</b>用电成本远低于油车（月省约 ¥500），门到门、免换乘的便利性凸显；但要算上折旧/保险/保养，实际仍略高于城轨，适合看重灵活度或已有车的人。
+    </p>
+  </div>
+</div>
+
+<script>
+const ctx = document.getElementById('costChart');
+new Chart(ctx,{
+  type:'bar',
+  data:{
+    labels:['城轨直达\n(通车后)','城际+地铁\n(现阶段)','自驾'],
+    datasets:[{
+      label:'月度成本 (¥)',
+      data:[1254,968,1276],
+      backgroundColor:['#1f9d8f','#9bbfd4','#e23b3b'],
+      borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:c=>'¥'+c.parsed.y}}
+    },
+    scales:{
+      y:{beginAtZero:true,title:{display:true,text:'元/月'},grid:{color:'#eef2f7'}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+</script>
+</body>
+</html>
